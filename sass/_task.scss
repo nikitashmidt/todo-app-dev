@@ -1,0 +1,81 @@
+.task{
+    &-title {
+        font-weight: 400;
+        word-break:break-all;
+        cursor: pointer;
+        transition: 0.9s all;
+        border-radius: 0.25rem;
+        padding: 10px;
+        width: 100%;
+        @include tablet {
+            padding: 5px;
+            padding-right: 10px;
+        }
+        &:hover{
+            &::after{
+                opacity: 1;
+            }
+        }
+        &::after{
+            content: url('../img/edit.svg');
+            padding-left: 10px;
+            opacity: 0;
+            transition: 0.3s all;
+            position: absolute;
+            @include tablet{
+                content: '';
+            }
+            &:hover{
+                transform: scale(1.2);
+            }
+        }
+    }
+    &-item{
+        &__buttons{
+            height: 40px;
+            flex-shrink: 0;
+            transition: 0.3s all;   
+            @include tablet{
+                position: absolute; 
+                right: 15px;
+                top: 9px;
+            }
+        }
+    }
+}
+
+#tasksList {
+    li {
+        &:hover {
+            background-color: rgb(218, 216, 216);
+            @include tablet {
+                background-color: #fff;
+            }
+        }
+    }
+}
+.grid-template{
+    display: grid;
+    gap: 10px;
+    li > div {
+        opacity: 0;
+    }
+    li{
+        margin-bottom: 0;
+        &:hover{
+            div {
+                opacity: 1;
+                position: static;
+            }
+        }
+    }
+}
+.grid-template-4{
+    grid-template-columns: repeat(4, 1fr);
+}
+.grid-template-3{
+    grid-template-columns: repeat(3, 1fr);
+}
+.grid-template-2{
+    grid-template-columns: repeat(2, 1fr);
+}
