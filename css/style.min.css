@@ -907,7 +907,6 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  display: none;
   gap: 5px;
   padding: 0 10px;
 }

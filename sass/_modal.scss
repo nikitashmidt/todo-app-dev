@@ -320,7 +320,6 @@
         }
         &__form{
             @include flex-v-center;
-            display: none;
             gap: 5px;
             padding: 0 10px;
         }
