@@ -360,8 +360,11 @@ document.addEventListener("DOMContentLoaded", () => {
       modal.classList.remove("modal-task-active");
     if (modalTrash.classList.contains("modal-trash-active"))
       modalTrash.classList.remove("modal-trash-active");
-    if (modalComments.classList.contains("modal-comments-active"))
+    if (modalComments.classList.contains("modal-comments-active")) {
       modalComments.classList.remove("modal-comments-active");
+      let url = '/';
+      window.history.pushState({}, '', url)
+    }
     enableScroll();
     transition("10px");
   }
@@ -484,9 +487,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector(".modal-comments__title").value = `${e.target.textContent.trim()}`;
     document.querySelector(".modal-comments__date").textContent = ` ${newTasks.date} `;
     document.querySelector(".modal-comments__time").textContent = `${newTasks.time} `;
-    document.addEventListener('backbutton',() => {
-      closeModal()
-    })
+    let url = '#push';
+    window.history.pushState({}, '', url);
     setTimeout(() => {
       renderComments(id);
       doneComments(id);
