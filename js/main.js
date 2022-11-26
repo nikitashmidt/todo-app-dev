@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     modalCommentsItems = document.querySelector(".modal-comments__items"),
     modalCommentsInput = document.querySelector(".modal-comments__input"),
     modalCommentsTitle = document.querySelector(".modal-comments__title"),
+    modalCommentsForm = document.querySelector('.modal-comments__form'),
     modalCommentsContent = document.querySelector('.modal-comments__content'),
     completedTasksBlock = document.querySelector(".completed-tasks-block"),
     completedTasksArrow = document.querySelector(".completed-tasks-arrow"),
@@ -486,9 +487,15 @@ document.addEventListener("DOMContentLoaded", () => {
     let id = +e.target.parentNode.id;
     let eventTarget = e.target;
     const newTasks = tasks.find((item) => item.id === id);
-    document.querySelector(".modal-comments__title").value = `${e.target.textContent.trim()}`;
-    document.querySelector(".modal-comments__date").textContent = ` ${newTasks.date} `;
-    document.querySelector(".modal-comments__time").textContent = `${newTasks.time} `;
+    // document.querySelector(".modal-comments__title").value = `${e.target.textContent.trim()}`;
+    // document.querySelector(".modal-comments__date").textContent = ` ${newTasks.date} `;
+    // document.querySelector(".modal-comments__time").textContent = `${newTasks.time} `;
+    document.querySelector('.modal-comments__btn').onclick = (e) => {
+      modalCommentsForm.classList.add('modal-comments__form-active');
+      setTimeout(() => {
+        document.querySelector('.modal-comments__form input').focus()
+      }, 300);
+    }
     setTimeout(() => {
       renderComments(id);
       doneComments(id);
