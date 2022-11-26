@@ -316,18 +316,19 @@
             width: 100%;
             position: absolute;
             bottom: 0px;
-            background-color: rgba($bg-color, 0.5);
+            background-color: $bg-color;
             padding: 15px 0;
+            padding-bottom: 5px;
         }
         &__form{
             @include flex-v-center;
             gap: 5px;
             padding: 0 10px;
+            height: 40px;
         }
         &__input{
             width: 100%;
             text-align: center;
-            margin: 10px 0;
             height: 35px;
             border-radius: 0.25rem;
             border: none;

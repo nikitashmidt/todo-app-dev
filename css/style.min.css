@@ -894,8 +894,9 @@
   width: 100%;
   position: absolute;
   bottom: 0px;
-  background-color: rgba(85, 82, 82, 0.5);
+  background-color: #555252;
   padding: 15px 0;
+  padding-bottom: 5px;
 }
 
 .modal-comments__form {
@@ -910,12 +911,12 @@
   display: flex;
   gap: 5px;
   padding: 0 10px;
+  height: 40px;
 }
 
 .modal-comments__input {
   width: 100%;
   text-align: center;
-  margin: 10px 0;
   height: 35px;
   border-radius: 0.25rem;
   border: none;
