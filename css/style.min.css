@@ -318,7 +318,7 @@
   top: 0;
   bottom: 0;
   left: 0;
-  top: 0;
+  right: 0;
   z-index: 20;
   -webkit-transition: 0.3s all;
   transition: 0.3s all;
@@ -777,10 +777,6 @@
   stroke: green;
 }
 
-.modal-comments__created {
-  display: none;
-}
-
 .modal-comments__comment {
   background: none;
   color: white;
@@ -899,15 +895,6 @@
   bottom: 0px;
   background-color: #555252;
   padding: 15px 0;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
 }
 
 .modal-comments__form {
@@ -922,24 +909,6 @@
   display: flex;
   gap: 5px;
   padding: 0 10px;
-  width: 100%;
-  -webkit-transition: 0.3s all;
-  transition: 0.3s all;
-  display: flex;
-}
-
-@media (max-width: 768px) {
-  .modal-comments__form {
-    display: none;
-    opacity: 0;
-  }
-}
-
-.modal-comments__form-active {
-  opacity: 1;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
 }
 
 .modal-comments__input {
@@ -986,32 +955,31 @@
           transform: scale(0.95);
 }
 
-.modal-comments__btn {
+.modal-comments__back {
+  height: 35px;
+  width: 35px;
   border: none;
-  background: none;
+  -webkit-transition: 0.3s all;
+  transition: 0.3s all;
   padding: 0;
-  position: relative;
-  right: 20px;
-  display: none;
-  position: fixed;
-  top: -50px;
 }
 
-.modal-comments__btn img {
+.modal-comments__back img {
+  width: 30px;
+  height: 30px;
   -o-object-fit: cover;
      object-fit: cover;
-  width: 50px;
-  height: 50px;
 }
 
-.modal-comments__btn:focus {
+.modal-comments__back:hover {
+  cursor: pointer;
+  background-color: #fff;
+  -webkit-box-shadow: 1px 1px 7px 5px #005cbf;
+          box-shadow: 1px 1px 7px 5px #005cbf;
+}
+
+.modal-comments__back:focus {
   outline: none;
-}
-
-@media (max-width: 768px) {
-  .modal-comments__btn {
-    display: block;
-  }
 }
 
 .overlay {

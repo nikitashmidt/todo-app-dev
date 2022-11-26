@@ -204,6 +204,7 @@
                     stroke: white;
                 }
             }
+          
             &-active{
                 border: 1px solid green;
                 svg{
@@ -211,9 +212,6 @@
                     path{ stroke: green;}
                 }
             }
-       }
-       &__created{
-        display: none;
        }
        &__comment{
             background: none;
@@ -319,23 +317,11 @@
             bottom: 0px;
             background-color: $bg-color;
             padding: 15px 0;
-            @include flex-v-center;
         }
         &__form{
             @include flex-v-center;
-            @include mini-tablet{
-                display: none;
-                opacity: 0;
-            }
             gap: 5px;
             padding: 0 10px;
-            width: 100%;
-            transition: 0.3s all;
-            display: flex;
-            &-active{
-                opacity: 1;
-                display: flex;
-            }
         }
         &__input{
             width: 100%;
@@ -370,25 +356,24 @@
                 transform: scale(0.95);
             }
         }
-        &__btn{
+        &__back{
+            height: 35px;
+            width: 35px;
             border: none;
-            background: none;
+            transition: 0.3s all;
             padding: 0;
-            position: relative;
-            right: 20px;
-            display: none;
-            position: fixed;
-            top: -50px;
             img{
+                width: 30px;
+                height: 30px;
                 object-fit: cover;
-                width: 50px;
-                height: 50px;
+            }
+            &:hover{
+                cursor: pointer;
+                background-color: #fff;
+                box-shadow: 1px 1px 7px 5px $main-color;
             }
             &:focus{
                 outline: none;
-            }
-            @include mini-tablet{
-                display: block;
             }
         }
     }

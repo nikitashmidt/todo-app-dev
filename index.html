@@ -141,7 +141,6 @@
 			</div>
 		</div>
 		<div class="overlay"></div>
-
 		<div class="modal-comments">
 			<div class="modal-comments__block">
 				<input maxlength="60" type="text" class="modal-comments__title" value=""></input>
@@ -151,12 +150,15 @@
 				<ul class="modal-comments__items"></ul>
 			</div>
 			<div class="modal-comments__bottom">
-				<div class="modal-comments__created" >
+				<div>
 					<span>Создано: </span>
 					<span class="modal-comments__date"></span>
 					<span class="modal-comments__time"></span>
 				</div>
 				<form class="modal-comments__form" action="#">
+					<button class="modal-comments__back" type="button">
+						<img src="./img/back.svg" alt="back-icon">
+					</button>
 						<input  maxlength="60" placeholder="Добавьте комментарий" type="text" class="modal-comments__input" required>
 					<button data-action="comments-add" type="submit" class="modal-comments__add"> 
 						<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -165,10 +167,8 @@
 							s2.224,5,4.941,5H16v11.059C16,39.776,18.282,42,21,42s5-2.224,5-4.941V26h11.059C39.776,26,42,23.718,42,21S39.776,16,37.059,16z"
 							/><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>
 					 </button>
-					</form>
-					<button class="modal-comments__btn"> <img src="./img/icon-add.svg" alt="icon-add"> </button>
+				</form>
 			</div>
-
 		</div>
 		<div class="clear-localstrorage" style="display: inline-block; margin-bottom: 90px;">
 			<button>Очистить данные</button>
