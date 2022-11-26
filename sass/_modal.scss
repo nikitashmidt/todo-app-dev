@@ -141,6 +141,7 @@
             left: 50%;
             width: 100%;
             height: 100% !important;
+            padding: 10px;
         }
         &-active{
             @include visibleElem;
@@ -320,7 +321,7 @@
         }
         &__form{
             @include flex-v-center;
-            gap: 5px;
+            gap: 3px;
             padding: 0 10px;
         }
         &__input{
@@ -344,7 +345,10 @@
             width: 35px;
             height: 35px;
             transition: 0.3s all;
+            padding: 0;
             svg{
+                width: 25px;
+                height: 25px;
                 vertical-align: middle;
                 pointer-events: none;
             }

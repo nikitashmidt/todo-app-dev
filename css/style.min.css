@@ -679,6 +679,7 @@
     left: 50%;
     width: 100%;
     height: 100% !important;
+    padding: 10px;
   }
 }
 
@@ -907,7 +908,7 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 5px;
+  gap: 3px;
   padding: 0 10px;
 }
 
@@ -937,9 +938,12 @@
   height: 35px;
   -webkit-transition: 0.3s all;
   transition: 0.3s all;
+  padding: 0;
 }
 
 .modal-comments__add svg {
+  width: 25px;
+  height: 25px;
   vertical-align: middle;
   pointer-events: none;
 }
