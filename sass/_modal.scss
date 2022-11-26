@@ -313,10 +313,10 @@
         &__bottom{
             left: 50%;
             transform: translateX(-50%);
-            width: 99%;
+            width: 100%;
             position: absolute;
             bottom: 0px;
-            background-color: $bg-color;
+            background-color: rgba($bg-color, 0.5);
             padding: 15px 0;
         }
         &__form{

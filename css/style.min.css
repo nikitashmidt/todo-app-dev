@@ -891,10 +891,10 @@
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
-  width: 99%;
+  width: 100%;
   position: absolute;
   bottom: 0px;
-  background-color: #555252;
+  background-color: rgba(85, 82, 82, 0.5);
   padding: 15px 0;
 }
 
