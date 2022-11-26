@@ -908,7 +908,7 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 3px;
+  gap: 5px;
   padding: 0 10px;
 }
 
