@@ -317,12 +317,16 @@
             bottom: 0px;
             background-color: $bg-color;
             padding: 15px 0;
+            @include flex-v-center;
         }
         &__form{
             @include flex-v-center;
-            display: none;
+            @include mini-tablet{
+                display: none;
+            }
             gap: 5px;
             padding: 0 10px;
+            width: 100%;
         }
         &__input{
             width: 100%;
@@ -361,9 +365,17 @@
             border: none;
             background: none;
             padding: 0;
+            position: relative;
+            right: 15px;
+            display: none;
+            position: absolute;
+            top: -15px;
             img{
                 width: 50px;
                 height: 50px;
+            }
+            @include mini-tablet{
+                display: block;
             }
         }
     }

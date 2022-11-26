@@ -895,6 +895,15 @@
   bottom: 0px;
   background-color: #555252;
   padding: 15px 0;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .modal-comments__form {
@@ -907,9 +916,15 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  display: none;
   gap: 5px;
   padding: 0 10px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .modal-comments__form {
+    display: none;
+  }
 }
 
 .modal-comments__input {
@@ -960,11 +975,22 @@
   border: none;
   background: none;
   padding: 0;
+  position: relative;
+  right: 15px;
+  display: none;
+  position: absolute;
+  top: -15px;
 }
 
 .modal-comments__btn img {
   width: 50px;
   height: 50px;
+}
+
+@media (max-width: 768px) {
+  .modal-comments__btn {
+    display: block;
+  }
 }
 
 .overlay {

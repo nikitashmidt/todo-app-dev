@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
   modalComments.addEventListener('click', editDoneComments);
   headerDotsHamburger.addEventListener('click', gridSelection);
   window.document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && overlay.classList.contains("overlay-active"))
+  if (e.key === "Escape" && overlay.classList.contains("overlay-active"))
       closeModal();
   });
   clearLocalStorage.addEventListener('click', () => {
@@ -599,7 +599,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     updateLocalStorage();
   }
- 
   function doneComments(id) {
     modalComments.onclick = function (e) {
       if (e.target.dataset.action !== 'modal-comments-svg') return;
