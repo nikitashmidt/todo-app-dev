@@ -360,25 +360,5 @@
                 transform: scale(0.95);
             }
         }
-        &__back{
-            height: 35px;
-            width: 35px;
-            border: none;
-            transition: 0.3s all;
-            padding: 0;
-            img{
-                width: 30px;
-                height: 30px;
-                object-fit: cover;
-            }
-            &:hover{
-                cursor: pointer;
-                background-color: #fff;
-                box-shadow: 1px 1px 7px 5px $main-color;
-            }
-            &:focus{
-                outline: none;
-            }
-        }
     }
 }

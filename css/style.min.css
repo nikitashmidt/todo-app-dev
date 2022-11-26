@@ -959,33 +959,6 @@
           transform: scale(0.95);
 }
 
-.modal-comments__back {
-  height: 35px;
-  width: 35px;
-  border: none;
-  -webkit-transition: 0.3s all;
-  transition: 0.3s all;
-  padding: 0;
-}
-
-.modal-comments__back img {
-  width: 30px;
-  height: 30px;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-
-.modal-comments__back:hover {
-  cursor: pointer;
-  background-color: #fff;
-  -webkit-box-shadow: 1px 1px 7px 5px #005cbf;
-          box-shadow: 1px 1px 7px 5px #005cbf;
-}
-
-.modal-comments__back:focus {
-  outline: none;
-}
-
 .overlay {
   opacity: 0;
   visibility: hidden;
