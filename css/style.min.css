@@ -907,6 +907,7 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  display: none;
   gap: 5px;
   padding: 0 10px;
 }
@@ -953,6 +954,17 @@
 .modal-comments__add:active {
   -webkit-transform: scale(0.95);
           transform: scale(0.95);
+}
+
+.modal-comments__btn {
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+.modal-comments__btn img {
+  width: 50px;
+  height: 50px;
 }
 
 .overlay {
