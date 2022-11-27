@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("form"),
     taskInput = document.getElementById("taskInput"),
     tasksList = document.getElementById("tasksList"),
+    taskItemDots = document.querySelectorAll('[data-item="dots"]'),
     btns = document.querySelector(".btns"),
     emptyList = document.getElementById("emptyList"),
     emptyListTitle = document.querySelector(".empty-list__title"),
@@ -60,6 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
   completedTasks.forEach((task) => renderCompletedTask(task));
   updateEmpty();
   searchNumber();
+  openDotsModal()
   form.addEventListener("submit", addTask);
   tasksList.addEventListener("click", deleteTask);
   tasksList.addEventListener("click", doneTask);
@@ -73,11 +75,29 @@ document.addEventListener("DOMContentLoaded", () => {
   completedTasksLists.addEventListener("click", returnTasks);
   modalComments.addEventListener('click', editDoneComments);
   headerDotsHamburger.addEventListener('click', gridSelection);
-  document.querySelectorAll('[data-item="dots"]').forEach(item => {
-    item.addEventListener('click', (e) => {
-      e.target.parentNode.children[1].classList.toggle('task-item__buttons-active')
+
+   
+
+  function openDotsModal() {
+    document.querySelectorAll('[data-item="dots"]').forEach(item => {
+      item.addEventListener('click', (e) => {
+        const eTarget = e.target.parentNode;
+        eTarget.children[1].classList.add('task-item__buttons-active');
+        eTarget.children[2].classList.add('task-item__overlay-active');
+        eTarget.children[2].onclick = () => {
+          eTarget.children[1].classList.remove('task-item__buttons-active');
+          eTarget.children[2].classList.remove('task-item__overlay-active');
+        }
+      })
     })
-  })
+  }
+ 
+  
+  function closeDotsModal(e) {
+    const eTarget = e.target.parentNode;
+    eTarget.classList.remove('task-item__buttons-active');
+    eTarget.parentNode.children[2].classList.remove('task-item__overlay-active');
+  }
   window.document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && overlay.classList.contains("overlay-active"))
       closeModal();
@@ -271,18 +291,17 @@ document.addEventListener("DOMContentLoaded", () => {
     modalDeleteSpan.innerHTML = `${spanText}`;
     overlay.classList.add("overlay-active");
     modalDelete.classList.add("modal-delete-active");
-    modalDeleteBtn.addEventListener("click", (e) => {
-        tasks = tasks.filter((task) => task.id !== id);
+    closeDotsModal(e)
+    modalDeleteBtn.onclick = () => {
+      tasks = tasks.filter((task) => task.id !== id);
         parentNode.classList.add("list-group-item-delete");
         setTimeout(() => {
           parentNode.remove();
           updateEmpty();
         }, 500);
         closeModal();
-        updateLocalStorage();
-      },
-      { once: true }
-    );
+      updateLocalStorage();
+    }
     transition("-50%");
   }
   function doneTask(e) {
@@ -341,6 +360,7 @@ document.addEventListener("DOMContentLoaded", () => {
         item.innerHTML = `Вернуть задачу`;
       });
     }
+    openDotsModal()
   }
   function openModal() {
     checkbox.checked = false;
@@ -402,22 +422,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const cssClass = task.done ? "task-title task-title--done" : "task-title";
     const taskHTML = `<li id="${task.id}" class="list-group-item d-flex justify-content-between task-item">
         <span class="${cssClass}" data-action='task-title'> ${task.text}  </span>
-        <div class="task-item__overlay">
-        <div class='task-item__dots' data-item="dots" >
-        <svg width="20px" height="20px" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="10" cy="15" r="2" fill=""/>
-          <circle cx="10" cy="10" r="2" fill=""/>
-          <circle cx="10" cy="5" r="2" fill=""/>
-        </svg>
+        <div class="task-item__control">
+          <div class='task-item__dots' data-item="dots" >
+          <svg width="20px" height="20px" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10" cy="15" r="2" fill=""/>
+            <circle cx="10" cy="10" r="2" fill=""/>
+            <circle cx="10" cy="5" r="2" fill=""/>
+          </svg>
       </div>
         <div class='task-item__buttons'> 
-        <button type="button" data-action="done" class="btn-action">
-                <img src="./img/tick.svg" alt="Done" width="18" height="18">
-          </button>
-            <button id="btn-delete" type="button" data-action="delete" class="btn-action">
-                <img src="./img/cross.svg" alt="Done" width="18" height="18">
+          <button type="button" data-action="done" class="btn-action">
+                  <img src="./img/tick.svg" alt="Done" width="18" height="18">
             </button>
+              <button id="btn-delete" type="button" data-action="delete" class="btn-action">
+                  <img src="./img/cross.svg" alt="Done" width="18" height="18">
+          </button>
         </div>
+        <div class="task-item__overlay" data-item="overlay">  </div>
         </div>
         </li>`;
     tasksList.insertAdjacentHTML("beforeend", taskHTML);
@@ -460,7 +481,7 @@ document.addEventListener("DOMContentLoaded", () => {
     completedTasks = completedTasks.filter((task) => task.id !== id);
     const taskHTML = `<li id="${parentNode.id}" class="list-group-item d-flex justify-content-between task-item">
     <span class="task-title" data-action='task-title'> ${parentNode.children[0].textContent}  </span>
-    <div class="task-item__overlay">
+    <div class="task-item__control">
     <div class='task-item__dots' data-item="dots" >
       <svg width="20px" height="20px" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="10" cy="15" r="2" fill=""/>
@@ -474,7 +495,8 @@ document.addEventListener("DOMContentLoaded", () => {
     </button>
       <button id="btn-delete" type="button" data-action="delete" class="btn-action">
           <img src="./img/cross.svg" alt="Done" width="18" height="18">
-      </button>
+  </button>
+  <div class="task-item__overlay" data-item="overlay">  </div>
   </div>
     </li>`;
     tasksList.insertAdjacentHTML("beforeend", taskHTML);
