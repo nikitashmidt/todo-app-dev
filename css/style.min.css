@@ -713,9 +713,34 @@
   gap: 10px;
 }
 
-.modal-comments__block img {
-  width: 30px;
+.modal-comments__block button {
+  border: none;
+  background: none;
+  padding: 0;
   height: 30px;
+  cursor: pointer;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  outline: none;
+  -webkit-transition: 0.3s all;
+  transition: 0.3s all;
+}
+
+.modal-comments__block button:hover {
+  -webkit-box-shadow: 1px 1px 3px 5px #005cbf;
+          box-shadow: 1px 1px 3px 5px #005cbf;
+}
+
+.modal-comments__block img {
+  width: 20px;
+  height: 20px;
   -o-object-fit: cover;
      object-fit: cover;
 }
