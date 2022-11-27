@@ -45,6 +45,9 @@ body {
   padding-bottom: 50px;
   transition: 1s all;
   opacity: 0;
+  @include bigDesktop{
+    max-width: 97%;
+  }
   @include tablet{
     max-width: 95%;
   }

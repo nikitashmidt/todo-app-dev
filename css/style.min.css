@@ -743,8 +743,8 @@
 }
 
 .modal-comments__block img {
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   -o-object-fit: cover;
      object-fit: cover;
 }
@@ -1355,6 +1355,12 @@ body {
   -webkit-transition: 1s all;
   transition: 1s all;
   opacity: 0;
+}
+
+@media (min-width: 1350px) {
+  .container {
+    max-width: 97%;
+  }
 }
 
 @media (max-width: 992px) {
