@@ -9,6 +9,7 @@
         }
         @include mobile {
             min-width: 95%;
+            transition: 0.5s all;
         }
         &-active{
             top: 50%;

@@ -370,6 +370,8 @@
 @media (max-width: 576px) {
   .modal-task {
     min-width: 95%;
+    -webkit-transition: 0.5s all;
+    transition: 0.5s all;
   }
 }
 
