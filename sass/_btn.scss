@@ -1,5 +1,5 @@
 .btn{
-    &-open-modal{
+    &-open{
         display: block;
         border: 0;
         cursor: pointer;
@@ -17,7 +17,6 @@
         &:active{
             transform: scale(0.9);
         }
-       
     }
     &-secondary{
         padding: 0.5rem 1rem;

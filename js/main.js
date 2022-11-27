@@ -5,28 +5,28 @@ document.addEventListener("DOMContentLoaded", () => {
     btns = document.querySelector(".btns"),
     emptyList = document.getElementById("emptyList"),
     emptyListTitle = document.querySelector(".empty-list__title"),
-    openModalBtn = document.querySelector(".btn-open-modal"),
+    openModalBtn = document.querySelector(".btn-open"),
     modal = document.querySelector(".modal-task"),
     overlay = document.querySelector(".overlay"),
     container = document.querySelector(".container"),
     modalDelete = document.querySelector(".modal-delete"),
-    modalDeleteSpan = document.querySelector(".modal-delete-span"),
+    modalDeleteSpan = document.querySelector(".modal-delete__span"),
     modalDeleteBtn = document.querySelector('[data-action="remove"]'),
     modalCancelBtn = document.querySelectorAll('[data-action="cancel"]'),
     removeDoneTasksBtn = document.querySelector("#removeDoneTasks"),
     modalDone = document.querySelector(".modal-done"),
-    modalDoneSpan = modalDone.querySelector(".modal-done-span"),
+    modalDoneSpan = modalDone.querySelector(".modal-done__span"),
     modalComments = document.querySelector(".modal-comments"),
     modalCommentsAdd = document.querySelector(".modal-comments__add"),
     modalCommentsItems = document.querySelector(".modal-comments__items"),
     modalCommentsInput = document.querySelector(".modal-comments__input"),
     modalCommentsTitle = document.querySelector(".modal-comments__title"),
     modalCommentsContent = document.querySelector('.modal-comments__content'),
-    completedTasksBlock = document.querySelector(".completed-tasks-block"),
-    completedTasksArrow = document.querySelector(".completed-tasks-arrow"),
-    completedTasksLists = document.querySelector(".completed-tasks-lists"),
-    completedTasksCount = document.querySelector(".completed-tasks-count"),
-    emptyTrashBtn = document.querySelector(".completed-tasks-empty"),
+    completedTasksBlock = document.querySelector(".completed-tasks__block"),
+    completedTasksArrow = document.querySelector(".completed-tasks__arrow"),
+    completedTasksLists = document.querySelector(".completed-tasks__lists"),
+    completedTasksCount = document.querySelector(".completed-tasks__count"),
+    emptyTrashBtn = document.querySelector(".completed-tasks__empty"),
     modalTrash = document.querySelector(".modal-trash"),
     headerTime = document.querySelector(".header__time"),
     headerNumberTasks = document.querySelector(".header__number-tasks span"),
@@ -325,10 +325,10 @@ document.addEventListener("DOMContentLoaded", () => {
     completedTasksCount.textContent = completedTasks.length;
     headerNumberTasks.innerHTML = `${tasks.length}`;
     if (completedTasks.length >= 1) {
-      completedTasksBlock.classList.add("completed-tasks-block-active");
+      completedTasksBlock.classList.add("completed-tasks__block-active");
     } else if (completedTasks.length === 0) {
-      completedTasksBlock.classList.remove("completed-tasks-block-active");
-      completedTasksLists.classList.remove("completed-tasks-lists-active");
+      completedTasksBlock.classList.remove("completed-tasks__block-active");
+      completedTasksLists.classList.remove("completed-tasks__lists-active");
     }
     if (window.screen.width <= 768) {
       openModalBtn.innerHTML = `<img src="./img/add.svg" width="20px" height="20px" alt="add-icon" >`;
@@ -435,7 +435,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   function completedTasksUp() {
     completedTasksArrow.classList.toggle("rotate");
-    completedTasksLists.classList.toggle("completed-tasks-lists-active");
+    completedTasksLists.classList.toggle("completed-tasks__lists-active");
   }
   function returnTasks(e) {
     if (e.target.dataset.action !== "done") return;
