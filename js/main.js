@@ -73,6 +73,11 @@ document.addEventListener("DOMContentLoaded", () => {
   completedTasksLists.addEventListener("click", returnTasks);
   modalComments.addEventListener('click', editDoneComments);
   headerDotsHamburger.addEventListener('click', gridSelection);
+  document.querySelectorAll('[data-item="dots"]').forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.target.parentNode.children[1].classList.toggle('task-item__buttons-active')
+    })
+  })
   window.document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && overlay.classList.contains("overlay-active"))
       closeModal();
@@ -89,7 +94,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   let now = new Date();
   headerTime.innerHTML = ` ${now.toLocaleDateString()}`;
-
   function findItem() {
     headerDotsItem.forEach(item => {
       if (item.dataset.grid === gridNumber[0].number) {
@@ -291,9 +295,9 @@ document.addEventListener("DOMContentLoaded", () => {
       if (parentNode.children[0].classList.contains("task-title--done")) {
         modalDone.classList.add("modal-done-active");
         modalDoneSpan.textContent = parentNode.children[0].textContent;
-        // document.querySelectorAll(".task-item__buttons").forEach((item) => {
-        //   item.style.pointerEvents = "none";
-        // });
+        document.querySelectorAll(".task-item__buttons").forEach((item) => {
+          item.style.pointerEvents = "none";
+        });
         removeDoneTasksBtn.style.pointerEvents = "none";
         setTimeout(() => {
           modalDone.classList.remove("modal-done-active");
@@ -399,7 +403,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const taskHTML = `<li id="${task.id}" class="list-group-item d-flex justify-content-between task-item">
         <span class="${cssClass}" data-action='task-title'> ${task.text}  </span>
         <div class="task-item__overlay">
-        <div class='task-item__dots'>
+        <div class='task-item__dots' data-item="dots" >
         <svg width="20px" height="20px" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="10" cy="15" r="2" fill=""/>
           <circle cx="10" cy="10" r="2" fill=""/>
@@ -457,7 +461,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const taskHTML = `<li id="${parentNode.id}" class="list-group-item d-flex justify-content-between task-item">
     <span class="task-title" data-action='task-title'> ${parentNode.children[0].textContent}  </span>
     <div class="task-item__overlay">
-    <div class='task-item__dots'>
+    <div class='task-item__dots' data-item="dots" >
       <svg width="20px" height="20px" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="10" cy="15" r="2" fill=""/>
         <circle cx="10" cy="10" r="2" fill=""/>

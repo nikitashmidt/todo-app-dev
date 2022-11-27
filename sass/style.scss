@@ -108,9 +108,10 @@ body {
     padding: 8px 10px;
     cursor: pointer;
     border: 0;
+    height: 40px;
+    width: 40px;
     border-radius: 4px;
     transition: opacity 0.2s ease-in;
-    opacity: 0.5;
     display: flex;
     justify-content: center;
     align-items: center;  
@@ -119,7 +120,6 @@ body {
   transition: 0.3s all;
     &:hover{
       background-color: #e0e5ea;
-      opacity: 1;
     }
     &:active{
       transform: scale(0.9);
