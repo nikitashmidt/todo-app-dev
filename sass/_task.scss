@@ -31,16 +31,30 @@
         }
     }
     &-item{
+        &__overlay{
+            @include flex-v-center;            
+        }
+        &__dots{
+            cursor: pointer;
+            svg {
+                fill: black;
+                width: 30px;
+                height: 30px;
+                transition: 0.3s all;
+            }
+            &:hover{
+                svg{
+                    fill: $main-color;
+                }
+            }
+        }
         &__buttons{
             height: 40px;
             flex-shrink: 0;
             transition: 0.3s all;   
-            @include tablet{
-                position: absolute; 
-                right: 15px;
-                top: 9px;
-            }
+            display: none;
         }
+
     }
 }
 
@@ -57,9 +71,9 @@
 .grid-template{
     display: grid;
     gap: 10px;
-    li > div {
-        opacity: 0;
-    }
+    // li > div {
+    //     opacity: 0;
+    // }
     li{
         margin-bottom: 0;
         &:hover{

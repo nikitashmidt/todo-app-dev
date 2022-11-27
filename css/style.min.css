@@ -65,6 +65,10 @@
   color: #CDCDCD;
 }
 
+.completed-tasks__lists li .task-item__buttons {
+  display: block;
+}
+
 .completed-tasks__lists-active {
   display: block;
 }
@@ -172,7 +176,6 @@
           flex-direction: column;
   gap: 5px;
   cursor: pointer;
-  width: 40px;
   -webkit-transform: translateY(-17px);
           transform: translateY(-17px);
 }
@@ -367,7 +370,6 @@
 @media (max-width: 576px) {
   .modal-task {
     min-width: 95%;
-    top: 50%;
   }
 }
 
@@ -1184,20 +1186,41 @@
           transform: scale(1.2);
 }
 
+.task-item__overlay {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.task-item__dots {
+  cursor: pointer;
+}
+
+.task-item__dots svg {
+  fill: black;
+  width: 30px;
+  height: 30px;
+  -webkit-transition: 0.3s all;
+  transition: 0.3s all;
+}
+
+.task-item__dots:hover svg {
+  fill: #005cbf;
+}
+
 .task-item__buttons {
   height: 40px;
   -ms-flex-negative: 0;
       flex-shrink: 0;
   -webkit-transition: 0.3s all;
   transition: 0.3s all;
-}
-
-@media (max-width: 992px) {
-  .task-item__buttons {
-    position: absolute;
-    right: 15px;
-    top: 9px;
-  }
+  display: none;
 }
 
 #tasksList li:hover {
@@ -1214,10 +1237,6 @@
   display: -ms-grid;
   display: grid;
   gap: 10px;
-}
-
-.grid-template li > div {
-  opacity: 0;
 }
 
 .grid-template li {
@@ -1376,14 +1395,6 @@ body {
 .comments-done {
   color: green;
   text-decoration: line-through;
-}
-
-.task-item__buttons {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-column-gap: 5px;
-          column-gap: 5px;
 }
 
 .notify-holder {

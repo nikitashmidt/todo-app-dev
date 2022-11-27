@@ -22,12 +22,13 @@ document.addEventListener("DOMContentLoaded", () => {
     modalCommentsInput = document.querySelector(".modal-comments__input"),
     modalCommentsTitle = document.querySelector(".modal-comments__title"),
     modalCommentsContent = document.querySelector('.modal-comments__content'),
+    modalCommentsBack = document.querySelector('.modal-comments__back'),
+    modalTrash = document.querySelector(".modal-trash"),
+    emptyTrashBtn = document.querySelector(".completed-tasks__empty"),
     completedTasksBlock = document.querySelector(".completed-tasks__block"),
     completedTasksArrow = document.querySelector(".completed-tasks__arrow"),
     completedTasksLists = document.querySelector(".completed-tasks__lists"),
     completedTasksCount = document.querySelector(".completed-tasks__count"),
-    emptyTrashBtn = document.querySelector(".completed-tasks__empty"),
-    modalTrash = document.querySelector(".modal-trash"),
     headerTime = document.querySelector(".header__time"),
     headerNumberTasks = document.querySelector(".header__number-tasks span"),
     headerDotsHamburger = document.querySelector('.header__dots-hamburger'),
@@ -39,8 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     headerDotsFilter = document.querySelector('.header__dots-filter'),
     loader = document.querySelector(".loader"),
     checkbox = document.getElementById("checkbox"),
-    clearBtn = document.querySelector('[data-action="clear"]'),
-    clearLocalStorage = document.querySelector('.clear-localstrorage');
+    clearBtn = document.querySelector('[data-action="clear"]');
 
   let tasks = [],
     completedTasks = [],
@@ -77,10 +77,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.key === "Escape" && overlay.classList.contains("overlay-active"))
       closeModal();
   });
-  clearLocalStorage.addEventListener('click', () => {
-    localStorage.clear();
-    location.reload()
-  })
   window.onload = function () {
     window.setTimeout(() => {
       // loader.classList.remove('loader-active');
@@ -295,9 +291,9 @@ document.addEventListener("DOMContentLoaded", () => {
       if (parentNode.children[0].classList.contains("task-title--done")) {
         modalDone.classList.add("modal-done-active");
         modalDoneSpan.textContent = parentNode.children[0].textContent;
-        document.querySelectorAll(".task-item__buttons").forEach((item) => {
-          item.style.pointerEvents = "none";
-        });
+        // document.querySelectorAll(".task-item__buttons").forEach((item) => {
+        //   item.style.pointerEvents = "none";
+        // });
         removeDoneTasksBtn.style.pointerEvents = "none";
         setTimeout(() => {
           modalDone.classList.remove("modal-done-active");
@@ -399,13 +395,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const cssClass = task.done ? "task-title task-title--done" : "task-title";
     const taskHTML = `<li id="${task.id}" class="list-group-item d-flex justify-content-between task-item">
         <span class="${cssClass}" data-action='task-title'> ${task.text}  </span>
-        <div class="task-item__buttons">
-            <button type="button" data-action="done" class="btn-action">
+        <div class="task-item__overlay">
+        <div class='task-item__dots'>
+        <svg width="20px" height="20px" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="10" cy="15" r="2" fill=""/>
+          <circle cx="10" cy="10" r="2" fill=""/>
+          <circle cx="10" cy="5" r="2" fill=""/>
+        </svg>
+      </div>
+        <div class='task-item__buttons'> 
+        <button type="button" data-action="done" class="btn-action">
                 <img src="./img/tick.svg" alt="Done" width="18" height="18">
-            </button>
+          </button>
             <button id="btn-delete" type="button" data-action="delete" class="btn-action">
                 <img src="./img/cross.svg" alt="Done" width="18" height="18">
             </button>
+        </div>
         </div>
         </li>`;
     tasksList.insertAdjacentHTML("beforeend", taskHTML);
@@ -448,14 +453,22 @@ document.addEventListener("DOMContentLoaded", () => {
     completedTasks = completedTasks.filter((task) => task.id !== id);
     const taskHTML = `<li id="${parentNode.id}" class="list-group-item d-flex justify-content-between task-item">
     <span class="task-title" data-action='task-title'> ${parentNode.children[0].textContent}  </span>
-    <div class="task-item__buttons">
-        <button type="button" data-action="done" class="btn-action">
-            <img src="./img/tick.svg" alt="Done" width="18" height="18">
-        </button>
-        <button id="btn-delete" type="button" data-action="delete" class="btn-action">
-            <img src="./img/cross.svg" alt="Done" width="18" height="18">
-        </button>
+    <div class="task-item__overlay">
+    <div class='task-item__dots'>
+      <svg width="20px" height="20px" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="10" cy="15" r="2" fill=""/>
+        <circle cx="10" cy="10" r="2" fill=""/>
+        <circle cx="10" cy="5" r="2" fill=""/>
+      </svg>
     </div>
+  <div class='task-item__buttons'> 
+  <button type="button" data-action="done" class="btn-action">
+          <img src="./img/tick.svg" alt="Done" width="18" height="18">
+    </button>
+      <button id="btn-delete" type="button" data-action="delete" class="btn-action">
+          <img src="./img/cross.svg" alt="Done" width="18" height="18">
+      </button>
+  </div>
     </li>`;
     tasksList.insertAdjacentHTML("beforeend", taskHTML);
     parentNode.remove();
@@ -492,6 +505,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener('popstate', function(e){
       closeModal()
     }, false);
+    modalCommentsBack.addEventListener('click', () => closeModal())
     setTimeout(() => {
       renderComments(id);
       doneComments(id);

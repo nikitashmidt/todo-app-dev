@@ -51,6 +51,9 @@
                 text-decoration:line-through;
                 color: #CDCDCD;
             }
+            .task-item__buttons{
+                display: block;
+            }
         }
         &-active{
             display: block;
