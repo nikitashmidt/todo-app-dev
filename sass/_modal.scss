@@ -156,12 +156,12 @@
         }
         &__block{
             @include flex-v-center;
-            gap: 10px;
+            gap: 5px;
             button{
                 border: none;
                 background: none;
                 padding: 0;
-                height: 30px;
+                height: 35px;
                 cursor: pointer;
                 @include flex-v-center;
                 outline: none;

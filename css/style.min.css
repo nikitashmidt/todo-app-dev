@@ -710,14 +710,14 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 10px;
+  gap: 5px;
 }
 
 .modal-comments__block button {
   border: none;
   background: none;
   padding: 0;
-  height: 30px;
+  height: 35px;
   cursor: pointer;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
