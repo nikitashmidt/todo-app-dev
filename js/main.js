@@ -353,7 +353,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (modalDelete.classList.contains("modal-delete-active"))
       modalDelete.classList.remove("modal-delete-active");
     if (modal.classList.contains("modal-task-active"))
-      modal.classList.remove("modal-task-active");
+      setTimeout(() => {
+        modal.classList.remove("modal-task-active");
+      }, 200)
     if (modalTrash.classList.contains("modal-trash-active"))
       modalTrash.classList.remove("modal-trash-active");
     if (modalComments.classList.contains("modal-comments-active")) {
