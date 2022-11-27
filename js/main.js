@@ -344,7 +344,7 @@ document.addEventListener("DOMContentLoaded", () => {
     overlay.classList.add("overlay-active");
     setTimeout(() => {
       taskInput.focus();
-    }, 200);
+    }, 600);
     disableScroll();
     transition("-50%");
   }
