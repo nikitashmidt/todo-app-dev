@@ -70,7 +70,7 @@
   background-color: #e0e5ea;
   position: static;
   height: 40px;
-  width: 150px;
+  width: 130px;
   opacity: 1;
   visibility: visible;
   cursor: pointer;
@@ -81,6 +81,12 @@
   height: 100%;
   width: 100%;
   padding: 0;
+}
+
+@media (max-width: 768px) {
+  .completed-tasks__lists li .task-item__buttons {
+    width: 40px;
+  }
 }
 
 .completed-tasks__lists-active {
