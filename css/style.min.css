@@ -67,6 +67,20 @@
 
 .completed-tasks__lists li .task-item__buttons {
   display: block;
+  background-color: #e0e5ea;
+  position: static;
+  height: 40px;
+  width: 150px;
+  opacity: 1;
+  visibility: visible;
+  cursor: pointer;
+  pointer-events: visible;
+}
+
+.completed-tasks__lists li .task-item__buttons button {
+  height: 100%;
+  width: 100%;
+  padding: 0;
 }
 
 .completed-tasks__lists-active {
@@ -1218,7 +1232,6 @@
 }
 
 .task-item__buttons {
-  height: 40px;
   -ms-flex-negative: 0;
       flex-shrink: 0;
   -webkit-transition: 0.3s all;
@@ -1289,6 +1302,20 @@
   display: -ms-grid;
   display: grid;
   gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .grid-template {
+    -ms-grid-columns: (1fr)[3];
+        grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .grid-template {
+    -ms-grid-columns: (1fr)[2] !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+  }
 }
 
 .grid-template li {

@@ -53,6 +53,19 @@
             }
             .task-item__buttons{
                 display: block;
+                background-color: #e0e5ea;
+                position: static;
+                height: 40px;
+                width: 150px;
+                opacity: 1;
+                visibility: visible;
+                cursor: pointer;
+                pointer-events: visible;
+                button{
+                    height: 100%;
+                    width: 100%;
+                    padding: 0;
+                }
             }
         }
         &-active{

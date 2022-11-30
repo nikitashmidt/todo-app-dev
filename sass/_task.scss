@@ -50,7 +50,6 @@
             }
         }
         &__buttons{
-            height: 40px;
             flex-shrink: 0;
             transition: 0.3s all;   
             gap: 15px;
@@ -106,6 +105,12 @@
 .grid-template{
     display: grid;
     gap: 10px;
+    @include mini-tablet{
+        grid-template-columns: repeat(3, 1fr);
+    }
+    @include mobile{
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
     li{
         margin-bottom: 0;
     }
