@@ -509,13 +509,14 @@ document.addEventListener("DOMContentLoaded", () => {
     transition("-50%");
     disableScroll();
     clearBtn.addEventListener("click",() => {
-        completedTasks = [];
-        document.querySelectorAll(".completed-tasks-list").forEach((item) => item.remove());
-        updateLocalStorage();
-        updateEmpty();
-        closeModal();
-      },{ once: true }
+      completedTasks = [];
+      document.querySelectorAll(".completed-tasks-list").forEach((item) => item.remove());
+      updateLocalStorage();
+      updateEmpty();
+      closeModal();
+    },{ once: true }
     );
+    overlay.addEventListener("click", closeModal);
   }
   function openModalComments(e) {
     if (e.target.dataset.action !== "task-title") return;

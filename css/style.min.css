@@ -627,6 +627,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  z-index: 24;
 }
 
 .modal-trash-title {
@@ -1332,7 +1333,7 @@
   position: absolute;
   left: 0;
   top: 0px;
-  width: 10px;
+  width: 20px;
   height: 103%;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
@@ -1479,7 +1480,7 @@ body {
 
 @media (max-width: 576px) {
   .container {
-    padding: 0;
+    padding: 10px;
     padding-bottom: 5px;
   }
 }

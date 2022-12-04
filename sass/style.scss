@@ -52,7 +52,7 @@ body {
     max-width: 100%;
   }
   @include mobile {
-    padding: 0;
+    padding: 10px;
     padding-bottom: 5px;
   }
 }
