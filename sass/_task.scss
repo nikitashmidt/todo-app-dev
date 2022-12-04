@@ -95,7 +95,7 @@
         overflow: hidden;
         &::before{
             content: '';
-            background: linear-gradient(to right, red 50%, transparent 50%);
+            background: linear-gradient(to right, $main-color 50%, transparent 50%);
             position: absolute;
             left: 0;
             top: 0px   ;
