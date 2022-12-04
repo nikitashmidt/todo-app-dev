@@ -40,6 +40,7 @@ body {
 .container .box .label {
   position: relative;
   padding: 20px; /* Внутренний отступ для видимой части */
+  padding-right: 40px;
   background-color: darkblue; /* Цвет элемента аккордеона */
   color: #fff; /* Цвет шрифта элемента аккордеона */
   cursor: pointer; /* Меняем курсор при наведении */
