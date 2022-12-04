@@ -70,14 +70,16 @@ body {
   margin-top: 5px;
 }
 
-.container .box .content p {
+.container .box .content div {
   padding: 20px;
   border-radius: 4px;
 }
 .container .box .content img {
    width: 100%;
   }
-
+.box-list{
+  padding: 10px;
+}
 @media (max-width: 576px) {
     .container {
         padding: 10px;
@@ -91,4 +93,9 @@ body {
 }
 .bold{
     font-weight: bold;
+}
+.boldBlock{
+  text-align: center; 
+  display: block;
+  font-weight: bold;
 }
