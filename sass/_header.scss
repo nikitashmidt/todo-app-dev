@@ -121,6 +121,18 @@
             &-active{
                 display: block;
             }
+            li{
+               &:nth-child(1){
+                    @include tablet{
+                        @include hiddenGrid;
+                    }
+               } 
+               &:nth-child(2){
+                @include mini-tablet{
+                    @include hiddenGrid;
+                }
+           } 
+            }
         }
         &-filter{
             display: none;

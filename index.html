@@ -31,7 +31,7 @@
 						</li>
 						<li class="header__dots-item" data-menu="clear">
 							<a > Очистить все данные </a>
-							<img src="./img/filter.svg" alt="filter icon">
+							<img src="./img/clear-all.svg" alt="clear icon">
 						</li>
 					</ul>
 					<ul class="header__dots-grid">
@@ -95,8 +95,8 @@
 				<form id="form">
 					<div class="form-group">
 						<input maxlength="60" type="text" class="form-control" id="taskInput" placeholder="Текст задачи" required>
-						<small id="emailHelp" class="form-text text-muted">Что делаем, сколько времени тратим, какой результат получаем.</small>
 						<small id="checkboxHelp" class="form-text text-muted" > Нажмите на галочку для добавления нескольких задач.  </small>
+						<small class="form-group-remains"> <span>0</span> / 60  </small>
 					</div>
 					<button type="submit" class="btn btn-primary  btn-lg active" style="margin-right: 15px;">Добавить</button>
 					<input class="form-group-checkbox" id="checkbox" name="checkbox" type="checkbox">

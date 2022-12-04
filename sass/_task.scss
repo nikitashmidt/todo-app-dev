@@ -5,8 +5,9 @@
         cursor: pointer;
         transition: 0.9s all;
         border-radius: 0.25rem;
-        padding: 10px;
+        padding: 5px;
         width: 100%;
+        
         @include tablet {
             padding: 5px;
             padding-right: 10px;
@@ -31,9 +32,6 @@
         }
     }
     &-item{
-        &__control{
-            @include flex-v-center;            
-        }
         &__dots{
             cursor: pointer;
             svg {
@@ -94,6 +92,18 @@
 
 #tasksList {
     li {
+        overflow: hidden;
+        &::before{
+            content: '';
+            background: linear-gradient(to right, red 50%, transparent 50%);
+            position: absolute;
+            left: 0;
+            top: 0px   ;
+            width: 10px;
+            height: 103%;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
         &:hover {
             background-color: rgb(218, 216, 216);
             @include tablet {
@@ -105,12 +115,6 @@
 .grid-template{
     display: grid;
     gap: 10px;
-    @include mini-tablet{
-        grid-template-columns: repeat(3, 1fr);
-    }
-    @include mobile{
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
     li{
         margin-bottom: 0;
     }

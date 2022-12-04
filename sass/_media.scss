@@ -33,3 +33,9 @@
         @content;
     }
 }
+
+@mixin heightModalComments{
+    @media (max-height: 600px){
+        @content;
+    }
+}

@@ -130,8 +130,12 @@
         color: white;
         border-radius: 0.25rem;
         text-align: center;
+        box-shadow: 0 0 40px 6px $bg-color;
         @include desktop{
             width: 75%;
+        }
+        @include mini-desktop{
+            height: 90%;
         }
         @include mini-desktop{
             width: 80%;
@@ -142,6 +146,9 @@
             width: 100%;
             height: 100% !important;
             padding: 10px;
+        }
+        @include heightModalComments{
+            height: 90%;
         }
         &-active{
             @include visibleElem;
@@ -166,6 +173,7 @@
                 @include flex-v-center;
                 outline: none;
                 transition: 0.3s all;
+                border-radius: 4px;
                 &:hover{
                    @include boxShadow;
                 }
@@ -321,6 +329,7 @@
             font-size: 21px;
             text-align: center;
             transition: 0.3s all;
+            border-radius: 5px;
             @include tablet {
                 overflow: auto;
                 white-space: inherit;

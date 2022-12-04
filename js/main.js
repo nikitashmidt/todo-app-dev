@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("form"),
     taskInput = document.getElementById("taskInput"),
     tasksList = document.getElementById("tasksList"),
-    taskItemDots = document.querySelectorAll('[data-item="dots"]'),
     btns = document.querySelector(".btns"),
     emptyList = document.getElementById("emptyList"),
     emptyListTitle = document.querySelector(".empty-list__title"),
@@ -22,7 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
     modalCommentsItems = document.querySelector(".modal-comments__items"),
     modalCommentsInput = document.querySelector(".modal-comments__input"),
     modalCommentsTitle = document.querySelector(".modal-comments__title"),
-    modalCommentsContent = document.querySelector('.modal-comments__content'),
     modalCommentsBack = document.querySelector('.modal-comments__back'),
     modalTrash = document.querySelector(".modal-trash"),
     emptyTrashBtn = document.querySelector(".completed-tasks__empty"),
@@ -61,13 +59,10 @@ document.addEventListener("DOMContentLoaded", () => {
   completedTasks.forEach((task) => renderCompletedTask(task));
   updateEmpty();
   searchNumber();
-  openDotsModal()
-  form.addEventListener("submit", addTask);
   tasksList.addEventListener("click", deleteTask);
   tasksList.addEventListener("click", doneTask);
   tasksList.addEventListener("click", openModalComments);
   openModalBtn.addEventListener("click", openModal);
-  overlay.addEventListener("click", closeModal);
   modalCancelBtn.forEach((item) => item.addEventListener("click", closeModal));
   removeDoneTasksBtn.addEventListener("click", removeDoneTasks);
   completedTasksBlock.addEventListener("click", completedTasksUp);
@@ -77,27 +72,21 @@ document.addEventListener("DOMContentLoaded", () => {
   headerDotsHamburger.addEventListener('click', gridSelection);
 
    
-
-  function openDotsModal() {
-    document.querySelectorAll('[data-item="dots"]').forEach(item => {
-      item.addEventListener('click', (e) => {
+  container.addEventListener('click', (e) => {
+    if (e.target.dataset.item !== 'dots' ) return;
         const eTarget = e.target.parentNode;
         eTarget.children[1].classList.add('task-item__buttons-active');
         eTarget.children[2].classList.add('task-item__overlay-active');
-        eTarget.children[2].onclick = () => {
+        function removeClasses() {
           eTarget.children[1].classList.remove('task-item__buttons-active');
           eTarget.children[2].classList.remove('task-item__overlay-active');
         }
-      })
-    })
-  }
- 
-  
-  function closeDotsModal(e) {
-    const eTarget = e.target.parentNode;
-    eTarget.classList.remove('task-item__buttons-active');
-    eTarget.parentNode.children[2].classList.remove('task-item__overlay-active');
-  }
+        eTarget.children[2].onclick = () => removeClasses();
+        eTarget.children[1].children[0].onclick = () => removeClasses();
+        eTarget.children[1].children[1].onclick = () => removeClasses();
+    }
+  )
+
   window.document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && overlay.classList.contains("overlay-active"))
       closeModal();
@@ -165,15 +154,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     updateLocalStorage();
   }
+  function toggleActiveText(e, headerDotsUl) {
+    document.querySelectorAll(`.${headerDotsUl} li`).forEach(item => {
+      item.classList = 'header__dots-item';
+    })
+    e.target.classList.add('header__dots-item', 'active-text');
+  }
   function gridSelection(e) {
     headerDotsContent.classList.toggle('header__dots-content-active');
     headerDotsOverlay.classList.add('header__dots-overlay-active');
-    function toggleActiveText(e, headerDotsUl) {
-      document.querySelectorAll(`.${headerDotsUl} li`).forEach(item => {
-        item.classList = 'header__dots-item';
-      })
-      e.target.classList.add('header__dots-item', 'active-text');
-    }
     function removeClass() {
       headerDotsGrid.classList.remove('header__dots-grid-active');
       headerDotsMenu.style.display = 'block';
@@ -222,31 +211,31 @@ document.addEventListener("DOMContentLoaded", () => {
           headerDotsMenu.style.display = 'block';
       }
     }
-    headerDotsFilter.onclick = function (e) {
-      switch (e.target.dataset.filter) {
-        case 'alphabet':
-          tasks.sort((a, b) => a.text.localeCompare(b.text));
-          toggleActiveText(e, 'header__dots-filter');
-          updateNumber(e, filterText)
-          updateFilter()
-          break;
-        case 'date':
-          tasks.sort((a, b) => a.date.localeCompare(b.date));
-          toggleActiveText(e, 'header__dots-filter');
-          updateNumber(e, filterText)
-          updateFilter()
-          break;
-        case 'lenght':
-          tasks.sort((a, b) => b.text.length - a.text.length);
-          toggleActiveText(e, 'header__dots-filter');
-          updateNumber(e, filterText)
-          updateFilter()
-          break;
-        case 'rotate':
-          tasks = [...tasks].reverse();
-          updateFilter()
-          break;
-      }
+  }
+  headerDotsFilter.onclick = function (e) {
+    switch (e.target.dataset.filter) {
+      case 'alphabet':
+        tasks.sort((a, b) => a.text.localeCompare(b.text));
+        toggleActiveText(e, 'header__dots-filter');
+        updateNumber(e, filterText)
+        updateFilter()
+        break;
+      case 'date':
+        tasks.sort((a, b) => a.date.localeCompare(b.date));
+        toggleActiveText(e, 'header__dots-filter');
+        updateNumber(e, filterText)
+        updateFilter()
+        break;
+      case 'lenght':
+        tasks.sort((a, b) => b.text.length - a.text.length);
+        toggleActiveText(e, 'header__dots-filter');
+        updateNumber(e, filterText)
+        updateFilter()
+        break;
+      case 'rotate':
+        tasks = [...tasks].reverse();
+        updateFilter()
+        break;
     }
   }
   function updateFilter() {
@@ -266,6 +255,7 @@ document.addEventListener("DOMContentLoaded", () => {
       date: new Date().toLocaleDateString(),
       time: new Date().toLocaleTimeString(),
       comments: [],
+      color: ''
     };
     function pushTasks() {
       tasks = [...tasks, newTask];
@@ -291,7 +281,6 @@ document.addEventListener("DOMContentLoaded", () => {
     modalDeleteSpan.innerHTML = `${spanText}`;
     overlay.classList.add("overlay-active");
     modalDelete.classList.add("modal-delete-active");
-    closeDotsModal(e)
     modalDeleteBtn.onclick = () => {
       tasks = tasks.filter((task) => task.id !== id);
         parentNode.classList.add("list-group-item-delete");
@@ -302,6 +291,7 @@ document.addEventListener("DOMContentLoaded", () => {
         closeModal();
       updateLocalStorage();
     }
+    overlay.addEventListener("click", closeModal);
     transition("-50%");
   }
   function doneTask(e) {
@@ -360,7 +350,9 @@ document.addEventListener("DOMContentLoaded", () => {
         item.innerHTML = `Вернуть задачу`;
       });
     }
-    openDotsModal()
+  }
+  function characterСounter(e) {
+    document.querySelector('.form-group-remains span').innerHTML = e.target.value.length;
   }
   function openModal() {
     checkbox.checked = false;
@@ -372,6 +364,9 @@ document.addEventListener("DOMContentLoaded", () => {
     checkbox.onclick = () => {
       taskInput.focus()
     }
+    taskInput.addEventListener('input', characterСounter)
+    form.addEventListener("submit", addTask);
+    overlay.addEventListener("click", closeModal);
     disableScroll();
     transition("-50%");
   }
@@ -379,8 +374,11 @@ document.addEventListener("DOMContentLoaded", () => {
     overlay.classList.remove("overlay-active");
     if (modalDelete.classList.contains("modal-delete-active"))
       modalDelete.classList.remove("modal-delete-active");
-    if (modal.classList.contains("modal-task-active"))
-        modal.classList.remove("modal-task-active");
+    if (modal.classList.contains("modal-task-active")) {
+      modal.classList.remove("modal-task-active");
+      taskInput.removeEventListener('input', characterСounter);
+      form.removeEventListener("submit", addTask);
+    }
     if (modalTrash.classList.contains("modal-trash-active"))
       modalTrash.classList.remove("modal-trash-active");
     if (modalComments.classList.contains("modal-comments-active")) {
@@ -388,6 +386,7 @@ document.addEventListener("DOMContentLoaded", () => {
       let url = '/';
       window.history.pushState({}, '', url)
     }
+    overlay.removeEventListener("click", closeModal);
     enableScroll();
     transition("10px");
   }
@@ -496,8 +495,8 @@ document.addEventListener("DOMContentLoaded", () => {
       <button id="btn-delete" type="button" data-action="delete" class="btn-action">
           <img src="./img/cross.svg" alt="Done" width="18" height="18">
   </button>
-  <div class="task-item__overlay" data-item="overlay">  </div>
   </div>
+  <div class="task-item__overlay" data-item="overlay">  </div>
     </li>`;
     tasksList.insertAdjacentHTML("beforeend", taskHTML);
     parentNode.remove();
@@ -539,6 +538,7 @@ document.addEventListener("DOMContentLoaded", () => {
       renderComments(id);
       doneComments(id);
     }, 300);
+    overlay.addEventListener("click", closeModal);
     submitForm(id);
     disableScroll();
     transition("-50%");

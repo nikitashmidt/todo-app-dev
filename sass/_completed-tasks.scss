@@ -8,13 +8,14 @@
         display: none;
         align-items: center;
         gap: 10px;
-        background-color:rgba(0, 128, 0, 0.534);
+        background-color: $main-color ;
         border-radius: 0.25rem;
         padding: 10px;
         cursor: pointer;
         color: white;
         margin-bottom: 10px;
         animation: animation-drop 1s ;
+        transition: 0.6s all;
         img{
             transition: 0.5s all;   
         }
@@ -35,6 +36,9 @@
                     }
                 }
             }
+        }
+        &:active{
+            transform: scale(0.94);
         }
         &-active{
             display: flex;
