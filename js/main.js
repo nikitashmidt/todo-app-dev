@@ -30,13 +30,13 @@ document.addEventListener("DOMContentLoaded", () => {
     completedTasksCount = document.querySelector(".completed-tasks__count"),
     headerTime = document.querySelector(".header__time"),
     headerNumberTasks = document.querySelector(".header__number-tasks span"),
-    headerDotsHamburger = document.querySelector('.header__dots-hamburger'),
-    headerDotsContent = document.querySelector('.header__dots-content'),
-    headerDotsItem = document.querySelectorAll('.header__dots-item'),
-    headerDotsOverlay = document.querySelector('.header__dots-overlay'),
-    headerDotsGrid = document.querySelector('.header__dots-grid'),
-    headerDotsMenu = document.querySelector('.header__dots-menu'),
-    headerDotsFilter = document.querySelector('.header__dots-filter'),
+    headerDotsHamburger = document.querySelector('.header__settings-hamburger'),
+    headerDotsContent = document.querySelector('.header__settings-content'),
+    headerDotsItem = document.querySelectorAll('.header__settings-item'),
+    headerDotsOverlay = document.querySelector('.header__settings-overlay'),
+    headerDotsGrid = document.querySelector('.header__settings-grid'),
+    headerDotsMenu = document.querySelector('.header__settings-menu'),
+    headerDotsFilter = document.querySelector('.header__settings-filter'),
     loader = document.querySelector(".loader"),
     checkbox = document.getElementById("checkbox"),
     clearBtn = document.querySelector('[data-action="clear"]');
@@ -78,8 +78,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const eTarget = e.target.parentNode;
         eTarget.children[1].classList.add('task-item__buttons-active');
         eTarget.children[2].classList.add('task-item__overlay-active');
-    btns.style.pointerEvents = 'none';
-    console.log(e.target.parentNode.parentNode.style.borderColor = 'red')
+        btns.style.pointerEvents = 'none';
+        e.target.parentNode.parentNode.style.borderColor = 'red'
         function removeClasses() {
           eTarget.children[1].classList.remove('task-item__buttons-active');
           eTarget.children[2].classList.remove('task-item__overlay-active');
@@ -234,58 +234,58 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   function toggleActiveText(e, headerDotsUl) {
     document.querySelectorAll(`.${headerDotsUl} li`).forEach(item => {
-      item.classList = 'header__dots-item';
+      item.classList = 'header__settings-item';
     })
-    e.target.classList.add('header__dots-item', 'active-text');
+    e.target.classList.add('header__settings-item', 'active-text');
   }
   function gridSelection(e) {
-    headerDotsContent.classList.toggle('header__dots-content-active');
-    headerDotsOverlay.classList.add('header__dots-overlay-active');
+    headerDotsContent.classList.toggle('header__settings-content-active');
+    headerDotsOverlay.classList.add('header__settings-overlay-active');
     function removeClass() {
-      headerDotsGrid.classList.remove('header__dots-grid-active');
+      headerDotsGrid.classList.remove('header__settings-grid-active');
       headerDotsMenu.style.display = 'block';
-      headerDotsFilter.classList.remove('header__dots-filter-active');
+      headerDotsFilter.classList.remove('header__settings-filter-active');
     }
     headerDotsOverlay.onclick = function (e) {
-      headerDotsContent.classList.remove('header__dots-content-active');
-      headerDotsOverlay.classList.remove('header__dots-overlay-active');
+      headerDotsContent.classList.remove('header__settings-content-active');
+      headerDotsOverlay.classList.remove('header__settings-overlay-active');
       setTimeout(() => { removeClass() }, 300)
     }
     headerDotsContent.onclick = function (e) {
       if (e.target.dataset.menu === 'choice') {
-        headerDotsGrid.classList.add('header__dots-grid-active');
+        headerDotsGrid.classList.add('header__settings-grid-active');
         headerDotsMenu.style.display = 'none';
       }
       if (e.target.dataset.menu === 'filter') {
-        headerDotsFilter.classList.add('header__dots-filter-active');
+        headerDotsFilter.classList.add('header__settings-filter-active');
         headerDotsMenu.style.display = 'none';
       }
       switch (e.target.dataset.grid) {
         case '1': tasksList.classList = '';
           tasksList.classList.add('list-group', 'list-group-flush')
-          toggleActiveText(e, 'header__dots-grid');
+          toggleActiveText(e, 'header__settings-grid');
           updateNumber(e, gridNumber)
           break;
         case '2': tasksList.classList = '';
           tasksList.classList.add('list-group', 'list-group-flush', 'grid-template', 'grid-template-2')
-          toggleActiveText(e, 'header__dots-grid');
+          toggleActiveText(e, 'header__settings-grid');
           updateNumber(e, gridNumber)
           break;
         case '3':
           tasksList.classList = '';
           tasksList.classList.add('list-group', 'list-group-flush', 'grid-template', 'grid-template-3')
-          toggleActiveText(e, 'header__dots-grid');
+          toggleActiveText(e, 'header__settings-grid');
           updateNumber(e, gridNumber)
           break;
         case '4':
           tasksList.classList = '';
           tasksList.classList.add('list-group', 'list-group-flush', 'grid-template', 'grid-template-4')
-          toggleActiveText(e, 'header__dots-grid');
+          toggleActiveText(e, 'header__settings-grid');
           updateNumber(e, gridNumber)
           break;
         case 'back':
-          headerDotsGrid.classList.remove('header__dots-grid-active');
-          headerDotsFilter.classList.remove('header__dots-filter-active');
+          headerDotsGrid.classList.remove('header__settings-grid-active');
+          headerDotsFilter.classList.remove('header__settings-filter-active');
           headerDotsMenu.style.display = 'block';
       }
     }
@@ -294,19 +294,19 @@ document.addEventListener("DOMContentLoaded", () => {
     switch (e.target.dataset.filter) {
       case 'alphabet':
         tasks.sort((a, b) => a.text.localeCompare(b.text));
-        toggleActiveText(e, 'header__dots-filter');
+        toggleActiveText(e, 'header__settings-filter');
         updateNumber(e, filterText)
         updateFilter()
         break;
       case 'date':
         tasks.sort((a, b) => a.date.localeCompare(b.date));
-        toggleActiveText(e, 'header__dots-filter');
+        toggleActiveText(e, 'header__settings-filter');
         updateNumber(e, filterText)
         updateFilter()
         break;
       case 'lenght':
         tasks.sort((a, b) => b.text.length - a.text.length);
-        toggleActiveText(e, 'header__dots-filter');
+        toggleActiveText(e, 'header__settings-filter');
         updateNumber(e, filterText)
         updateFilter()
         break;
@@ -344,17 +344,6 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (completedTasks.length === 0) {
       completedTasksBlock.classList.remove("completed-tasks__block-active");
       completedTasksLists.classList.remove("completed-tasks__lists-active");
-    }
-    if (window.screen.width <= 768) {
-      openModalBtn.innerHTML = `<img src="./img/add.svg" width="20px" height="20px" alt="add-icon" >`;
-      document.querySelectorAll(".return-task").forEach((item) => {
-        item.innerHTML = `<img src="./img/return.png" width="20px" height="20px" alt="return-icon" >`;
-      });
-    } else if (window.screen.width >= 769) {
-      openModalBtn.innerHTML = `Добавить задачу`;
-      document.querySelectorAll(".return-task").forEach((item) => {
-        item.innerHTML = `Вернуть задачу`;
-      });
     }
   }
   function characterСounter(e) {
@@ -405,10 +394,12 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".task-title").forEach((item) => {
       if (item.classList.contains("task-title--done")) {
         const tasksHTML = `<li id="${item.parentNode.id}" class="completed-tasks-list  list-group-item d-flex justify-content-between task-item">
-          <span class="task-title" data-action='task-title'> ${item.parentNode.textContent} </span>
+          <span class="task-title" data-action='task-title'> ${item.parentNode.children[0].textContent} </span>
+          ${console.log(item.parentNode.children[0].textContent)}
           <div class="task-item__buttons">
               <button type="button" data-action="done" class="btn-action return-task">
-                  Вернуть задачу
+                  <a> Вернуть задачу </a>
+                  <img src="./img/return.png" width="20px" height="20px" alt="return-icon" >
               </button> </div>  </li>`;
         item.parentNode.remove();
         completedTasksLists.insertAdjacentHTML("afterbegin", tasksHTML);
@@ -436,14 +427,16 @@ document.addEventListener("DOMContentLoaded", () => {
             <circle cx="10" cy="5" r="2" fill=""/>
           </svg>
       </div>
-        <div class='task-item__buttons'> 
-          <button type="button" data-action="done" class="btn-action">
-                  <img src="./img/tick.svg" alt="Done" width="18" height="18">
-            </button>
-              <button id="btn-delete" type="button" data-action="delete" class="btn-action">
-                  <img src="./img/cross.svg" alt="Done" width="18" height="18">
-          </button>
-        </div>
+        <ul class='task-item__buttons list-reset'> 
+          <li class="task-item__button"  data-action="done" >
+          <a > Выполнить задачу </a>
+          <img src='../img/done.svg' alt='done icon' >
+          </li>
+          <li class="task-item__button" data-action="delete" >
+          <a id="btn-delete"> Удалить задачу </a>
+          <img src='../img/cross.svg' alt='cross icon' >
+          </li>
+        </ul>
         <div class="task-item__overlay" data-item="overlay">  </div>
         </div>
         </li>`;
@@ -453,9 +446,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const tasksHTML = `<li id="${task.id}" class="completed-tasks-list list-group-item d-flex justify-content-between task-item">
           <span class="task-title" data-action='task-title'> ${task.text} </span>
           <div class="task-item__buttons">
-              <button type="button" data-action="done" class="btn-action return-task">
-                  Вернуть задачу
-              </button>
+          <button type="button" data-action="done" class="btn-action return-task">
+          <a> Вернуть задачу </a>
+          <img src="./img/return.png" width="20px" height="20px" alt="return-icon" >
+      </button>
           </div>
           </li>`;
     completedTasksLists.insertAdjacentHTML("afterbegin", tasksHTML);
@@ -495,14 +489,14 @@ document.addEventListener("DOMContentLoaded", () => {
         <circle cx="10" cy="5" r="2" fill=""/>
         </svg>
         </div>
-        <div class='task-item__buttons'> 
-        <button type="button" data-action="done" class="btn-action">
-        <img src="./img/tick.svg" alt="Done" width="18" height="18">
-    </button>
-      <button id="btn-delete" type="button" data-action="delete" class="btn-action">
-      <img src="./img/cross.svg" alt="Done" width="18" height="18">
-  </button>
-  </div>
+        <ul class='task-item__buttons list-reset'> 
+        <li class="task-item__button"  data-action="done" >
+        <a > Выполнить задачу </a>
+        </li>
+      <li class="task-item__button" data-action="delete" >
+          <a id="btn-delete"> Удалить задачу </a>
+        </li>
+      </ul>
   <div class="task-item__overlay" data-item="overlay">  </div>
     </li>`;
     tasksList.insertAdjacentHTML("beforeend", taskHTML);
@@ -617,7 +611,7 @@ document.addEventListener("DOMContentLoaded", () => {
           item.comments.forEach((item) => {
             const cssClass = item.done ? "modal-comments__comment  comments-done" : 'modal-comments__comment';
             const ccsClassSvg = item.done ? 'modal-comments__svg modal-comments__svg-active' : 'modal-comments__svg';
-            const modalEditClass = item.done ? 'modal-comments__edit' : 'modal-comments__edit';
+            const modalEditClass = item.done ? 'modal-comments__edit pe' : 'modal-comments__edit';
             let newItem = `
             <li id="${item.id}" class="modal-comments__item">
               <div class="${ccsClassSvg}" data-action="modal-comments-svg" data-action="modal-comments-svg">

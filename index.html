@@ -15,71 +15,71 @@
 			<h1 class="header__title header__title-active display-4 mb-2">To<span>Do</span> приложение</h1>
 			<p class="header__descr h4">список задач на <span class="header__time" ></span>  </p>
 			<span class="header__number-tasks h5" > Общее кол-во задач: <span></span> </span>
-			<div class="header__dots">
-				<div class="header__dots-hamburger">
+			<div class="header__settings">
+				<div class="header__settings-hamburger">
 					<span></span><span></span><span></span> 
 				</div>
-				<div class="header__dots-content">
-					<ul class="header__dots-menu"  >
-						<li class="header__dots-item" data-menu="choice">
+				<div class="header__settings-content">
+					<ul class="header__settings-menu"  >
+						<li class="header__settings-item" data-menu="choice">
 							<a > Выбор сетки </a>
 							<img src="./img/grid-4.png" alt="grid icon">
 						</li>
-						<li class="header__dots-item" data-menu="filter">
+						<li class="header__settings-item" data-menu="filter">
 							<a > Фильтрация задач </a>
 							<img src="./img/filter.svg" alt="filter icon">
 						</li>
-						<li class="header__dots-item" data-menu="clear">
+						<li class="header__settings-item" data-menu="clear">
 							<a > Очистить все данные </a>
 							<img src="./img/clear-all.svg" alt="clear icon">
 						</li>
 					</ul>
-					<ul class="header__dots-grid">
-						<li class="header__dots-item" data-grid="4" >
+					<ul class="header__settings-grid">
+						<li class="header__settings-item" data-grid="4" >
 							<a  > Сетка 4 </a>
 							<img src="./img/grid-4.png" alt="grid-4">
 						</li>
-						<li class="header__dots-item" data-grid="3" >
+						<li class="header__settings-item" data-grid="3" >
 							<a  > Сетка 3 </a>
 							<img src="./img/grid-3.png" alt="grid-3">
 						</li>
-						<li class="header__dots-item" data-grid="2" >
+						<li class="header__settings-item" data-grid="2" >
 							<a  > Сетка 2 </a>
 							<img src="./img/grid-2.png" alt="grid-2">
 						</li>
-						<li class="header__dots-item" data-grid="1" >
+						<li class="header__settings-item" data-grid="1" >
 							<a  > Сетка 1 </a>
 							<img src="./img/grid-1.png" alt="grid-1">
 						</li>
-						<li class="header__dots-item" data-grid="back" >
+						<li class="header__settings-item" data-grid="back" >
 							 Назад
 							 <img src="./img/back.svg" alt="back icon">
 						</li>
 					</ul>
-					<ul class="header__dots-filter">
-						<li class="header__dots-item" data-filter="alphabet" > 
+					<ul class="header__settings-filter">
+						<li class="header__settings-item" data-filter="alphabet" > 
 							<a >По алфавиту </a>
 							<img src="./img/alphabet.svg" alt="alphabet filter">
 						</li>
-						<li class="header__dots-item" data-filter="date" >
+						<li class="header__settings-item" data-filter="date" >
 							<a > По дате добавления </a>
 							<img src="./img/date.svg" alt="date filter">
 						</li>
-						<li class="header__dots-item" data-filter="lenght" > 
+						<li class="header__settings-item" data-filter="lenght" > 
 							<a >По длине текста</a>
 							<img src="./img/lenght.svg" alt="lenght filter">
 						</li>
-						<li class="header__dots-item" data-filter="rotate" > 
+						<li class="header__settings-item" data-filter="rotate" > 
 							<a > Перевернуть список  </a>
 							<img src="./img/rotate.svg" alt="rotate">
 						</li>
-						<li class="header__dots-item" data-grid="back" >
+						<li class="header__settings-item" data-grid="back" >
 							Назад
 							<img src="./img/back.svg" alt="back icon">
 					   </li>
 					</ul>
 				</div>
-				<div class="header__dots-overlay"></div>
+				<div class="header__settings-overlay"></div>
 			</div>
 		</header>
 		<div class="mb-4">
@@ -116,7 +116,10 @@
 				</ul>
 			</div>
 		<div class="btns">
-			<button class="btn-open">Добавить задачу</button>
+			<button class="btn-open">
+				<a>Добавить задачу</a>
+				<img src="./img/add.svg" alt="add icon">
+			</button>
 			<button id="removeDoneTasks" class="btn btn-secondary float-right">Добавить задачу в корзину</button>
 		</div>
 		<div class="modal-delete">

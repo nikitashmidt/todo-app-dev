@@ -103,28 +103,7 @@ body {
   color: #42BE2A;
   font-size: 32px;
 }
-.btn-action {
-    background-color: #e0e5ea;
-    padding: 8px 10px;
-    cursor: pointer;
-    border: 0;
-    height: 40px;
-    width: 40px;
-    border-radius: 4px;
-    transition: opacity 0.2s ease-in;
-    display: flex;
-    justify-content: center;
-    align-items: center;  
-}
-.btn-action {
-  transition: 0.3s all;
-    &:hover{
-      background-color: #e0e5ea;
-    }
-    &:active{
-      transform: scale(0.9);
-    }
-}
+
 .pe{
   pointer-events: none;
   svg{
@@ -132,9 +111,6 @@ body {
         stroke: red;
     }
 }
-}
-.btn-action img {
-  pointer-events: none;
 }
 .none {
   display: none !important;
@@ -159,4 +135,7 @@ body {
         transform: translateY(-1000px);
     }
   }
+}
+.list-reset{
+  list-style-type: none;
 }

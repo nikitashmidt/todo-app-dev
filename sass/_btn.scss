@@ -10,6 +10,19 @@
         background-color: $main-color;
         color: white;
         transition: 0.5s all;
+        img{
+            display: none;
+            width: 30px;
+            height: 30px;
+        }
+        @include mini-tablet{
+            img{
+                display: block;
+            }
+            a{
+                display: none;
+            }
+        }
         &:hover{
             color: $main-color;
             background-color: #fff;

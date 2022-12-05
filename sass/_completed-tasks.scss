@@ -56,20 +56,47 @@
                 color: #CDCDCD;
             }
             .task-item__buttons{
-                display: block;
-                background-color: #e0e5ea;
+                background: #e0e5ea;
                 position: static;
                 height: 40px;
-                width: 130px;
+                width: 180px;
                 opacity: 1;
                 visibility: visible;
-                cursor: pointer;
                 pointer-events: visible;
                 transform: translate(0%, 0%);
+                transition: none;
+                padding: 0;
+                border-radius: 4px;
                 button{
+                    cursor: pointer;
+                    background:none;
+                    border: none;
+                    outline: none;
                     height: 100%;
                     width: 100%;
                     padding: 0;
+                    transition: 0.3s all;
+                    border-radius: 4px;
+                    &:hover{
+                        background: $main-color;
+                        color: white;
+                    }
+                }
+                a{
+                    pointer-events: none;
+                }
+                img{
+                    display: none;
+                    width: 20px;
+                    height: 20px;
+                }
+                @include mini-tablet{
+                    img{
+                        display: block;
+                    }
+                    a{
+                        display: none;
+                    }
                 }
                 @include mini-tablet{
                     width: 40px;

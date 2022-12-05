@@ -14,7 +14,7 @@
     &__time, &__number-tasks span{
         color: red;
     }
-    &__dots{
+    &__settings{
         position: absolute;
         right: 5px;
         height: 100%;
@@ -93,18 +93,18 @@
             width: 100%;
         }
         &-item{
-            padding: 10px 10px 10px 10px;
+            padding: 10px;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
             transition: 0.3s all;
+            border-radius: 4px;
             a{
                 pointer-events: none;
             }
             &:hover{
                 outline: 1px solid white;
-                border-radius: 4px;
             }
             img{
                 width: 30px;
