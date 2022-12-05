@@ -71,15 +71,20 @@ document.addEventListener("DOMContentLoaded", () => {
   modalComments.addEventListener('click', editDoneComments);
   headerDotsHamburger.addEventListener('click', gridSelection);
 
+
    
   container.addEventListener('click', (e) => {
     if (e.target.dataset.item !== 'dots' ) return;
         const eTarget = e.target.parentNode;
         eTarget.children[1].classList.add('task-item__buttons-active');
         eTarget.children[2].classList.add('task-item__overlay-active');
+    btns.style.pointerEvents = 'none';
+    console.log(e.target.parentNode.parentNode.style.borderColor = 'red')
         function removeClasses() {
           eTarget.children[1].classList.remove('task-item__buttons-active');
           eTarget.children[2].classList.remove('task-item__overlay-active');
+          btns.style.pointerEvents = '';
+          e.target.parentNode.parentNode.style.borderColor = 'white';
         }
         eTarget.children[2].onclick = () => removeClasses();
         eTarget.children[1].children[0].onclick = () => removeClasses();
@@ -103,6 +108,79 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   let now = new Date();
   headerTime.innerHTML = ` ${now.toLocaleDateString()}`;
+  function addTask(e) {
+    e.preventDefault();
+    const newTask = {
+      id: Date.now(),
+      text: taskInput.value,
+      done: false,
+      date: new Date().toLocaleDateString(),
+      time: new Date().toLocaleTimeString(),
+      comments: [],
+      commentsPresence: '',
+    };
+    function pushTasks() {
+      tasks = [...tasks, newTask];
+      renderTask(newTask);
+      taskInput.value = "";
+      updateEmpty();
+      updateLocalStorage();
+    }
+    if (checkbox.checked) {
+      pushTasks();
+      taskInput.focus();
+    } else {
+      pushTasks();
+      closeModal();
+    }
+  }
+  function deleteTask(e) {
+    if (e.target.dataset.action !== "delete") return;
+    disableScroll();
+    let parentNode = e.target.closest(".list-group-item");
+    let id = +parentNode.id;
+    const spanText = parentNode.children[0].textContent;
+    modalDeleteSpan.innerHTML = `${spanText}`;
+    overlay.classList.add("overlay-active");
+    modalDelete.classList.add("modal-delete-active");
+    modalDeleteBtn.onclick = () => {
+      tasks = tasks.filter((task) => task.id !== id);
+        parentNode.classList.add("list-group-item-delete");
+        setTimeout(() => {
+          parentNode.remove();
+          updateEmpty();
+        }, 500);
+        closeModal();
+      updateLocalStorage();
+    }
+    overlay.addEventListener("click", closeModal);
+    transition("-50%");
+  }
+  function doneTask(e) {
+    if (e.target.dataset.action === "done") {
+      const parentNode = e.target.closest(".list-group-item");
+      const id = +parentNode.id;
+      const task = tasks.find((task) => task.id === id);
+      task.done = !task.done;
+      parentNode.children[0].classList.toggle("task-title--done");
+      if (parentNode.children[0].classList.contains("task-title--done")) {
+        modalDone.classList.add("modal-done-active");
+        modalDoneSpan.textContent = parentNode.children[0].textContent;
+        document.querySelectorAll(".task-item__buttons").forEach((item) => {
+          item.style.pointerEvents = "none";
+        });
+        removeDoneTasksBtn.style.pointerEvents = "none";
+        setTimeout(() => {
+          modalDone.classList.remove("modal-done-active");
+          document.querySelectorAll(".task-item__buttons").forEach((item) => {
+            item.style.pointerEvents = "";
+          });
+          removeDoneTasksBtn.style.pointerEvents = "";
+        }, 2000);
+      }
+    }
+    updateLocalStorage();
+  }
   function findItem() {
     headerDotsItem.forEach(item => {
       if (item.dataset.grid === gridNumber[0].number) {
@@ -246,79 +324,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateEmpty()
     updateLocalStorage()
   }
-  function addTask(e) {
-    e.preventDefault();
-    const newTask = {
-      id: Date.now(),
-      text: taskInput.value,
-      done: false,
-      date: new Date().toLocaleDateString(),
-      time: new Date().toLocaleTimeString(),
-      comments: [],
-      color: ''
-    };
-    function pushTasks() {
-      tasks = [...tasks, newTask];
-      renderTask(newTask);
-      taskInput.value = "";
-      updateEmpty();
-      updateLocalStorage();
-    }
-    if (checkbox.checked) {
-      pushTasks();
-      taskInput.focus();
-    } else {
-      pushTasks();
-      closeModal();
-    }
-  }
-  function deleteTask(e) {
-    if (e.target.dataset.action !== "delete") return;
-    disableScroll();
-    let parentNode = e.target.closest(".list-group-item");
-    let id = +parentNode.id;
-    const spanText = parentNode.children[0].textContent;
-    modalDeleteSpan.innerHTML = `${spanText}`;
-    overlay.classList.add("overlay-active");
-    modalDelete.classList.add("modal-delete-active");
-    modalDeleteBtn.onclick = () => {
-      tasks = tasks.filter((task) => task.id !== id);
-        parentNode.classList.add("list-group-item-delete");
-        setTimeout(() => {
-          parentNode.remove();
-          updateEmpty();
-        }, 500);
-        closeModal();
-      updateLocalStorage();
-    }
-    overlay.addEventListener("click", closeModal);
-    transition("-50%");
-  }
-  function doneTask(e) {
-    if (e.target.dataset.action === "done") {
-      const parentNode = e.target.closest(".list-group-item");
-      const id = +parentNode.id;
-      const task = tasks.find((task) => task.id === id);
-      task.done = !task.done;
-      parentNode.children[0].classList.toggle("task-title--done");
-      if (parentNode.children[0].classList.contains("task-title--done")) {
-        modalDone.classList.add("modal-done-active");
-        modalDoneSpan.textContent = parentNode.children[0].textContent;
-        document.querySelectorAll(".task-item__buttons").forEach((item) => {
-          item.style.pointerEvents = "none";
-        });
-        removeDoneTasksBtn.style.pointerEvents = "none";
-        setTimeout(() => {
-          modalDone.classList.remove("modal-done-active");
-          document.querySelectorAll(".task-item__buttons").forEach((item) => {
-            item.style.pointerEvents = "";
-          });
-          removeDoneTasksBtn.style.pointerEvents = "";
-        }, 2000);
-      }
-    }
-    updateLocalStorage();
-  }
+  
   function updateEmpty() {
     if (tasks.length === 0) {
       emptyListTitle.textContent = "Список задач пуст";
@@ -419,7 +425,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   function renderTask(task) {
     const cssClass = task.done ? "task-title task-title--done" : "task-title";
-    const taskHTML = `<li id="${task.id}" class="list-group-item d-flex justify-content-between task-item">
+    const commentsPresence = task.commentsPresence ? 'comments-presence' : '';
+    const taskHTML = `<li id="${task.id}" class="list-group-item d-flex ${commentsPresence} justify-content-between task-item">
         <span class="${cssClass}" data-action='task-title'> ${task.text}  </span>
         <div class="task-item__control">
           <div class='task-item__dots' data-item="dots" >
@@ -478,7 +485,7 @@ document.addEventListener("DOMContentLoaded", () => {
     task.done = !task.done;
     for (let i = 0; newCompletedTasks.length > i; i++) { tasks.push(newCompletedTasks[i]) }
     completedTasks = completedTasks.filter((task) => task.id !== id);
-    const taskHTML = `<li id="${parentNode.id}" class="list-group-item d-flex justify-content-between task-item">
+    const taskHTML = `<li id="${parentNode.id}" class="list-group-item d-flex ${task.commentsPresence ? 'comments-presence' : ''} justify-content-between task-item">
     <span class="task-title" data-action='task-title'> ${parentNode.children[0].textContent}  </span>
     <div class="task-item__control">
     <div class='task-item__dots' data-item="dots" >
@@ -486,14 +493,14 @@ document.addEventListener("DOMContentLoaded", () => {
         <circle cx="10" cy="15" r="2" fill=""/>
         <circle cx="10" cy="10" r="2" fill=""/>
         <circle cx="10" cy="5" r="2" fill=""/>
-      </svg>
-    </div>
-  <div class='task-item__buttons'> 
-  <button type="button" data-action="done" class="btn-action">
-          <img src="./img/tick.svg" alt="Done" width="18" height="18">
+        </svg>
+        </div>
+        <div class='task-item__buttons'> 
+        <button type="button" data-action="done" class="btn-action">
+        <img src="./img/tick.svg" alt="Done" width="18" height="18">
     </button>
       <button id="btn-delete" type="button" data-action="delete" class="btn-action">
-          <img src="./img/cross.svg" alt="Done" width="18" height="18">
+      <img src="./img/cross.svg" alt="Done" width="18" height="18">
   </button>
   </div>
   <div class="task-item__overlay" data-item="overlay">  </div>
@@ -534,20 +541,20 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener('popstate', function(e){
       closeModal()
     }, false);
-    modalCommentsBack.addEventListener('click', () => closeModal())
+    modalCommentsBack.onclick = () => closeModal();
     setTimeout(() => {
       renderComments(id);
       doneComments(id);
     }, 300);
     overlay.addEventListener("click", closeModal);
-    submitForm(id);
+    submitForm(id, eventTarget);
     disableScroll();
     transition("-50%");
     trackingAddInput();
     trackingEditTitle(id, eventTarget);
     editComments(id);
   }
-  function submitForm(id) {
+  function submitForm(id, eventTarget) {
     modalCommentsAdd.onclick = function (e) {
       e.preventDefault();
       if (modalCommentsInput.value.length === 0) {
@@ -564,9 +571,11 @@ document.addEventListener("DOMContentLoaded", () => {
             done: false,
           };
           tasks[findIndexTasks].comments.push(newComments);
+          item.commentsPresence = true;
           renderComments(id);
         }
       });
+      eventTarget.parentNode.classList.add('comments-presence');
       modalCommentsAdd.style.background = "#fff";
       modalCommentsInput.focus();
       modalCommentsInput.value = '';
@@ -608,7 +617,7 @@ document.addEventListener("DOMContentLoaded", () => {
           item.comments.forEach((item) => {
             const cssClass = item.done ? "modal-comments__comment  comments-done" : 'modal-comments__comment';
             const ccsClassSvg = item.done ? 'modal-comments__svg modal-comments__svg-active' : 'modal-comments__svg';
-            const modalEditClass = item.done ? 'modal-comments__edit pe' : 'modal-comments__edit';
+            const modalEditClass = item.done ? 'modal-comments__edit' : 'modal-comments__edit';
             let newItem = `
             <li id="${item.id}" class="modal-comments__item">
               <div class="${ccsClassSvg}" data-action="modal-comments-svg" data-action="modal-comments-svg">
@@ -707,7 +716,6 @@ document.addEventListener("DOMContentLoaded", () => {
     modalComments.onclick = function (e) {
       if (e.target.dataset.action !== 'modal-comments-delete') return;
       let id = +e.target.parentNode.parentNode.id;
-      console.log(eventTarget)
       // let findIndex = tasks[0].comments.findIndex(item => item.id === id);
       updateLocalStorage()
     }
