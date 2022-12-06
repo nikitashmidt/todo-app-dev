@@ -99,6 +99,15 @@
   -webkit-transition: 0.3s all;
   transition: 0.3s all;
   border-radius: 4px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .completed-tasks__lists li .task-item__buttons button:hover {
@@ -106,7 +115,7 @@
   color: white;
 }
 
-.completed-tasks__lists li .task-item__buttons a {
+.completed-tasks__lists li .task-item__buttons a, .completed-tasks__lists li .task-item__buttons img {
   pointer-events: none;
 }
 
@@ -427,7 +436,7 @@
           transform: translate(-50%, -50%);
   min-width: 50%;
   text-align: center;
-  z-index: 24;
+  z-index: 27;
   opacity: 0;
   visibility: hidden;
   position: fixed;
@@ -730,7 +739,7 @@
   background-color: #555252;
   width: 55%;
   height: 550px;
-  z-index: 20;
+  z-index: 27;
   position: fixed;
   top: 0%;
   left: 50%;
@@ -1391,6 +1400,15 @@
           transform: scale(0.92);
 }
 
+.task-item__colorchange {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 50px;
+}
+
 .task-item__overlay {
   position: fixed;
   width: 100%;
@@ -1414,7 +1432,7 @@
 
 #tasksList .list-group-item {
   overflow: hidden;
-  border: 1px solid #fff;
+  border: 1px solid transparent;
 }
 
 #tasksList .list-group-item:hover {

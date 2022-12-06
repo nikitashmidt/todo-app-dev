@@ -77,12 +77,13 @@
                     padding: 0;
                     transition: 0.3s all;
                     border-radius: 4px;
+                    @include flex-v-center;
                     &:hover{
                         background: $main-color;
                         color: white;
                     }
                 }
-                a{
+                a,img{
                     pointer-events: none;
                 }
                 img{

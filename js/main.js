@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("form"),
+    formGroupRemains =  document.querySelector('.form-group-remains span'),
     taskInput = document.getElementById("taskInput"),
     tasksList = document.getElementById("tasksList"),
     btns = document.querySelector(".btns"),
@@ -75,20 +76,33 @@ document.addEventListener("DOMContentLoaded", () => {
    
   container.addEventListener('click', (e) => {
     if (e.target.dataset.item !== 'dots' ) return;
-        const eTarget = e.target.parentNode;
-        eTarget.children[1].classList.add('task-item__buttons-active');
-        eTarget.children[2].classList.add('task-item__overlay-active');
-        btns.style.pointerEvents = 'none';
-        e.target.parentNode.parentNode.style.borderColor = 'red'
-        function removeClasses() {
-          eTarget.children[1].classList.remove('task-item__buttons-active');
-          eTarget.children[2].classList.remove('task-item__overlay-active');
-          btns.style.pointerEvents = '';
-          e.target.parentNode.parentNode.style.borderColor = 'white';
+      const eTarget = e.target.parentNode;
+      eTarget.children[1].classList.add('task-item__buttons-active');
+      eTarget.children[2].classList.add('task-item__overlay-active');
+      btns.style.pointerEvents = 'none';
+    disableScroll()
+    function onChangeColor(e) {
+      eTarget.parentNode.style.backgroundColor = e.target.value;
+      eTarget.parentNode.style.borderColor = e.target.value;
+      const id = +eTarget.parentNode.id;
+      tasks.forEach((item) => {
+        if (item.id === id) {
+          item.colorBg = e.target.value
+          console.log(item.colorBg)
         }
-        eTarget.children[2].onclick = () => removeClasses();
-        eTarget.children[1].children[0].onclick = () => removeClasses();
-        eTarget.children[1].children[1].onclick = () => removeClasses();
+        })
+      updateLocalStorage()
+    }
+    eTarget.querySelector('input[type="color"]').onchange = onChangeColor;
+      eTarget.children[2].onclick = () => removeClasses();
+      eTarget.children[1].children[0].onclick = () => removeClasses();
+      eTarget.children[1].children[1].onclick = () => removeClasses();
+      function removeClasses() {
+        eTarget.children[1].classList.remove('task-item__buttons-active');
+        eTarget.children[2].classList.remove('task-item__overlay-active');
+        btns.style.pointerEvents = '';
+        enableScroll()
+      }
     }
   )
 
@@ -118,6 +132,8 @@ document.addEventListener("DOMContentLoaded", () => {
       time: new Date().toLocaleTimeString(),
       comments: [],
       commentsPresence: '',
+      colorBg: '',
+      colorText: '',
     };
     function pushTasks() {
       tasks = [...tasks, newTask];
@@ -125,6 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
       taskInput.value = "";
       updateEmpty();
       updateLocalStorage();
+      formGroupRemains.innerHTML = 0;
     }
     if (checkbox.checked) {
       pushTasks();
@@ -241,6 +258,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function gridSelection(e) {
     headerDotsContent.classList.toggle('header__settings-content-active');
     headerDotsOverlay.classList.add('header__settings-overlay-active');
+    disableScroll()
     function removeClass() {
       headerDotsGrid.classList.remove('header__settings-grid-active');
       headerDotsMenu.style.display = 'block';
@@ -249,6 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
     headerDotsOverlay.onclick = function (e) {
       headerDotsContent.classList.remove('header__settings-content-active');
       headerDotsOverlay.classList.remove('header__settings-overlay-active');
+      enableScroll()
       setTimeout(() => { removeClass() }, 300)
     }
     headerDotsContent.onclick = function (e) {
@@ -347,7 +366,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
   function characterСounter(e) {
-    document.querySelector('.form-group-remains span').innerHTML = e.target.value.length;
+    formGroupRemains.innerHTML = e.target.value.length;
   }
   function openModal() {
     checkbox.checked = false;
@@ -394,8 +413,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".task-title").forEach((item) => {
       if (item.classList.contains("task-title--done")) {
         const tasksHTML = `<li id="${item.parentNode.id}" class="completed-tasks-list  list-group-item d-flex justify-content-between task-item">
-          <span class="task-title" data-action='task-title'> ${item.parentNode.children[0].textContent} </span>
-          ${console.log(item.parentNode.children[0].textContent)}
+          <span class="task-title" data-action='task-title'>${item.parentNode.children[0].textContent}</span>
           <div class="task-item__buttons">
               <button type="button" data-action="done" class="btn-action return-task">
                   <a> Вернуть задачу </a>
@@ -417,7 +435,8 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderTask(task) {
     const cssClass = task.done ? "task-title task-title--done" : "task-title";
     const commentsPresence = task.commentsPresence ? 'comments-presence' : '';
-    const taskHTML = `<li id="${task.id}" class="list-group-item d-flex ${commentsPresence} justify-content-between task-item">
+    const colorBg = task.colorBg ? task.colorBg : '';
+    const taskHTML = `<li id="${task.id}" style="background-color: ${task.colorBg}" class="list-group-item d-flex ${commentsPresence} justify-content-between task-item">
         <span class="${cssClass}" data-action='task-title'> ${task.text}  </span>
         <div class="task-item__control">
           <div class='task-item__dots' data-item="dots" >
@@ -436,6 +455,11 @@ document.addEventListener("DOMContentLoaded", () => {
           <a id="btn-delete"> Удалить задачу </a>
           <img src='../img/cross.svg' alt='cross icon' >
           </li>
+          <li class="task-item__button" data-action="color" >
+              <a id="btn-delete"> Изменить фон задачи </a>
+              <img src='../img/colorchange.svg' alt='colorchange icon' >
+              <input type="color" data-action="colorChange"  class="task-item__colorchange" />
+          </li>
         </ul>
         <div class="task-item__overlay" data-item="overlay">  </div>
         </div>
@@ -446,10 +470,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const tasksHTML = `<li id="${task.id}" class="completed-tasks-list list-group-item d-flex justify-content-between task-item">
           <span class="task-title" data-action='task-title'> ${task.text} </span>
           <div class="task-item__buttons">
-          <button type="button" data-action="done" class="btn-action return-task">
+          <button type="button" data-action="done" class="return-task">
           <a> Вернуть задачу </a>
-          <img src="./img/return.png" width="20px" height="20px" alt="return-icon" >
-      </button>
+             <img src="../img/return.png" width="20px" height="20px" alt="return-icon" >
+          </button>
           </div>
           </li>`;
     completedTasksLists.insertAdjacentHTML("afterbegin", tasksHTML);
@@ -479,8 +503,8 @@ document.addEventListener("DOMContentLoaded", () => {
     task.done = !task.done;
     for (let i = 0; newCompletedTasks.length > i; i++) { tasks.push(newCompletedTasks[i]) }
     completedTasks = completedTasks.filter((task) => task.id !== id);
-    const taskHTML = `<li id="${parentNode.id}" class="list-group-item d-flex ${task.commentsPresence ? 'comments-presence' : ''} justify-content-between task-item">
-    <span class="task-title" data-action='task-title'> ${parentNode.children[0].textContent}  </span>
+    const taskHTML = `<li id="${parentNode.id}" style="background-color: ${task.colorBg}" class="list-group-item d-flex ${task.commentsPresence ? 'comments-presence' : ''} justify-content-between task-item">
+    <span class="task-title" data-action='task-title'>${parentNode.children[0].textContent}</span>
     <div class="task-item__control">
     <div class='task-item__dots' data-item="dots" >
       <svg width="20px" height="20px" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -490,14 +514,21 @@ document.addEventListener("DOMContentLoaded", () => {
         </svg>
         </div>
         <ul class='task-item__buttons list-reset'> 
-        <li class="task-item__button"  data-action="done" >
-        <a > Выполнить задачу </a>
-        </li>
-      <li class="task-item__button" data-action="delete" >
+          <li class="task-item__button"  data-action="done" >
+          <a > Выполнить задачу </a>
+          <img src='../img/done.svg' alt='done icon' >
+          </li>
+          <li class="task-item__button" data-action="delete" >
           <a id="btn-delete"> Удалить задачу </a>
-        </li>
-      </ul>
-  <div class="task-item__overlay" data-item="overlay">  </div>
+          <img src='../img/cross.svg' alt='cross icon' >
+          </li>
+          <li class="task-item__button" data-action="color" >
+              <a id="btn-delete"> Изменить цвет фона </a>
+              <img src='../img/colorchange.svg' alt='colorchange icon' >
+              <input type="color" data-action="colorChange"  class="task-item__colorchange" />
+          </li>
+        </ul>
+    <div class="task-item__overlay" data-item="overlay">  </div>
     </li>`;
     tasksList.insertAdjacentHTML("beforeend", taskHTML);
     parentNode.remove();
