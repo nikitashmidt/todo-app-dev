@@ -60,8 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
   completedTasks.forEach((task) => renderCompletedTask(task));
   updateEmpty();
   searchNumber();
-  tasksList.addEventListener("click", deleteTask);
-  tasksList.addEventListener("click", doneTask);
   tasksList.addEventListener("click", openModalComments);
   openModalBtn.addEventListener("click", openModal);
   modalCancelBtn.forEach((item) => item.addEventListener("click", closeModal));
@@ -77,28 +75,31 @@ document.addEventListener("DOMContentLoaded", () => {
   container.addEventListener('click', (e) => {
     if (e.target.dataset.item !== 'dots' ) return;
       const eTarget = e.target.parentNode;
-      eTarget.children[1].classList.add('task-item__buttons-active');
+      eTarget.children[1].classList.add('task-item__settings-active');
       eTarget.children[2].classList.add('task-item__overlay-active');
       btns.style.pointerEvents = 'none';
-    disableScroll()
-    function onChangeColor(e) {
-      eTarget.parentNode.style.backgroundColor = e.target.value;
-      eTarget.parentNode.style.borderColor = e.target.value;
-      const id = +eTarget.parentNode.id;
-      tasks.forEach((item) => {
-        if (item.id === id) {
-          item.colorBg = e.target.value
-          console.log(item.colorBg)
-        }
-        })
-      updateLocalStorage()
-    }
-    eTarget.querySelector('input[type="color"]').onchange = onChangeColor;
+      disableScroll()
+    // function onChangeColor(e) {
+    //   eTarget.parentNode.style.backgroundColor = e.target.value;
+    //   const id = +eTarget.parentNode.id;
+    //   tasks.forEach((item) => {
+    //     if (item.id === id) {
+    //       item.colorBg = e.target.value;
+    //     }
+    //     })
+    //   updateLocalStorage()
+    // }
       eTarget.children[2].onclick = () => removeClasses();
-      eTarget.children[1].children[0].onclick = () => removeClasses();
-      eTarget.children[1].children[1].onclick = () => removeClasses();
+      eTarget.children[1].children[0].onclick = (e) => {
+        doneTask(e)  
+        removeClasses()
+      };
+      eTarget.children[1].children[1].onclick = (e) => {
+        removeClasses();
+        deleteTask(e)
+      }
       function removeClasses() {
-        eTarget.children[1].classList.remove('task-item__buttons-active');
+        eTarget.children[1].classList.remove('task-item__settings-active');
         eTarget.children[2].classList.remove('task-item__overlay-active');
         btns.style.pointerEvents = '';
         enableScroll()
@@ -183,13 +184,13 @@ document.addEventListener("DOMContentLoaded", () => {
       if (parentNode.children[0].classList.contains("task-title--done")) {
         modalDone.classList.add("modal-done-active");
         modalDoneSpan.textContent = parentNode.children[0].textContent;
-        document.querySelectorAll(".task-item__buttons").forEach((item) => {
+        document.querySelectorAll(".task-item__settings").forEach((item) => {
           item.style.pointerEvents = "none";
         });
         removeDoneTasksBtn.style.pointerEvents = "none";
         setTimeout(() => {
           modalDone.classList.remove("modal-done-active");
-          document.querySelectorAll(".task-item__buttons").forEach((item) => {
+          document.querySelectorAll(".task-item__settings").forEach((item) => {
             item.style.pointerEvents = "";
           });
           removeDoneTasksBtn.style.pointerEvents = "";
@@ -414,7 +415,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (item.classList.contains("task-title--done")) {
         const tasksHTML = `<li id="${item.parentNode.id}" class="completed-tasks-list  list-group-item d-flex justify-content-between task-item">
           <span class="task-title" data-action='task-title'>${item.parentNode.children[0].textContent}</span>
-          <div class="task-item__buttons">
+          <div class="task-item__settings">
               <button type="button" data-action="done" class="btn-action return-task">
                   <a> Вернуть задачу </a>
                   <img src="./img/return.png" width="20px" height="20px" alt="return-icon" >
@@ -435,8 +436,8 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderTask(task) {
     const cssClass = task.done ? "task-title task-title--done" : "task-title";
     const commentsPresence = task.commentsPresence ? 'comments-presence' : '';
-    const colorBg = task.colorBg ? task.colorBg : '';
-    const taskHTML = `<li id="${task.id}" style="background-color: ${task.colorBg}" class="list-group-item d-flex ${commentsPresence} justify-content-between task-item">
+    const colorBg = task.colorBg ? `style="background-color: ${task.colorBg}` : '';
+    const taskHTML = `<li id="${task.id}" ${colorBg} class="list-group-item d-flex ${commentsPresence} justify-content-between task-item">
         <span class="${cssClass}" data-action='task-title'> ${task.text}  </span>
         <div class="task-item__control">
           <div class='task-item__dots' data-item="dots" >
@@ -446,7 +447,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <circle cx="10" cy="5" r="2" fill=""/>
           </svg>
       </div>
-        <ul class='task-item__buttons list-reset'> 
+        <ul class='task-item__settings list-reset'> 
           <li class="task-item__button"  data-action="done" >
           <a > Выполнить задачу </a>
           <img src='../img/done.svg' alt='done icon' >
@@ -456,9 +457,8 @@ document.addEventListener("DOMContentLoaded", () => {
           <img src='../img/cross.svg' alt='cross icon' >
           </li>
           <li class="task-item__button" data-action="color" >
-              <a id="btn-delete"> Изменить фон задачи </a>
-              <img src='../img/colorchange.svg' alt='colorchange icon' >
-              <input type="color" data-action="colorChange"  class="task-item__colorchange" />
+              <a id="btn-change-color"> Изменить фон задачи </a>
+	            
           </li>
         </ul>
         <div class="task-item__overlay" data-item="overlay">  </div>
@@ -469,7 +469,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderCompletedTask(task) {
     const tasksHTML = `<li id="${task.id}" class="completed-tasks-list list-group-item d-flex justify-content-between task-item">
           <span class="task-title" data-action='task-title'> ${task.text} </span>
-          <div class="task-item__buttons">
+          <div class="task-item__settings">
           <button type="button" data-action="done" class="return-task">
           <a> Вернуть задачу </a>
              <img src="../img/return.png" width="20px" height="20px" alt="return-icon" >
@@ -513,7 +513,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <circle cx="10" cy="5" r="2" fill=""/>
         </svg>
         </div>
-        <ul class='task-item__buttons list-reset'> 
+        <ul class='task-item__settings list-reset'> 
           <li class="task-item__button"  data-action="done" >
           <a > Выполнить задачу </a>
           <img src='../img/done.svg' alt='done icon' >
@@ -524,8 +524,6 @@ document.addEventListener("DOMContentLoaded", () => {
           </li>
           <li class="task-item__button" data-action="color" >
               <a id="btn-delete"> Изменить цвет фона </a>
-              <img src='../img/colorchange.svg' alt='colorchange icon' >
-              <input type="color" data-action="colorChange"  class="task-item__colorchange" />
           </li>
         </ul>
     <div class="task-item__overlay" data-item="overlay">  </div>
@@ -745,4 +743,6 @@ document.addEventListener("DOMContentLoaded", () => {
       updateLocalStorage()
     }
   }
+ 
+
 });
