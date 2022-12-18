@@ -47,7 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
     completedTasks = [],
     gridNumber = [],
     filterText = [];
-  if (localStorage.getItem("tasks"))
+  function getLocalStorage() {
+    if (localStorage.getItem("tasks"))
     tasks = JSON.parse(localStorage.getItem("tasks"));
   if (localStorage.getItem("completedTasks"))
     completedTasks = JSON.parse(localStorage.getItem("completedTasks"));
@@ -55,6 +56,8 @@ document.addEventListener("DOMContentLoaded", () => {
     gridNumber = JSON.parse(localStorage.getItem("gridNumber"));
   if (localStorage.getItem("filterText"))
   filterText = JSON.parse(localStorage.getItem("filterText"));
+  }
+  getLocalStorage()
 
   
   tasks.forEach((task) => renderTask(task));
@@ -289,6 +292,10 @@ document.addEventListener("DOMContentLoaded", () => {
       if (e.target.dataset.menu === 'filter') {
         headerDotsFilter.classList.add('header__settings-filter-active');
         headerDotsMenu.style.display = 'none';
+      }
+      if (e.target.dataset.menu === 'clear') { 
+        localStorage.clear()
+        updateEmpty()
       }
       switch (e.target.dataset.grid) {
         case '1': tasksList.classList = '';
