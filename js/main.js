@@ -40,7 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
     headerDotsFilter = document.querySelector('.header__settings-filter'),
     loader = document.querySelector(".loader"),
     checkbox = document.getElementById("checkbox"),
-    clearBtn = document.querySelector('[data-action="clear"]');
+    clearBtn = document.querySelector('[data-action="clear"]'),
+    modalColors = document.querySelector('.modal-colors');
 
   let tasks = [],
     completedTasks = [],
@@ -70,10 +71,9 @@ document.addEventListener("DOMContentLoaded", () => {
   modalComments.addEventListener('click', editDoneComments);
   headerDotsHamburger.addEventListener('click', gridSelection);
 
-
    
   container.addEventListener('click', (e) => {
-    if (e.target.dataset.item !== 'dots' ) return;
+    if (e.target.dataset.item !== 'dots') return;
       const eTarget = e.target.parentNode;
       eTarget.children[1].classList.add('task-item__settings-active');
       eTarget.children[2].classList.add('task-item__overlay-active');
@@ -97,6 +97,16 @@ document.addEventListener("DOMContentLoaded", () => {
       eTarget.children[1].children[1].onclick = (e) => {
         removeClasses();
         deleteTask(e)
+      }
+      eTarget.children[1].children[2].onclick = (e) => {
+        modalColors.classList.add('modal-colors__active');
+        eTarget.children[1].style.right = '-100%';
+        modalColors.onclick = (e) => {
+          if (e.target.classList == 'modal-colors__span') { 
+            console.log(e.target.style.backgroundColor)
+            eTarget.parentNode.style.backgroundColor = e.target.style.backgroundColor;
+          }
+        }
       }
       function removeClasses() {
         eTarget.children[1].classList.remove('task-item__settings-active');
@@ -449,16 +459,15 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
         <ul class='task-item__settings list-reset'> 
           <li class="task-item__button"  data-action="done" >
-          <a > Выполнить задачу </a>
-          <img src='../img/done.svg' alt='done icon' >
+            <a > Выполнить задачу </a>
+            <img src='../img/done.svg' alt='done icon' >
           </li>
           <li class="task-item__button" data-action="delete" >
-          <a id="btn-delete"> Удалить задачу </a>
-          <img src='../img/cross.svg' alt='cross icon' >
+            <a id="btn-delete"> Удалить задачу </a>
+            <img src='../img/cross.svg' alt='cross icon' >
           </li>
           <li class="task-item__button" data-action="color" >
-              <a id="btn-change-color"> Изменить фон задачи </a>
-	            
+              <a id="btn-change-color"> Изменение цвета </a>
           </li>
         </ul>
         <div class="task-item__overlay" data-item="overlay">  </div>
@@ -523,7 +532,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <img src='../img/cross.svg' alt='cross icon' >
           </li>
           <li class="task-item__button" data-action="color" >
-              <a id="btn-delete"> Изменить цвет фона </a>
+            <a id="btn-change-color"> Изменение цвета </a>
           </li>
         </ul>
     <div class="task-item__overlay" data-item="overlay">  </div>

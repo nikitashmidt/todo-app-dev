@@ -19,6 +19,7 @@ body {
     background-color: $bg-color;
     padding-top: 30px;
     margin: 0;
+    position: relative;
 }
 #element::-webkit-scrollbar {
   width: 6px;
@@ -141,7 +142,33 @@ body {
 }
 
 .modal-colors{
-  width: 300px;
+  @include hiddenElem;
+  position: absolute;
+  left: -100%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 30;
+  transition: 0.3s all;
+  &__changes{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    color: white;
+    list-style-type: none;
+    padding: 0;
+    position: relative;
+    margin-bottom: 10px;
+    li{
+      cursor: pointer;
+      padding: 10px;
+      transition: 0.3s all;
+      border-radius: 4px;
+      &:hover{
+        outline: 1px solid white;
+      }
+    }
+  }
+  width: 300px; 
   background-color:$main-color;
   margin: 0 auto; 
   border-radius: 4px;
@@ -162,5 +189,24 @@ body {
       transform: scale(1.5);
     }
   }
+ }
+ &__back{
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  &:hover{
+    outline: 1px solid white;
+  }
+  img{
+    pointer-events: none;
+  }
+ }
+ &__active{
+  @include visibleElem;
+  left: 50%;
  }
 }
