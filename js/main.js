@@ -41,7 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
     loader = document.querySelector(".loader"),
     checkbox = document.getElementById("checkbox"),
     clearBtn = document.querySelector('[data-action="clear"]'),
-    modalColors = document.querySelector('.modal-colors');
+    modalColors = document.querySelector('.modal-colors'),
+    modalColorsBack = document.querySelector('.modal-colors__back');
 
   let tasks = [],
     completedTasks = [],
@@ -82,17 +83,15 @@ document.addEventListener("DOMContentLoaded", () => {
       eTarget.children[2].classList.add('task-item__overlay-active');
       btns.style.pointerEvents = 'none';
       disableScroll()
-    // function onChangeColor(e) {
-    //   eTarget.parentNode.style.backgroundColor = e.target.value;
-    //   const id = +eTarget.parentNode.id;
-    //   tasks.forEach((item) => {
-    //     if (item.id === id) {
-    //       item.colorBg = e.target.value;
-    //     }
-    //     })
-    //   updateLocalStorage()
-    // }
-      eTarget.children[2].onclick = () => removeClasses();
+      eTarget.children[2].onclick = () => {
+      if (modalColors.classList.contains('modal-colors-active')) { 
+        modalColors.classList.remove('modal-colors-active');
+        setTimeout(() => {
+          eTarget.children[1].style.right = '50%';
+        }, 500);
+      }
+        removeClasses()
+      };
       eTarget.children[1].children[0].onclick = (e) => {
         doneTask(e)  
         removeClasses()
@@ -102,14 +101,25 @@ document.addEventListener("DOMContentLoaded", () => {
         deleteTask(e)
       }
       eTarget.children[1].children[2].onclick = (e) => {
-        modalColors.classList.add('modal-colors__active');
         eTarget.children[1].style.right = '-100%';
+        modalColors.classList.add('modal-colors-active');
         modalColors.onclick = (e) => {
-          if (e.target.classList == 'modal-colors__span') { 
-            console.log(e.target.style.backgroundColor)
-            eTarget.parentNode.style.backgroundColor = e.target.style.backgroundColor;
+          if (e.target.classList == 'modal-colors__span') {
+            const bg = e.target.style.backgroundColor;
+            eTarget.parentNode.style.backgroundColor = bg;
+            const id = +eTarget.parentNode.id;
+            tasks.forEach((item) => {
+              if (item.id === id) {
+                item.colorBg = bg;
+              }
+            })
+            updateLocalStorage()
           }
         }
+      }
+       modalColorsBack.onclick = () => {
+        modalColors.classList.remove('modal-colors-active');
+        eTarget.children[1].style.right = '50%';
       }
       function removeClasses() {
         eTarget.children[1].classList.remove('task-item__settings-active');
@@ -119,6 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   )
+
 
   window.document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && overlay.classList.contains("overlay-active"))
@@ -294,8 +305,8 @@ document.addEventListener("DOMContentLoaded", () => {
         headerDotsMenu.style.display = 'none';
       }
       if (e.target.dataset.menu === 'clear') { 
-        localStorage.clear()
-        updateEmpty()
+        localStorage.clear();
+        location.reload();
       }
       switch (e.target.dataset.grid) {
         case '1': tasksList.classList = '';
@@ -453,7 +464,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderTask(task) {
     const cssClass = task.done ? "task-title task-title--done" : "task-title";
     const commentsPresence = task.commentsPresence ? 'comments-presence' : '';
-    const colorBg = task.colorBg ? `style="background-color: ${task.colorBg}` : '';
+    const colorBg = task.colorBg ? `style="background-color: ${task.colorBg}"` : '';
     const taskHTML = `<li id="${task.id}" ${colorBg} class="list-group-item d-flex ${commentsPresence} justify-content-between task-item">
         <span class="${cssClass}" data-action='task-title'> ${task.text}  </span>
         <div class="task-item__control">
@@ -475,6 +486,11 @@ document.addEventListener("DOMContentLoaded", () => {
           </li>
           <li class="task-item__button" data-action="color" >
               <a id="btn-change-color"> Изменение цвета </a>
+                <span class="task-item__span task-item__span-bg" style="border-bottom-color: ${task.colorBg}"  >  </span>
+          </li>
+          <li class="task-item__button" data-action="color" >
+            <a id="btn-change-information"> Доп. информация </a>
+            <img src='../img/information.svg' alt='information icon' >
           </li>
         </ul>
         <div class="task-item__overlay" data-item="overlay">  </div>
