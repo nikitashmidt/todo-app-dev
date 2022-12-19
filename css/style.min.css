@@ -1733,12 +1733,12 @@ body {
 .modal-colors {
   opacity: 0;
   visibility: hidden;
-  position: absolute;
-  left: -100%;
   top: 50%;
+  left: -100%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  z-index: 30;
+  z-index: 27;
+  position: fixed;
   -webkit-transition: 0.3s all;
   transition: 0.3s all;
   width: 300px;
