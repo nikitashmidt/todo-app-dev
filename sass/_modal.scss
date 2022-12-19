@@ -399,4 +399,88 @@
             }
         }
     }
+    &-colors{
+        @include hiddenElem;
+        top: 50%;
+        left: -100%;
+        transform: translate(-50%, -50%);
+        z-index: 27;
+        position: fixed;
+        transition: 0.3s all;
+        width: 300px;
+        background-color:$main-color;
+        margin: 0 auto; 
+        border-radius: 4px;
+        padding: 10px;
+        &__changes{
+          display: flex;
+          justify-content: space-between;
+          gap: 10px;
+          list-style-type: none;
+          padding: 0;
+          position: relative;
+          margin-bottom: 10px;
+          li{
+            button{
+              border: none;
+              background: none;
+              cursor: pointer;
+              color:white;
+              width: 100%;
+              height: 100%;
+              padding: 10px;
+              transition: 0.3s all;
+              border-radius: 4px;
+              &:hover{
+                outline: 1px solid white;
+              }
+            }
+          }
+        }
+        &__background, &__text{
+          &-active{
+            button{
+              outline: 1px solid white;
+            }
+          }
+        }
+        &__items{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        span{
+          display: block;
+          width: 30px;
+          height: 30px;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: 0.3s all;
+          &:hover{
+            outline: 1px solid white;
+            transform: scale(1.5);
+          }
+        }
+        }
+        &__back{
+        padding: 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 20px;
+        &:hover{
+          outline: 1px solid white;
+        }
+        img{
+          pointer-events: none;
+        }
+        }
+        &-active{
+          @include visibleElem;
+          left: 50%;
+        }
+      }
+      
 }

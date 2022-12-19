@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("form"),
-    formGroupRemains =  document.querySelector('.form-group-remains span'),
+    formGroupRemains = document.querySelector('.form-group-remains span'),
     taskInput = document.getElementById("taskInput"),
     tasksList = document.getElementById("tasksList"),
     btns = document.querySelector(".btns"),
@@ -42,7 +42,10 @@ document.addEventListener("DOMContentLoaded", () => {
     checkbox = document.getElementById("checkbox"),
     clearBtn = document.querySelector('[data-action="clear"]'),
     modalColors = document.querySelector('.modal-colors'),
-    modalColorsBack = document.querySelector('.modal-colors__back');
+    modalColorsBack = document.querySelector('.modal-colors__back'),
+    modalColorsChanges = document.querySelector('.modal-colors__changes'),
+    modalColorsBg = document.querySelector('.modal-colors__background'),
+    modalColorsText = document.querySelector('.modal-colors__text');
 
   let tasks = [],
     completedTasks = [],
@@ -85,12 +88,11 @@ document.addEventListener("DOMContentLoaded", () => {
       disableScroll()
       eTarget.children[2].onclick = () => {
       if (modalColors.classList.contains('modal-colors-active')) { 
-        modalColors.classList.remove('modal-colors-active');
-        setTimeout(() => {
-          eTarget.children[1].style.right = '50%';
-        }, 500);
-      }
+          modalColors.classList.remove('modal-colors-active');
+          eTarget.children[1].style.right = '';
+      } else {
         removeClasses()
+        }
       };
       eTarget.children[1].children[0].onclick = (e) => {
         doneTask(e)  
@@ -103,23 +105,40 @@ document.addEventListener("DOMContentLoaded", () => {
       eTarget.children[1].children[2].onclick = (e) => {
         eTarget.children[1].style.right = '-100%';
         modalColors.classList.add('modal-colors-active');
-        modalColors.onclick = (e) => {
-          if (e.target.classList == 'modal-colors__span') {
-            const bg = e.target.style.backgroundColor;
-            eTarget.parentNode.style.backgroundColor = bg;
-            const id = +eTarget.parentNode.id;
-            tasks.forEach((item) => {
-              if (item.id === id) {
-                item.colorBg = bg;
-              }
-            })
-            updateLocalStorage()
+
+
+        if (modalColorsBg.classList.contains('modal-colors__background-active')) {
+          modalColors.onclick = (e) => {
+            if (e.target.classList == 'modal-colors__span') {
+              const bg = e.target.style.backgroundColor;
+              eTarget.parentNode.style.backgroundColor = bg;
+              const id = +eTarget.parentNode.id;
+              tasks.forEach((item) => {
+                if (item.id === id) {
+                  item.colorBg = bg;
+                }
+              })
+              eTarget.children[1].querySelector('[data-action="color"] span').style.borderBottomColor = bg;
+              updateLocalStorage()
+            }
           }
         }
+
+        if (modalColorsText.classList.contains('modal-colors__text-active')) {
+          console.log('true')
+        }
+        modalColorsText.onclick = () => {
+          modalColorsBg.classList.remove('modal-colors__background-active');
+          modalColorsText.classList.add('modal-colors__text-active');
+        }
+        modalColorsBg.onclick = () => {
+          modalColorsBg.classList.add('modal-colors__background-active');
+          modalColorsText.classList.remove('modal-colors__text-active');
+        }
       }
-       modalColorsBack.onclick = () => {
-        modalColors.classList.remove('modal-colors-active');
-        eTarget.children[1].style.right = '50%';
+      modalColorsBack.onclick = () => {
+      modalColors.classList.remove('modal-colors-active');
+      eTarget.children[1].style.right = '50%';
       }
       function removeClasses() {
         eTarget.children[1].classList.remove('task-item__settings-active');
@@ -488,7 +507,7 @@ document.addEventListener("DOMContentLoaded", () => {
               <a id="btn-change-color"> Изменение цвета </a>
                 <span class="task-item__span task-item__span-bg" style="border-bottom-color: ${task.colorBg}"  >  </span>
           </li>
-          <li class="task-item__button" data-action="color" >
+          <li class="task-item__button" data-action="information" >
             <a id="btn-change-information"> Доп. информация </a>
             <img src='../img/information.svg' alt='information icon' >
           </li>
