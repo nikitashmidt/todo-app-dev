@@ -72,7 +72,7 @@
   color: #CDCDCD;
 }
 
-.completed-tasks__lists li .task-item__buttons {
+.completed-tasks__lists li .task-item__settings {
   background: #e0e5ea;
   position: static;
   height: 40px;
@@ -88,7 +88,7 @@
   border-radius: 4px;
 }
 
-.completed-tasks__lists li .task-item__buttons button {
+.completed-tasks__lists li .task-item__settings button {
   cursor: pointer;
   background: none;
   border: none;
@@ -110,32 +110,32 @@
   display: flex;
 }
 
-.completed-tasks__lists li .task-item__buttons button:hover {
+.completed-tasks__lists li .task-item__settings button:hover {
   background: #005cbf;
   color: white;
 }
 
-.completed-tasks__lists li .task-item__buttons a, .completed-tasks__lists li .task-item__buttons img {
+.completed-tasks__lists li .task-item__settings a, .completed-tasks__lists li .task-item__settings img {
   pointer-events: none;
 }
 
-.completed-tasks__lists li .task-item__buttons img {
+.completed-tasks__lists li .task-item__settings img {
   display: none;
   width: 20px;
   height: 20px;
 }
 
 @media (max-width: 768px) {
-  .completed-tasks__lists li .task-item__buttons img {
+  .completed-tasks__lists li .task-item__settings img {
     display: block;
   }
-  .completed-tasks__lists li .task-item__buttons a {
+  .completed-tasks__lists li .task-item__settings a {
     display: none;
   }
 }
 
 @media (max-width: 768px) {
-  .completed-tasks__lists li .task-item__buttons {
+  .completed-tasks__lists li .task-item__settings {
     width: 40px;
   }
 }

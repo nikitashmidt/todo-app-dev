@@ -27,7 +27,6 @@
             }
             .completed-tasks-icons{
                 svg {
-                   
                     path{
                         fill: white;
                         &:first-child{
@@ -55,7 +54,7 @@
                 text-decoration:line-through;
                 color: #CDCDCD;
             }
-            .task-item__buttons{
+            .task-item__settings{
                 background: #e0e5ea;
                 position: static;
                 height: 40px;
