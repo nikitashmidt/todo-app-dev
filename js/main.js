@@ -106,7 +106,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         
         function check() {
-        
         if (modalColorsBg.classList.contains('modal-colors__background-active')) {
           modalColors.onclick = (e) => {
             if (e.target.classList == 'modal-colors__span') {
@@ -144,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
-        
+        check()
         
         modalColorsText.onclick = () => {
           modalColorsBg.classList.remove('modal-colors__background-active');
