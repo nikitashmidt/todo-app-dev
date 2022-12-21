@@ -1708,7 +1708,6 @@ body {
   -webkit-transition: 1s all;
   transition: 1s all;
   opacity: 0;
-  height: 100%;
 }
 
 @media (min-width: 1350px) {
