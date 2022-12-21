@@ -470,8 +470,12 @@
         align-items: center;
         justify-content: space-between;
         margin-top: 20px;
+        transition: 0.3s all;
         &:hover{
           outline: 1px solid white;
+        }
+        &:active{
+            transform: scale(0.92);
         }
         img{
           pointer-events: none;

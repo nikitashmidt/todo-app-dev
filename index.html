@@ -180,9 +180,12 @@
 	</div>
 	<div class="modal-colors">
 		<ul class="modal-colors__changes">
-			<li class="modal-colors__background modal-colors__background-active" data-action="colors-background">
-				<button>Цвет фона</button>	</li>
-			<li class="modal-colors__text" data-action="colors-text" > <button>Цвет текста</button> </li>
+			<li class="modal-colors__background modal-colors__background-active" >
+				<button data-action="colors-background">Цвет фона</button>
+			</li>
+			<li class="modal-colors__text"  >
+				 <button data-action="colors-text">Цвет текста</button> 
+			</li>
 		</ul>
 		<div class="modal-colors__items">
 			<span class="modal-colors__span" style="background-color: #CD5C5C" ></span>
@@ -249,7 +252,21 @@
 		</div>
 	</div>
 
-
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.cells.min.js"></script>
+	<script>
+	VANTA.CELLS({
+  el: "#element",
+  mouseControls: true,
+  touchControls: true,
+  gyroControls: false,
+  minHeight: 200.00,
+  minWidth: 200.00,
+  scale: 1.00,
+  color2: 0x4b35f2
+})
+	</script>
 		<script src="js/main.js" type="module"></script>
 </body>
 </html>

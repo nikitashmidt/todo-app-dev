@@ -319,7 +319,9 @@
 
 @media (max-width: 576px) {
   .header__settings-content {
-    top: 20px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
     right: -2px;
   }
 }
@@ -1211,10 +1213,17 @@
       -ms-flex-pack: justify;
           justify-content: space-between;
   margin-top: 20px;
+  -webkit-transition: 0.3s all;
+  transition: 0.3s all;
 }
 
 .modal-colors__back:hover {
   outline: 1px solid white;
+}
+
+.modal-colors__back:active {
+  -webkit-transform: scale(0.92);
+          transform: scale(0.92);
 }
 
 .modal-colors__back img {
@@ -1392,28 +1401,21 @@
   }
 }
 
-.task-title:hover::after {
+.task-title:hover svg {
   opacity: 1;
 }
 
-.task-title::after {
-  content: url("../img/edit.svg");
-  padding-left: 10px;
-  opacity: 0;
-  -webkit-transition: 0.3s all;
-  transition: 0.3s all;
-  position: absolute;
-}
-
 @media (max-width: 992px) {
-  .task-title::after {
-    content: '';
+  .task-title:hover svg {
+    opacity: 0;
   }
 }
 
-.task-title::after:hover {
-  -webkit-transform: scale(1.2);
-          transform: scale(1.2);
+.task-title svg {
+  margin-left: 15px;
+  opacity: 0;
+  -webkit-transition: 0.3s all;
+  transition: 0.3s all;
 }
 
 .task-item__dots {
@@ -1421,7 +1423,6 @@
 }
 
 .task-item__dots svg {
-  fill: black;
   width: 30px;
   height: 30px;
   -webkit-transition: 0.3s all;
@@ -1665,6 +1666,7 @@
 
 html, body {
   min-height: 100vh;
+  min-width: 100vh;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -1706,6 +1708,7 @@ body {
   -webkit-transition: 1s all;
   transition: 1s all;
   opacity: 0;
+  height: 100%;
 }
 
 @media (min-width: 1350px) {

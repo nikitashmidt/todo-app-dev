@@ -7,35 +7,29 @@
         border-radius: 0.25rem;
         padding: 5px;
         width: 100%;
-        
         @include tablet {
             padding: 5px;
             padding-right: 10px;
         }
         &:hover{
-            &::after{
+            svg{
                 opacity: 1;
+                @include tablet{
+                    opacity: 0;
+                }
             }
+           
         }
-        &::after{
-            content: url('../img/edit.svg');
-            padding-left: 10px;
+        svg{
+            margin-left: 15px;
             opacity: 0;
             transition: 0.3s all;
-            position: absolute;
-            @include tablet{
-                content: '';
-            }
-            &:hover{
-                transform: scale(1.2);
-            }
         }
     }
     &-item{
         &__dots{
             cursor: pointer;
             svg {
-                fill: black;
                 width: 30px;
                 height: 30px;
                 transition: 0.3s all;

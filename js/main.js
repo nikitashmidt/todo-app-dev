@@ -47,6 +47,12 @@ document.addEventListener("DOMContentLoaded", () => {
     modalColorsText = document.querySelector('.modal-colors__text'),
     modalColorsChanges = document.querySelector('.modal-colors__changes');
 
+  
+   
+  
+  
+  
+
   let tasks = [],
     completedTasks = [],
     gridNumber = [],
@@ -83,6 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
       eTarget.children[2].classList.add('task-item__overlay-active');
       btns.style.pointerEvents = 'none';
     disableScroll()
+    transition('-50%')
     eTarget.children[2].onclick = () => {
       if (modalColors.classList.contains('modal-colors-active')) { 
           modalColors.classList.remove('modal-colors-active');
@@ -92,82 +99,72 @@ document.addEventListener("DOMContentLoaded", () => {
         } 
         removeClasses()
       };
-      eTarget.children[1].children[0].onclick = (e) => {
-        doneTask(e)  
-        removeClasses()
-      };
-      eTarget.children[1].children[1].onclick = (e) => {
-        removeClasses();
-        deleteTask(e)
-      }
-      eTarget.children[1].children[2].onclick = (e) => {
+    eTarget.children[1].children[0].onclick = (e) => {
+      doneTask(e)  
+      removeClasses()
+    };
+    eTarget.children[1].children[1].onclick = (e) => {
+      removeClasses();
+      deleteTask(e)
+    }
+    eTarget.children[1].children[2].onclick = (e) => {
       eTarget.children[1].style.right = '-100%';
       modalColors.classList.add('modal-colors-active');
-
-        
-        function check() {
-        if (modalColorsBg.classList.contains('modal-colors__background-active')) {
-          modalColors.onclick = (e) => {
-            if (e.target.classList == 'modal-colors__span') {
-              const bg = e.target.style.backgroundColor;
-              eTarget.parentNode.style.backgroundColor = bg;
-              const id = +eTarget.parentNode.id;
-              tasks.forEach((item) => {
-                if (item.id === id) {
-                  item.colorBg = bg;
-                }
-              })
-              eTarget.children[1].querySelector('[data-action="color"] span').style.borderBottomColor = bg;
-              updateLocalStorage()
-            }
+    }
+    function check(color = true) {
+      modalColors.onclick = (e) => {
+        if (e.target.classList == 'modal-colors__span') {
+          const bg = e.target.style.backgroundColor;
+          color ? eTarget.parentNode.style.backgroundColor = bg : eTarget.parentNode.children[0].style.color = bg;
+          const id = +eTarget.parentNode.id;
+          tasks.forEach((item) => {
+            if (item.id === id) color ? item.colorBg = bg : item.colorText = bg;
+          })
+          if (color) { 
+            eTarget.children[1].querySelector('[data-action="color"] span').style.borderBottomColor = bg;
+          } else {
+            eTarget.children[1].querySelector('[data-action="color"] span').style.borderLeftColor = bg;
+            eTarget.children[0].querySelector('svg').style.fill = bg;
+            eTarget.parentNode.children[0].querySelector('svg').style.fill = bg;
           }
-        } 
-
-
-        if (modalColorsText.classList.contains('modal-colors__text-active')) {
-          modalColors.onclick = (e) => { 
-            if (e.target.classList == 'modal-colors__span') {
-              const color = e.target.style.backgroundColor;
-              eTarget.parentNode.children[0].style.color = color;
-              console.log(eTarget.parentNode)
-              const id = +eTarget.parentNode.id;
-              tasks.forEach((item) => {
-                if (item.id === id) {
-                  item.colorText = color;
-                }
-              })
-              eTarget.children[1].querySelector('[data-action="color"] span').style.borderLeftColor = color;
-              updateLocalStorage()
-            }
-          }
+          updateLocalStorage()
         }
       }
-
-        check()
-        
-        modalColorsText.onclick = () => {
-          modalColorsBg.classList.remove('modal-colors__background-active');
-          modalColorsText.classList.add('modal-colors__text-active');
-          check()
-        }
-        modalColorsBg.onclick = () => {
-          modalColorsBg.classList.add('modal-colors__background-active');
-          modalColorsText.classList.remove('modal-colors__text-active');
-          check()
-        }
+    }
+    function addClass(add = true) {
+      if (add) { 
+        modalColorsBg.classList.add('modal-colors__background-active');
+        modalColorsText.classList.remove('modal-colors__text-active');
+      } else {
+        modalColorsText.classList.add('modal-colors__text-active');
+        modalColorsBg.classList.remove('modal-colors__background-active');
       }
-
-
-      
-      modalColorsBack.onclick = () => {
+    }
+    modalColorsChanges.onclick = (e) => {
+      switch (e.target.dataset.action) {
+        case 'colors-background':
+          addClass()
+          check()
+          break;
+        case 'colors-text':
+          addClass(false)
+          check(false)
+          break;
+        }
+    }
+    check()
+    modalColorsBack.onclick = () => {
       modalColors.classList.remove('modal-colors-active');
       eTarget.children[1].style.right = '50%';
-      }
+    } 
       function removeClasses() {
         eTarget.children[1].classList.remove('task-item__settings-active');
         eTarget.children[2].classList.remove('task-item__overlay-active');
+        modalColorsBg.classList.add('modal-colors__background-active');
+        modalColorsText.classList.remove('modal-colors__text-active');
         btns.style.pointerEvents = '';
         enableScroll()
+        transition('')
       }
     }
   )
@@ -509,15 +506,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const colorBg = task.colorBg ? `style="background-color: ${task.colorBg}"` : '';
     const colorText = task.colorText ? `style="color: ${task.colorText}"` : '';
     const taskHTML = `<li id="${task.id}" ${colorBg} class="list-group-item d-flex ${commentsPresence} justify-content-between task-item">
-        <span class="${cssClass}" data-action='task-title' ${colorText} > ${task.text}  </span>
+        <span class="${cssClass}" data-action='task-title' ${colorText} >
+         ${task.text} 
+         <svg width="15" height="15" viewBox="0 0 15 15" fill="${task.colorText}" xmlns="http://www.w3.org/2000/svg">
+         <path d="M0 12.0504V14.5834C0 14.8167 0.183308 15 0.41661 15H2.9496C3.05792 15 3.16624 14.9583 3.24123 14.875L12.34 5.78458L9.21542 2.66001L0.124983 11.7504C0.0416611 11.8338 0 11.9338 0 12.0504ZM14.7563 3.36825C14.8336 3.29116 14.8949 3.1996 14.9367 3.0988C14.9785 2.99801 15 2.88995 15 2.78083C15 2.6717 14.9785 2.56365 14.9367 2.46285C14.8949 2.36205 14.8336 2.27049 14.7563 2.19341L12.8066 0.24367C12.7295 0.166428 12.6379 0.105146 12.5372 0.0633343C12.4364 0.021522 12.3283 0 12.2192 0C12.1101 0 12.002 0.021522 11.9012 0.0633343C11.8004 0.105146 11.7088 0.166428 11.6318 0.24367L10.107 1.76846L13.2315 4.89304L14.7563 3.36825Z" />
+         </svg>
+        </span>
         <div class="task-item__control">
           <div class='task-item__dots' data-item="dots" >
-          <svg width="20px" height="20px" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="20px" height="20px" viewBox="0 0 20 20" fill="${task.colorText}" xmlns="http://www.w3.org/2000/svg">
             <circle cx="10" cy="15" r="2" fill=""/>
             <circle cx="10" cy="10" r="2" fill=""/>
             <circle cx="10" cy="5" r="2" fill=""/>
           </svg>
-      </div>
+        </div>
         <ul class='task-item__settings list-reset'> 
           <li class="task-item__button"  data-action="done" >
             <a > Выполнить задачу </a>
@@ -544,6 +546,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderCompletedTask(task) {
     const tasksHTML = `<li id="${task.id}" class="completed-tasks-list list-group-item d-flex justify-content-between task-item">
           <span class="task-title" data-action='task-title'> ${task.text} </span>
+          
           <div class="task-item__settings">
           <button type="button" data-action="done" class="return-task">
            <a> Вернуть задачу </a>
@@ -579,28 +582,38 @@ document.addEventListener("DOMContentLoaded", () => {
     for (let i = 0; newCompletedTasks.length > i; i++) { tasks.push(newCompletedTasks[i]) }
     completedTasks = completedTasks.filter((task) => task.id !== id);
     const taskHTML = `<li id="${parentNode.id}" style="background-color: ${task.colorBg}" class="list-group-item d-flex ${task.commentsPresence ? 'comments-presence' : ''} justify-content-between task-item">
-    <span class="task-title" data-action='task-title'>${parentNode.children[0].textContent}</span>
+    <span class="task-title" data-action='task-title' style="color: ${task.colorText}">
+    ${parentNode.children[0].textContent}
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="${task.colorText}" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 12.0504V14.5834C0 14.8167 0.183308 15 0.41661 15H2.9496C3.05792 15 3.16624 14.9583 3.24123 14.875L12.34 5.78458L9.21542 2.66001L0.124983 11.7504C0.0416611 11.8338 0 11.9338 0 12.0504ZM14.7563 3.36825C14.8336 3.29116 14.8949 3.1996 14.9367 3.0988C14.9785 2.99801 15 2.88995 15 2.78083C15 2.6717 14.9785 2.56365 14.9367 2.46285C14.8949 2.36205 14.8336 2.27049 14.7563 2.19341L12.8066 0.24367C12.7295 0.166428 12.6379 0.105146 12.5372 0.0633343C12.4364 0.021522 12.3283 0 12.2192 0C12.1101 0 12.002 0.021522 11.9012 0.0633343C11.8004 0.105146 11.7088 0.166428 11.6318 0.24367L10.107 1.76846L13.2315 4.89304L14.7563 3.36825Z" />
+    </svg>
+    </span>
     <div class="task-item__control">
     <div class='task-item__dots' data-item="dots" >
-      <svg width="20px" height="20px" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="20px" height="20px" viewBox="0 0 20 20" fill="${task.colorText}" xmlns="http://www.w3.org/2000/svg">
         <circle cx="10" cy="15" r="2" fill=""/>
         <circle cx="10" cy="10" r="2" fill=""/>
         <circle cx="10" cy="5" r="2" fill=""/>
         </svg>
         </div>
         <ul class='task-item__settings list-reset'> 
-          <li class="task-item__button"  data-action="done" >
+        <li class="task-item__button"  data-action="done" >
           <a > Выполнить задачу </a>
           <img src='../img/done.svg' alt='done icon' >
-          </li>
-          <li class="task-item__button" data-action="delete" >
+        </li>
+        <li class="task-item__button" data-action="delete" >
           <a id="btn-delete"> Удалить задачу </a>
           <img src='../img/cross.svg' alt='cross icon' >
-          </li>
-          <li class="task-item__button" data-action="color" >
+        </li>
+        <li class="task-item__button" data-action="color" >
             <a id="btn-change-color"> Изменение цвета </a>
-          </li>
-        </ul>
+              <span class="task-item__span task-item__span-bg" style="border-bottom-color: ${task.colorBg}; border-left-color: ${task.colorText}"  >  </span>
+        </li>
+        <li class="task-item__button" data-action="information" >
+          <a id="btn-change-information"> Доп. информация </a>
+          <img src='../img/information.svg' alt='information icon' >
+        </li>
+      </ul>
     <div class="task-item__overlay" data-item="overlay">  </div>
     </li>`;
     tasksList.insertAdjacentHTML("beforeend", taskHTML);
