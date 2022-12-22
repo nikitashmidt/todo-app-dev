@@ -82,9 +82,8 @@
                 visibility: visible;
             }
             @include mobile{
-                top: 50%;
-                transform: translateY(-50%);
-                right: -2px;
+                top: 0%;
+                right: 50%;
             }
         }
         ul{

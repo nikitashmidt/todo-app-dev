@@ -84,10 +84,10 @@ document.addEventListener("DOMContentLoaded", () => {
    
   container.addEventListener('click', (e) => {
     if (e.target.dataset.item !== 'dots') return;
-      const eTarget = e.target.parentNode;
-      eTarget.children[1].classList.add('task-item__settings-active');
-      eTarget.children[2].classList.add('task-item__overlay-active');
-      btns.style.pointerEvents = 'none';
+    const eTarget = e.target.parentNode;
+    eTarget.children[1].classList.add('task-item__settings-active');
+    eTarget.children[2].classList.add('task-item__overlay-active');
+    btns.style.pointerEvents = 'none';
     disableScroll()
     transition('-50%')
     eTarget.children[2].onclick = () => {
@@ -153,6 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
     check()
+
     modalColorsBack.onclick = () => {
       modalColors.classList.remove('modal-colors-active');
       eTarget.children[1].style.right = '50%';
@@ -380,19 +381,23 @@ document.addEventListener("DOMContentLoaded", () => {
   headerDotsFilter.onclick = function (e) {
     switch (e.target.dataset.filter) {
       case 'alphabet':
-        tasks.sort((a, b) => a.text.localeCompare(b.text));
+        let a = tasks.sort((a, b) => a.text.localeCompare(b.text));
+        tasks = [...a];
         toggleActiveText(e, 'header__settings-filter');
         updateNumber(e, filterText)
         updateFilter()
         break;
       case 'date':
-        tasks.sort((a, b) => a.date.localeCompare(b.date));
+        let b = tasks.sort((a, b) => a.date.localeCompare(b.date));
+        tasks = [...b];
         toggleActiveText(e, 'header__settings-filter');
         updateNumber(e, filterText)
         updateFilter()
         break;
       case 'lenght':
-        tasks.sort((a, b) => b.text.length - a.text.length);
+        console.log(e.target)
+        let c = tasks.sort((a, b) => b.text.length - a.text.length);
+        tasks = [...c];
         toggleActiveText(e, 'header__settings-filter');
         updateNumber(e, filterText)
         updateFilter()
@@ -534,8 +539,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 <span class="task-item__span task-item__span-bg" style="border-bottom-color: ${task.colorBg}; border-left-color: ${task.colorText}"  >  </span>
           </li>
           <li class="task-item__button" data-action="information" >
-            <a id="btn-change-information"> Доп. информация </a>
+            <a id="btn-information"> Доп. информация </a>
             <img src='../img/information.svg' alt='information icon' >
+          </li>
+          <li class="task-item__button" data-action="fonts" >
+            <a id="btn-change-fonts"> Смена шрифта </a>
+            <img src='../img/fonts.svg' alt='fonts icon' >
           </li>
         </ul>
         <div class="task-item__overlay" data-item="overlay">  </div>

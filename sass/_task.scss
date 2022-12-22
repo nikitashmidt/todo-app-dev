@@ -50,7 +50,7 @@
             border-radius: 10px;
             position: fixed;
             right: 50%;
-            top: 50%;
+            top: 30%;
             transform: translate(50%, -50%);
             z-index: 27;
             transition: 0.3s all;
@@ -60,16 +60,11 @@
             padding: 10px;
             color: white;
             &-active{
-                animation: center-animate 1s ease alternate;
                 @include visibleElem;
                 pointer-events:all;
+                top: 50%;
             }
         }
-        @keyframes center-animate {
-            0% { transform: translate(50%, -50%) scaleX(1.2) scaleY(1.2) }
-            100% { transform: translate(50%, -50%) scaleX(1) scaleY(1)}
-        }
-
         &__button{
             padding: 10px;
             cursor: pointer;

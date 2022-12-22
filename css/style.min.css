@@ -319,10 +319,8 @@
 
 @media (max-width: 576px) {
   .header__settings-content {
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-            transform: translateY(-50%);
-    right: -2px;
+    top: 0%;
+    right: 50%;
   }
 }
 
@@ -1447,7 +1445,7 @@
   border-radius: 10px;
   position: fixed;
   right: 50%;
-  top: 50%;
+  top: 30%;
   -webkit-transform: translate(50%, -50%);
           transform: translate(50%, -50%);
   z-index: 27;
@@ -1465,33 +1463,10 @@
 }
 
 .task-item__settings-active {
-  -webkit-animation: center-animate 1s ease alternate;
-          animation: center-animate 1s ease alternate;
   opacity: 1;
   visibility: visible;
   pointer-events: all;
-}
-
-@-webkit-keyframes center-animate {
-  0% {
-    -webkit-transform: translate(50%, -50%) scaleX(1.2) scaleY(1.2);
-            transform: translate(50%, -50%) scaleX(1.2) scaleY(1.2);
-  }
-  100% {
-    -webkit-transform: translate(50%, -50%) scaleX(1) scaleY(1);
-            transform: translate(50%, -50%) scaleX(1) scaleY(1);
-  }
-}
-
-@keyframes center-animate {
-  0% {
-    -webkit-transform: translate(50%, -50%) scaleX(1.2) scaleY(1.2);
-            transform: translate(50%, -50%) scaleX(1.2) scaleY(1.2);
-  }
-  100% {
-    -webkit-transform: translate(50%, -50%) scaleX(1) scaleY(1);
-            transform: translate(50%, -50%) scaleX(1) scaleY(1);
-  }
+  top: 50%;
 }
 
 .task-item__button {
