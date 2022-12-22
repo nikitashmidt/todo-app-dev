@@ -11,6 +11,11 @@
             color: $main-color;
         }
     }
+    &__descr{
+        @include mobile{
+            font-size: 1.4rem ;
+        }
+    }
     &__time, &__number-tasks span{
         color: red;
     }
@@ -41,14 +46,11 @@
                 height: 3px;
                 border-radius: 4px;
                 transition: 0.3s all;
-                &:nth-child(1){
+                &:nth-child(1), &:nth-child(3){
                     width: 25px;
                 }
                 &:nth-child(2){
                     width: 15px;
-                }
-                &:nth-child(3){
-                    width: 25px;
                 }
             }
             &:hover{
@@ -81,9 +83,13 @@
                 opacity: 1;
                 visibility: visible;
             }
+            @include mini-tablet{
+                top: -25px;
+                right: 40px;
+            }
             @include mobile{
                 top: 0%;
-                right: 50%;
+                right: -5px;
             }
         }
         ul{

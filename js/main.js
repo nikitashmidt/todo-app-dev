@@ -46,13 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
     modalColorsBg = document.querySelector('.modal-colors__background'),
     modalColorsText = document.querySelector('.modal-colors__text'),
     modalColorsChanges = document.querySelector('.modal-colors__changes');
-
   
-   
-  
-  
-  
-
   let tasks = [],
     completedTasks = [],
     gridNumber = [],
@@ -80,7 +74,6 @@ document.addEventListener("DOMContentLoaded", () => {
   completedTasksLists.addEventListener("click", returnTasks);
   modalComments.addEventListener('click', editDoneComments);
   headerDotsHamburger.addEventListener('click', gridSelection);
-
    
   container.addEventListener('click', (e) => {
     if (e.target.dataset.item !== 'dots') return;
@@ -836,7 +829,7 @@ document.addEventListener("DOMContentLoaded", () => {
     modalComments.onclick = function (e) {
       if (e.target.dataset.action !== 'modal-comments-delete') return;
       let id = +e.target.parentNode.parentNode.id;
-      // let findIndex = tasks[0].comments.findIndex(item => item.id === id);
+      console.log('true')
       updateLocalStorage()
     }
   }

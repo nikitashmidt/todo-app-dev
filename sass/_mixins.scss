@@ -68,7 +68,5 @@
     box-shadow: 1px 1px 3px 5px $main-color;
 }
 @mixin hiddenGrid{
-    text-decoration:line-through;
-    pointer-events: none;
-    color: red;
+    display: none;
 }

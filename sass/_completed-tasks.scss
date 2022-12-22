@@ -55,7 +55,7 @@
                 color: #CDCDCD;
             }
             .task-item__settings{
-                background: #e0e5ea;
+                background: #e0e5ea;    
                 position: static;
                 height: 40px;
                 width: 180px;
@@ -66,6 +66,7 @@
                 transition: none;
                 padding: 0;
                 border-radius: 4px;
+                z-index: 10;
                 button{
                     cursor: pointer;
                     background:none;
@@ -99,7 +100,7 @@
                     }
                 }
                 @include mini-tablet{
-                    width: 40px;
+                    width: 50px;
                 }
             }
         }

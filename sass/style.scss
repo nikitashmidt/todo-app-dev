@@ -16,10 +16,10 @@ html, body {
     font-family: 'Roboto', sans-serif;
 }
 body {
-    background-color: $bg-color;
     padding-top: 30px;
     margin: 0;
     position: relative;
+    background-color: $bg-color;
 }
 #element::-webkit-scrollbar {
   width: 6px;
