@@ -49,7 +49,7 @@
         margin-bottom: 50px;
         animation: animation-drop 1s ;
         li{
-            span{
+            .task-title{
                 pointer-events: none;
                 text-decoration:line-through;
                 color: #CDCDCD;
@@ -83,7 +83,7 @@
                         color: white;
                     }
                 }
-                a,img{
+                span,img{
                     pointer-events: none;
                 }
                 img{
@@ -95,7 +95,7 @@
                     img{
                         display: block;
                     }
-                    a{
+                    span{
                         display: none;
                     }
                 }

@@ -66,7 +66,7 @@
           animation: animation-drop 1s;
 }
 
-.completed-tasks__lists li span {
+.completed-tasks__lists li .task-title {
   pointer-events: none;
   text-decoration: line-through;
   color: #CDCDCD;
@@ -116,7 +116,7 @@
   color: white;
 }
 
-.completed-tasks__lists li .task-item__settings a, .completed-tasks__lists li .task-item__settings img {
+.completed-tasks__lists li .task-item__settings span, .completed-tasks__lists li .task-item__settings img {
   pointer-events: none;
 }
 
@@ -130,7 +130,7 @@
   .completed-tasks__lists li .task-item__settings img {
     display: block;
   }
-  .completed-tasks__lists li .task-item__settings a {
+  .completed-tasks__lists li .task-item__settings span {
     display: none;
   }
 }
@@ -358,7 +358,7 @@
   border-radius: 4px;
 }
 
-.header__settings-item a {
+.header__settings-item a, .header__settings-item img {
   pointer-events: none;
 }
 

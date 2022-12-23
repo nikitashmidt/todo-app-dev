@@ -72,7 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
   completedTasksBlock.addEventListener("click", completedTasksUp);
   emptyTrashBtn.addEventListener("click", emptyTrash);
   completedTasksLists.addEventListener("click", returnTasks);
-  modalComments.addEventListener('click', editDoneComments);
   headerDotsHamburger.addEventListener('click', gridSelection);
    
   container.addEventListener('click', (e) => {
@@ -241,16 +240,18 @@ document.addEventListener("DOMContentLoaded", () => {
       if (parentNode.children[0].classList.contains("task-title--done")) {
         modalDone.classList.add("modal-done-active");
         modalDoneSpan.textContent = parentNode.children[0].textContent;
-        document.querySelectorAll(".task-item__settings").forEach((item) => {
+        document.querySelectorAll(".task-item__control").forEach((item) => {
           item.style.pointerEvents = "none";
         });
         removeDoneTasksBtn.style.pointerEvents = "none";
+        openModalBtn.style.pointerEvents = "none";
         setTimeout(() => {
           modalDone.classList.remove("modal-done-active");
-          document.querySelectorAll(".task-item__settings").forEach((item) => {
+          document.querySelectorAll(".task-item__control").forEach((item) => {
             item.style.pointerEvents = "";
           });
           removeDoneTasksBtn.style.pointerEvents = "";
+          openModalBtn.style.pointerEvents = "";
         }, 2000);
       }
     }
@@ -388,7 +389,6 @@ document.addEventListener("DOMContentLoaded", () => {
         updateFilter()
         break;
       case 'lenght':
-        console.log(e.target)
         let c = tasks.sort((a, b) => b.text.length - a.text.length);
         tasks = [...c];
         toggleActiveText(e, 'header__settings-filter');
@@ -409,7 +409,6 @@ document.addEventListener("DOMContentLoaded", () => {
     updateEmpty()
     updateLocalStorage()
   }
-  
   function updateEmpty() {
     if (tasks.length === 0) {
       emptyListTitle.textContent = "Список задач пуст";
@@ -548,10 +547,9 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderCompletedTask(task) {
     const tasksHTML = `<li id="${task.id}" class="completed-tasks-list list-group-item d-flex justify-content-between task-item">
           <span class="task-title" data-action='task-title'> ${task.text} </span>
-          
           <div class="task-item__settings">
           <button type="button" data-action="done" class="return-task">
-           <a> Вернуть задачу </a>
+             <span>Вернуть задачу</span> 
              <img src="../img/return.png" width="20px" height="20px" alt="return-icon" >
           </button>
           </div>
@@ -628,14 +626,13 @@ document.addEventListener("DOMContentLoaded", () => {
     overlay.classList.add("overlay-active");
     transition("-50%");
     disableScroll();
-    clearBtn.addEventListener("click",() => {
+    clearBtn.onclick = () => {
       completedTasks = [];
       document.querySelectorAll(".completed-tasks-list").forEach((item) => item.remove());
       updateLocalStorage();
       updateEmpty();
       closeModal();
-    },{ once: true }
-    );
+    }
     overlay.addEventListener("click", closeModal);
   }
   function openModalComments(e) {
@@ -660,6 +657,9 @@ document.addEventListener("DOMContentLoaded", () => {
       doneComments(id);
     }, 300);
     overlay.addEventListener("click", closeModal);
+    modalComments.addEventListener('click', (e) => {
+      deleteComments(e,id)
+    }) 
     submitForm(id, eventTarget);
     disableScroll();
     transition("-50%");
@@ -788,51 +788,52 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   function editComments(id) {
     modalComments.addEventListener('click', (e) => {
-      if (e.target.dataset.action !== 'modal-comments-edit') return;
-      document.querySelectorAll('.modal-comments__comment').forEach(item => item.disabled = true);
-      document.querySelectorAll('.modal-comments__edit').forEach(item => item.classList.remove('none'));
-      document.querySelectorAll('.modal-comments__redact').forEach(item => item.classList.add('none'));
-      const parentNode = e.target.parentNode.parentNode.children[1];
-      const parentNodeChildren = e.target.parentNode.children[1];
-      const eTarget = e.target;
-      eTarget.classList.add('none');
-      parentNodeChildren.classList.remove('none');
-      parentNode.disabled = false;
-      parentNode.focus();
-      parentNode.setSelectionRange(parentNode.value.length, parentNode.value.length);
-      parentNode.onchange = function (e) {
-        let value = e.target.value;
-        let id = +eTarget.parentNode.parentNode.id;
-        tasks.forEach((item) => {
-          item.comments.forEach(item => {
-            if (item.id === id) {
-              if (value.length === 0) { 
-                item.text = item.text;
-                e.target.value = item.text;
-              } else {
-                item.text = value;
+      if (e.target.dataset.action === 'modal-comments-edit') {
+        document.querySelectorAll('.modal-comments__comment').forEach(item => item.disabled = true);
+        document.querySelectorAll('.modal-comments__edit').forEach(item => item.classList.remove('none'));
+        document.querySelectorAll('.modal-comments__redact').forEach(item => item.classList.add('none'));
+        const parentNode = e.target.parentNode.parentNode.children[1];
+        const parentNodeChildren = e.target.parentNode.children[1];
+        const eTarget = e.target;
+        eTarget.classList.add('none');
+        parentNodeChildren.classList.remove('none');
+        parentNode.disabled = false;
+        parentNode.focus();
+        parentNode.setSelectionRange(parentNode.value.length, parentNode.value.length);
+        parentNode.onchange = function (e) {
+          let value = e.target.value;
+          let id = +eTarget.parentNode.parentNode.id;
+          tasks.forEach((item) => {
+            item.comments.forEach(item => {
+              if (item.id === id) {
+                if (value.length === 0) { 
+                  item.text = item.text;
+                  e.target.value = item.text;
+                } else {
+                  item.text = value;
+                }
               }
-            }
-          })
-        });
+            })
+          });
+          updateLocalStorage()
+        }
+      };
+      if (e.target.dataset.action === 'modal-comments-redact') {
+        e.target.classList.add('none');
+        e.target.parentNode.children[0].classList.remove('none');
+        e.target.parentNode.parentNode.children[1].disabled = true;
+      };
+    })
+  }
+  function deleteComments(e, id) {
+    if (e.target.dataset.action !== 'modal-comments-delete') return;
+    let idComment = +e.target.parentNode.parentNode.id; 
+    tasks.forEach((item) => {
+      if (item.id === id) {
+       item.comments =  item.comments.filter(comment => comment.id !== idComment )
+        renderComments(item.id)        
         updateLocalStorage()
       }
     })
   }
-  function editDoneComments(e) {
-    if (e.target.dataset.action !== 'modal-comments-redact') return;
-    e.target.classList.add('none');
-    e.target.parentNode.children[0].classList.remove('none');
-    e.target.parentNode.parentNode.children[1].disabled = true;
-  }
-  function deleteComments(eventTarget) {
-    modalComments.onclick = function (e) {
-      if (e.target.dataset.action !== 'modal-comments-delete') return;
-      let id = +e.target.parentNode.parentNode.id;
-      console.log('true')
-      updateLocalStorage()
-    }
-  }
- 
-
 });
