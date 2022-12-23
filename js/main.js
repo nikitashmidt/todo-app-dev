@@ -76,20 +76,18 @@ document.addEventListener("DOMContentLoaded", () => {
    
   container.addEventListener('click', (e) => {
     if (e.target.dataset.item !== 'dots') return;
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') removeClasses()
+    });
     const eTarget = e.target.parentNode;
     eTarget.children[1].classList.add('task-item__settings-active');
     eTarget.children[2].classList.add('task-item__overlay-active');
     btns.style.pointerEvents = 'none';
     disableScroll()
     transition('-50%')
+    // overlay click
     eTarget.children[2].onclick = () => {
-      if (modalColors.classList.contains('modal-colors-active')) { 
-          modalColors.classList.remove('modal-colors-active');
-          setTimeout(() => {
-            eTarget.children[1].style.right = ''; 
-          }, 300);
-        } 
-        removeClasses()
+      removeClasses()
       };
     eTarget.children[1].children[0].onclick = (e) => {
       doneTask(e)  
@@ -145,7 +143,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
     check()
-
     modalColorsBack.onclick = () => {
       modalColors.classList.remove('modal-colors-active');
       eTarget.children[1].style.right = '50%';
@@ -156,6 +153,12 @@ document.addEventListener("DOMContentLoaded", () => {
         modalColorsBg.classList.add('modal-colors__background-active');
         modalColorsText.classList.remove('modal-colors__text-active');
         btns.style.pointerEvents = '';
+        if (modalColors.classList.contains('modal-colors-active')) { 
+          modalColors.classList.remove('modal-colors-active');
+          setTimeout(() => {
+            eTarget.children[1].style.right = ''; 
+          }, 300);
+        } 
         enableScroll()
         transition('')
       }
@@ -535,7 +538,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <img src='../img/information.svg' alt='information icon' >
           </li>
           <li class="task-item__button" data-action="fonts" >
-            <a id="btn-change-fonts"> Смена шрифта </a>
+            <a id="btn-change-fonts"> Форматирование </a>
             <img src='../img/fonts.svg' alt='fonts icon' >
           </li>
         </ul>
@@ -658,7 +661,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 300);
     overlay.addEventListener("click", closeModal);
     modalComments.addEventListener('click', (e) => {
-      deleteComments(e,id)
+      deleteComments(e,id, eventTarget)
     }) 
     submitForm(id, eventTarget);
     disableScroll();
@@ -725,6 +728,7 @@ document.addEventListener("DOMContentLoaded", () => {
     tasks.forEach((item) => {
       if (item.id === id) {
         if (item.comments.length === 0) {
+          item.commentsPresence = false;
           return;
         } else {
           item.comments.forEach((item) => {
@@ -825,13 +829,17 @@ document.addEventListener("DOMContentLoaded", () => {
       };
     })
   }
-  function deleteComments(e, id) {
+  function deleteComments(e, id, eventTarget) {
     if (e.target.dataset.action !== 'modal-comments-delete') return;
     let idComment = +e.target.parentNode.parentNode.id; 
     tasks.forEach((item) => {
       if (item.id === id) {
        item.comments =  item.comments.filter(comment => comment.id !== idComment )
         renderComments(item.id)        
+        if (item.comments.length === 0) {
+          item.commentsPresence = false;
+          eventTarget.parentNode.classList.remove('comments-presence')
+        }
         updateLocalStorage()
       }
     })
