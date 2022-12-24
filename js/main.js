@@ -731,6 +731,7 @@ document.addEventListener("DOMContentLoaded", () => {
           item.commentsPresence = false;
           return;
         } else {
+//          <input maxlength="60" value="${item.text}" class="${cssClass}" disabled="true"></input>
           item.comments.forEach((item) => {
             const cssClass = item.done ? "modal-comments__comment  comments-done" : 'modal-comments__comment';
             const ccsClassSvg = item.done ? 'modal-comments__svg modal-comments__svg-active' : 'modal-comments__svg';
@@ -742,7 +743,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 <path d="M9.29999 1.20001L3.79999 6.70001L1.29999 4.20001" stroke="red" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </div>
-              <input maxlength="60" value="${item.text}" class="${cssClass}" disabled="true"></input>
+              <span class="${cssClass}"> ${item.text} </span>
+              <textarea  class="modal-comments__textarea" contenteditable>${item.text}</textarea>
               <div class="modal-comments__btns">
                 <button data-action="modal-comments-edit" class="${modalEditClass}">
                   <svg  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -786,7 +788,8 @@ document.addEventListener("DOMContentLoaded", () => {
           })
         }
       })
-      parentNode.children[2].children[0].classList.toggle('pe');
+      // parentNode.children[3].children[0].classList.toggle('pe');  
+      parentNode.querySelector('.modal-comments__edit').classList.toggle('pe');
       updateLocalStorage();
     }
   }
@@ -799,12 +802,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const parentNode = e.target.parentNode.parentNode.children[1];
         const parentNodeChildren = e.target.parentNode.children[1];
         const eTarget = e.target;
-        eTarget.classList.add('none');
-        parentNodeChildren.classList.remove('none');
-        parentNode.disabled = false;
-        parentNode.focus();
-        parentNode.setSelectionRange(parentNode.value.length, parentNode.value.length);
-        parentNode.onchange = function (e) {
+        eTarget.classList.add('none'); //  +++
+        parentNodeChildren.classList.remove('none'); // +++
+        parentNode.style.display = 'none'; // ++++
+        let modalCommentTextarea = parentNode.parentNode.querySelector('.modal-comments__textarea');
+        modalCommentTextarea.classList.add('modal-comments__textarea-active');
+        // parentNode.disabled = false;
+        modalCommentTextarea.focus();
+        modalCommentTextarea.setSelectionRange(modalCommentTextarea.value.length, modalCommentTextarea.value.length);
+        // parentNode.focus();
+        modalCommentTextarea.onchange = function (e) {
           let value = e.target.value;
           let id = +eTarget.parentNode.parentNode.id;
           tasks.forEach((item) => {
@@ -825,7 +832,14 @@ document.addEventListener("DOMContentLoaded", () => {
       if (e.target.dataset.action === 'modal-comments-redact') {
         e.target.classList.add('none');
         e.target.parentNode.children[0].classList.remove('none');
-        e.target.parentNode.parentNode.children[1].disabled = true;
+        let comment = e.target.parentNode.parentNode.querySelector('.modal-comments__comment');
+        let textarea = e.target.parentNode.parentNode.querySelector('.modal-comments__textarea');
+        comment.style.display = 'block';
+        // comment.textContent = e.target.parentNode.parentNode.querySelector('.modal-comments__textarea').textContent;
+        textarea.classList.remove('modal-comments__textarea-active');
+        // console.log(e.target.parentNode.parentNode)
+        // modalCommentTextarea.classList.remove('modal-comments__textarea-active');
+        // e.target.parentNode.parentNode.children[1].disabled = true;
       };
     })
   }

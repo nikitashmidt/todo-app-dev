@@ -936,7 +936,7 @@
   stroke: green;
 }
 
-.modal-comments__comment {
+.modal-comments__comment, .modal-comments__textarea {
   background: none;
   color: white;
   border: none;
@@ -946,10 +946,22 @@
       -ms-flex: 1;
           flex: 1;
   padding: 5px 10px;
+  word-wrap: break-word;
+  word-break: break-word;
+  text-align: left;
 }
 
-.modal-comments__comment:focus {
+.modal-comments__comment:focus, .modal-comments__textarea:focus {
   outline: none;
+}
+
+.modal-comments__textarea {
+  resize: none;
+  display: none;
+}
+
+.modal-comments__textarea-active {
+  display: block;
 }
 
 .modal-comments__btns {

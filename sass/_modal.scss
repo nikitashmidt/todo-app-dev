@@ -244,7 +244,7 @@
                 }
             }
        }
-       &__comment{
+       &__comment, &__textarea{
             background: none;
             color: white;
             border: none;
@@ -252,8 +252,18 @@
             width: 100%;
             flex: 1;
             padding: 5px 10px;
+            word-wrap: break-word;
+            word-break: break-word;
+            text-align: left;
             &:focus{
                 outline: none;
+            }
+        }
+        &__textarea{
+            resize: none;
+            display: none;
+            &-active{
+                display: block;
             }
         }
         &__btns{
