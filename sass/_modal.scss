@@ -261,7 +261,9 @@
         }
         &__textarea{
             resize: none;
+            overflow: hidden;
             display: none;
+            min-height: 34px;
             &-active{
                 display: block;
             }

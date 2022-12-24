@@ -49,6 +49,7 @@
         margin-bottom: 50px;
         animation: animation-drop 1s ;
         li{
+            z-index: 0;
             .task-title{
                 pointer-events: none;
                 text-decoration:line-through;
@@ -66,7 +67,6 @@
                 transition: none;
                 padding: 0;
                 border-radius: 4px;
-                z-index: 10;
                 button{
                     cursor: pointer;
                     background:none;

@@ -484,7 +484,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <span class="task-title" data-action='task-title'>${item.parentNode.children[0].textContent}</span>
           <div class="task-item__settings">
               <button type="button" data-action="done" class="btn-action return-task">
-                  <a> Вернуть задачу </a>
+                  <span> Вернуть задачу </span>
                   <img src="./img/return.png" width="20px" height="20px" alt="return-icon" >
               </button> </div>  </li>`;
         item.parentNode.remove();
@@ -731,7 +731,6 @@ document.addEventListener("DOMContentLoaded", () => {
           item.commentsPresence = false;
           return;
         } else {
-//          <input maxlength="60" value="${item.text}" class="${cssClass}" disabled="true"></input>
           item.comments.forEach((item) => {
             const cssClass = item.done ? "modal-comments__comment  comments-done" : 'modal-comments__comment';
             const ccsClassSvg = item.done ? 'modal-comments__svg modal-comments__svg-active' : 'modal-comments__svg';
@@ -796,7 +795,8 @@ document.addEventListener("DOMContentLoaded", () => {
   function editComments(id) {
     modalComments.addEventListener('click', (e) => {
       if (e.target.dataset.action === 'modal-comments-edit') {
-        document.querySelectorAll('.modal-comments__comment').forEach(item => item.disabled = true);
+        document.querySelectorAll('.modal-comments__textarea').forEach(item => item.classList.remove('modal-comments__textarea-active'));
+        document.querySelectorAll('.modal-comments__comment').forEach(item=> item.style.display = 'block')
         document.querySelectorAll('.modal-comments__edit').forEach(item => item.classList.remove('none'));
         document.querySelectorAll('.modal-comments__redact').forEach(item => item.classList.add('none'));
         const parentNode = e.target.parentNode.parentNode.children[1];
@@ -804,15 +804,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const eTarget = e.target;
         eTarget.classList.add('none'); //  +++
         parentNodeChildren.classList.remove('none'); // +++
+        let height = parentNode.offsetHeight;
         parentNode.style.display = 'none'; // ++++
         let modalCommentTextarea = parentNode.parentNode.querySelector('.modal-comments__textarea');
         modalCommentTextarea.classList.add('modal-comments__textarea-active');
-        // parentNode.disabled = false;
+        modalCommentTextarea.style.height = `${height}px`;
         modalCommentTextarea.focus();
         modalCommentTextarea.setSelectionRange(modalCommentTextarea.value.length, modalCommentTextarea.value.length);
-        // parentNode.focus();
         modalCommentTextarea.onchange = function (e) {
           let value = e.target.value;
+          parentNode.textContent = value;
           let id = +eTarget.parentNode.parentNode.id;
           tasks.forEach((item) => {
             item.comments.forEach(item => {
@@ -820,6 +821,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (value.length === 0) { 
                   item.text = item.text;
                   e.target.value = item.text;
+                  parentNode.textContent = item.text;
                 } else {
                   item.text = value;
                 }
@@ -835,11 +837,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let comment = e.target.parentNode.parentNode.querySelector('.modal-comments__comment');
         let textarea = e.target.parentNode.parentNode.querySelector('.modal-comments__textarea');
         comment.style.display = 'block';
-        // comment.textContent = e.target.parentNode.parentNode.querySelector('.modal-comments__textarea').textContent;
         textarea.classList.remove('modal-comments__textarea-active');
-        // console.log(e.target.parentNode.parentNode)
-        // modalCommentTextarea.classList.remove('modal-comments__textarea-active');
-        // e.target.parentNode.parentNode.children[1].disabled = true;
       };
     })
   }

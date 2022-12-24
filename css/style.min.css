@@ -66,6 +66,10 @@
           animation: animation-drop 1s;
 }
 
+.completed-tasks__lists li {
+  z-index: 0;
+}
+
 .completed-tasks__lists li .task-title {
   pointer-events: none;
   text-decoration: line-through;
@@ -86,7 +90,6 @@
   transition: none;
   padding: 0;
   border-radius: 4px;
-  z-index: 10;
 }
 
 .completed-tasks__lists li .task-item__settings button {
@@ -957,7 +960,9 @@
 
 .modal-comments__textarea {
   resize: none;
+  overflow: hidden;
   display: none;
+  min-height: 34px;
 }
 
 .modal-comments__textarea-active {
