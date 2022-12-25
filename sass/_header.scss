@@ -23,7 +23,7 @@
         position: absolute;
         right: 5px;
         height: 100%;
-       &-hamburger{
+        &-hamburger{
             display: flex;
             justify-content: center;
             align-items: flex-end;
@@ -91,6 +91,12 @@
                 top: 0%;
                 right: -5px;
             }
+        }
+        &-backgroundcolor{
+            width: 30px;
+            height: 30px;
+            display: block;
+            border-radius: 4px;
         }
         ul{
             list-style-type: none;

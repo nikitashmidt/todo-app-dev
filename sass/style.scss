@@ -20,6 +20,9 @@ body {
     margin: 0;
     position: relative;
     background-color: $bg-color;
+    @include mobile{
+      padding-top: 15px;
+    }
 }
 #element::-webkit-scrollbar {
   width: 6px;

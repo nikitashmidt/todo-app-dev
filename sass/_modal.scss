@@ -195,8 +195,16 @@
             width: 100%;
             padding: 0 10px;
             &::-webkit-scrollbar {
-                width: 0;
-                background: none;
+                width: 3px;
+                background-color: #005cbf;
+            }
+            &::-webkit-scrollbar-thumb {
+                border-radius: 3px;
+                background-color: #005cbf;
+            }
+            &::-webkit-scrollbar-track {
+                border-radius: 3px;
+                background-color: #f9f9fd;
             }
         }
         &__item{
@@ -356,7 +364,7 @@
         &__bottom{
             left: 50%;
             transform: translateX(-50%);
-            width: 100%;
+            width: 99%;
             position: absolute;
             bottom: 0px;
             background-color: $bg-color;

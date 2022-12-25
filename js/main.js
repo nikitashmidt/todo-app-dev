@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
     headerDotsGrid = document.querySelector('.header__settings-grid'),
     headerDotsMenu = document.querySelector('.header__settings-menu'),
     headerDotsFilter = document.querySelector('.header__settings-filter'),
+    headerSettingsBackground = document.querySelector('.header__settings-backgroundcolor'),
     loader = document.querySelector(".loader"),
     checkbox = document.getElementById("checkbox"),
     clearBtn = document.querySelector('[data-action="clear"]'),
@@ -50,7 +51,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let tasks = [],
     completedTasks = [],
     gridNumber = [],
-    filterText = [];
+    filterText = [],
+    mainBackground = [];
   if (localStorage.getItem("tasks"))
     tasks = JSON.parse(localStorage.getItem("tasks"));
   if (localStorage.getItem("completedTasks"))
@@ -58,7 +60,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if (localStorage.getItem("gridNumber"))
     gridNumber = JSON.parse(localStorage.getItem("gridNumber"));
   if (localStorage.getItem("filterText"))
-  filterText = JSON.parse(localStorage.getItem("filterText"));
+    filterText = JSON.parse(localStorage.getItem("filterText"));
+  if (localStorage.getItem("mainBackground"))
+    filterText = JSON.parse(localStorage.getItem("mainBackground"));
 
   
   tasks.forEach((task) => renderTask(task));
@@ -72,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
   completedTasksBlock.addEventListener("click", completedTasksUp);
   emptyTrashBtn.addEventListener("click", emptyTrash);
   completedTasksLists.addEventListener("click", returnTasks);
-  headerDotsHamburger.addEventListener('click', gridSelection);
+  headerDotsHamburger.addEventListener('click', modalSettings);
    
   container.addEventListener('click', (e) => {
     if (e.target.dataset.item !== 'dots') return;
@@ -85,10 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
     btns.style.pointerEvents = 'none';
     disableScroll()
     transition('-50%')
-    // overlay click
-    eTarget.children[2].onclick = () => {
-      removeClasses()
-      };
+    eTarget.children[2].onclick = () => removeClasses();
     eTarget.children[1].children[0].onclick = (e) => {
       doneTask(e)  
       removeClasses()
@@ -317,101 +318,129 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     e.target.classList.add('header__settings-item', 'active-text');
   }
-  function gridSelection(e) {
+  function modalSettings(e) {
     headerDotsContent.classList.toggle('header__settings-content-active');
     headerDotsOverlay.classList.add('header__settings-overlay-active');
     disableScroll()
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal()
+    });
     function removeClass() {
       headerDotsGrid.classList.remove('header__settings-grid-active');
       headerDotsMenu.style.display = 'block';
       headerDotsFilter.classList.remove('header__settings-filter-active');
     }
-    headerDotsOverlay.onclick = function (e) {
+    headerDotsOverlay.onclick = () => closeModal();
+    function closeModal() {
       headerDotsContent.classList.remove('header__settings-content-active');
       headerDotsOverlay.classList.remove('header__settings-overlay-active');
       enableScroll()
       setTimeout(() => { removeClass() }, 300)
     }
+    headerSettingsBackground.style.backgroundColor = document.body.style.backgroundColor;
     headerDotsContent.onclick = function (e) {
-      if (e.target.dataset.menu === 'choice') {
-        headerDotsGrid.classList.add('header__settings-grid-active');
-        headerDotsMenu.style.display = 'none';
+      switch (e.target.dataset.menu) {
+        case 'choice':
+          headerDotsGrid.classList.add('header__settings-grid-active');
+          headerDotsMenu.style.display = 'none';
+          headerDotsGrid.onclick = (e) => {
+            switch (e.target.dataset.grid) {
+              case '1': tasksList.classList = '';
+                tasksList.classList.add('list-group', 'list-group-flush')
+                toggleActiveText(e, 'header__settings-grid');
+                updateNumber(e, gridNumber)
+                break;
+              case '2': tasksList.classList = '';
+                tasksList.classList.add('list-group', 'list-group-flush', 'grid-template', 'grid-template-2')
+                toggleActiveText(e, 'header__settings-grid');
+                updateNumber(e, gridNumber)
+                break;
+              case '3':
+                tasksList.classList = '';
+                tasksList.classList.add('list-group', 'list-group-flush', 'grid-template', 'grid-template-3')
+                toggleActiveText(e, 'header__settings-grid');
+                updateNumber(e, gridNumber)
+                break;
+              case '4':
+                tasksList.classList = '';
+                tasksList.classList.add('list-group', 'list-group-flush', 'grid-template', 'grid-template-4')
+                toggleActiveText(e, 'header__settings-grid');
+                updateNumber(e, gridNumber)
+                break;
+              case 'back':
+                headerDotsGrid.classList.remove('header__settings-grid-active');
+                headerDotsMenu.style.display = 'block';
+            }
+          }
+          break;
+        case 'filter':
+          headerDotsFilter.classList.add('header__settings-filter-active');
+          headerDotsMenu.style.display = 'none';
+          headerDotsFilter.onclick = function (e) {
+            switch (e.target.dataset.filter) {
+              case 'alphabet':
+                let a = tasks.sort((a, b) => a.text.localeCompare(b.text));
+                tasks = [...a];
+                toggleActiveText(e, 'header__settings-filter');
+                updateNumber(e, filterText)
+                updateFilter()
+                break;
+              case 'date':
+                let b = tasks.sort((a, b) => a.date.localeCompare(b.date));
+                tasks = [...b];
+                toggleActiveText(e, 'header__settings-filter');
+                updateNumber(e, filterText)
+                updateFilter()
+                break;
+              case 'lenght':
+                let c = tasks.sort((a, b) => b.text.length - a.text.length);
+                tasks = [...c];
+                toggleActiveText(e, 'header__settings-filter');
+                updateNumber(e, filterText)
+                updateFilter()
+                break;
+              case 'rotate':
+                tasks = [...tasks].reverse();
+                updateFilter()
+                break;
+              case 'back':
+                headerDotsFilter.classList.remove('header__settings-filter-active');
+                headerDotsMenu.style.display = 'block';
+              break;
+            }
+          }
+        break;
+        case 'background-color':
+          modalColors.classList.add('modal-colors-active');
+          headerDotsContent.classList.remove('header__settings-content-active');
+          if ( modalColors.querySelector('.modal-colors__changes')) modalColors.querySelector('.modal-colors__changes').remove();
+          modalColors.querySelectorAll('.modal-colors__items span').forEach(item => {
+            item.onclick = (e) => {
+              headerSettingsBackground.style.backgroundColor = e.target.style.backgroundColor;
+              console.log(e.target.style.backgroundColor)
+              // header__settings-content
+            }
+          })
+          modalColorsBack.onclick = (e) => {
+            modalColors.classList.remove('modal-colors-active');
+            headerDotsContent.classList.add('header__settings-content-active');
+          }
+          // tut 
+          break;
+        case 'clear':
+          localStorage.clear();
+          location.reload();
+          break;
       }
-      if (e.target.dataset.menu === 'filter') {
-        headerDotsFilter.classList.add('header__settings-filter-active');
-        headerDotsMenu.style.display = 'none';
-      }
-      if (e.target.dataset.menu === 'clear') { 
-        localStorage.clear();
-        location.reload();
-      }
-      switch (e.target.dataset.grid) {
-        case '1': tasksList.classList = '';
-          tasksList.classList.add('list-group', 'list-group-flush')
-          toggleActiveText(e, 'header__settings-grid');
-          updateNumber(e, gridNumber)
-          break;
-        case '2': tasksList.classList = '';
-          tasksList.classList.add('list-group', 'list-group-flush', 'grid-template', 'grid-template-2')
-          toggleActiveText(e, 'header__settings-grid');
-          updateNumber(e, gridNumber)
-          break;
-        case '3':
-          tasksList.classList = '';
-          tasksList.classList.add('list-group', 'list-group-flush', 'grid-template', 'grid-template-3')
-          toggleActiveText(e, 'header__settings-grid');
-          updateNumber(e, gridNumber)
-          break;
-        case '4':
-          tasksList.classList = '';
-          tasksList.classList.add('list-group', 'list-group-flush', 'grid-template', 'grid-template-4')
-          toggleActiveText(e, 'header__settings-grid');
-          updateNumber(e, gridNumber)
-          break;
-        case 'back':
-          headerDotsGrid.classList.remove('header__settings-grid-active');
-          headerDotsFilter.classList.remove('header__settings-filter-active');
-          headerDotsMenu.style.display = 'block';
+      function updateFilter() {
+        document.querySelectorAll('#tasksList li').forEach(item =>  item.remove())
+        tasks.forEach((task) => renderTask(task));
+        updateEmpty()
+        updateLocalStorage()
       }
     }
   }
-  headerDotsFilter.onclick = function (e) {
-    switch (e.target.dataset.filter) {
-      case 'alphabet':
-        let a = tasks.sort((a, b) => a.text.localeCompare(b.text));
-        tasks = [...a];
-        toggleActiveText(e, 'header__settings-filter');
-        updateNumber(e, filterText)
-        updateFilter()
-        break;
-      case 'date':
-        let b = tasks.sort((a, b) => a.date.localeCompare(b.date));
-        tasks = [...b];
-        toggleActiveText(e, 'header__settings-filter');
-        updateNumber(e, filterText)
-        updateFilter()
-        break;
-      case 'lenght':
-        let c = tasks.sort((a, b) => b.text.length - a.text.length);
-        tasks = [...c];
-        toggleActiveText(e, 'header__settings-filter');
-        updateNumber(e, filterText)
-        updateFilter()
-        break;
-      case 'rotate':
-        tasks = [...tasks].reverse();
-        updateFilter()
-        break;
-    }
-  }
-  function updateFilter() {
-    document.querySelectorAll('#tasksList li').forEach(item => {
-      item.remove()
-    })
-    tasks.forEach((task) => renderTask(task));
-    updateEmpty()
-    updateLocalStorage()
-  }
+  
   function updateEmpty() {
     if (tasks.length === 0) {
       emptyListTitle.textContent = "Список задач пуст";
@@ -499,6 +528,7 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("completedTasks", JSON.stringify(completedTasks));
     localStorage.setItem("gridNumber", JSON.stringify(gridNumber));
     localStorage.setItem("filterText", JSON.stringify(filterText));
+    localStorage.setItem("mainBackground", JSON.stringify(mainBackground));
   }
   function renderTask(task) {
     const cssClass = task.done ? "task-title task-title--done" : "task-title";
@@ -743,7 +773,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 </svg>
               </div>
               <span class="${cssClass}"> ${item.text} </span>
-              <textarea  class="modal-comments__textarea" contenteditable>${item.text}</textarea>
+              <textarea maxlength='100' class="modal-comments__textarea" contenteditable>${item.text}</textarea>
               <div class="modal-comments__btns">
                 <button data-action="modal-comments-edit" class="${modalEditClass}">
                   <svg  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
