@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("form"),
+  const body = document.querySelector('.body'),
+    form = document.getElementById("form"),
     formGroupRemains = document.querySelector('.form-group-remains span'),
     taskInput = document.getElementById("taskInput"),
     tasksList = document.getElementById("tasksList"),
@@ -31,13 +32,14 @@ document.addEventListener("DOMContentLoaded", () => {
     completedTasksCount = document.querySelector(".completed-tasks__count"),
     headerTime = document.querySelector(".header__time"),
     headerNumberTasks = document.querySelector(".header__number-tasks span"),
-    headerDotsHamburger = document.querySelector('.header__settings-hamburger'),
-    headerDotsContent = document.querySelector('.header__settings-content'),
-    headerDotsItem = document.querySelectorAll('.header__settings-item'),
-    headerDotsOverlay = document.querySelector('.header__settings-overlay'),
-    headerDotsGrid = document.querySelector('.header__settings-grid'),
-    headerDotsMenu = document.querySelector('.header__settings-menu'),
-    headerDotsFilter = document.querySelector('.header__settings-filter'),
+    headerSettings = document.querySelector('.header__settings'),
+    headerSettingsHamburger = document.querySelector('.header__settings-hamburger'),
+    headerSettingsContent = document.querySelector('.header__settings-content'),
+    headerSettingsItem = document.querySelectorAll('.header__settings-item'),
+    headerSettingsOverlay = document.querySelector('.header__settings-overlay'),
+    headerSettingsGrid = document.querySelector('.header__settings-grid'),
+    headerSettingsMenu = document.querySelector('.header__settings-menu'),
+    headerSettingsFilter = document.querySelector('.header__settings-filter'),
     headerSettingsBackground = document.querySelector('.header__settings-backgroundcolor'),
     loader = document.querySelector(".loader"),
     checkbox = document.getElementById("checkbox"),
@@ -52,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
     completedTasks = [],
     gridNumber = [],
     filterText = [],
-    mainBackground = [];
+    mainBackground = [{ backgroundColor: '#555252'}];
   if (localStorage.getItem("tasks"))
     tasks = JSON.parse(localStorage.getItem("tasks"));
   if (localStorage.getItem("completedTasks"))
@@ -61,10 +63,13 @@ document.addEventListener("DOMContentLoaded", () => {
     gridNumber = JSON.parse(localStorage.getItem("gridNumber"));
   if (localStorage.getItem("filterText"))
     filterText = JSON.parse(localStorage.getItem("filterText"));
-  if (localStorage.getItem("mainBackground"))
-    filterText = JSON.parse(localStorage.getItem("mainBackground"));
+  if (localStorage.getItem("mainBackground")) {
+    mainBackground = JSON.parse(localStorage.getItem("mainBackground"));
+  }
+  updateLocalStorage()
 
   
+  body.style.backgroundColor = mainBackground[0].backgroundColor;
   tasks.forEach((task) => renderTask(task));
   completedTasks.forEach((task) => renderCompletedTask(task));
   updateEmpty();
@@ -76,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
   completedTasksBlock.addEventListener("click", completedTasksUp);
   emptyTrashBtn.addEventListener("click", emptyTrash);
   completedTasksLists.addEventListener("click", returnTasks);
-  headerDotsHamburger.addEventListener('click', modalSettings);
+  headerSettingsHamburger.addEventListener('click', modalSettings);
    
   container.addEventListener('click', (e) => {
     if (e.target.dataset.item !== 'dots') return;
@@ -262,7 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateLocalStorage();
   }
   function findItem() {
-    headerDotsItem.forEach(item => {
+    headerSettingsItem.forEach(item => {
       if (item.dataset.grid === gridNumber[0].number) {
         item.classList.add('active-text')
       }
@@ -290,7 +295,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     } else {
       tasksList.classList.add('list-group', 'list-group-flush');
-      headerDotsItem.forEach(item => {
+      headerSettingsItem.forEach(item => {
         if (item.dataset.grid === '1') {
           item.classList.add('active-text')
         }
@@ -312,38 +317,43 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     updateLocalStorage();
   }
-  function toggleActiveText(e, headerDotsUl) {
-    document.querySelectorAll(`.${headerDotsUl} li`).forEach(item => {
+  function toggleActiveText(e, headerSettingsUl) {
+    document.querySelectorAll(`.${headerSettingsUl} li`).forEach(item => {
       item.classList = 'header__settings-item';
     })
     e.target.classList.add('header__settings-item', 'active-text');
   }
   function modalSettings(e) {
-    headerDotsContent.classList.toggle('header__settings-content-active');
-    headerDotsOverlay.classList.add('header__settings-overlay-active');
+    headerSettingsContent.classList.toggle('header__settings-content-active');
+    headerSettingsOverlay.classList.add('header__settings-overlay-active');
+    let newModalColors = modalColors.cloneNode(true);
+    headerSettings.appendChild(newModalColors)
+     // tut
     disableScroll()
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeModal()
     });
     function removeClass() {
-      headerDotsGrid.classList.remove('header__settings-grid-active');
-      headerDotsMenu.style.display = 'block';
-      headerDotsFilter.classList.remove('header__settings-filter-active');
+      headerSettingsGrid.classList.remove('header__settings-grid-active');
+      headerSettingsMenu.style.display = 'block';
+      headerSettingsFilter.classList.remove('header__settings-filter-active');
+      headerSettings.removeChild(newModalColors)
     }
-    headerDotsOverlay.onclick = () => closeModal();
+    headerSettingsOverlay.onclick = () => closeModal();
     function closeModal() {
-      headerDotsContent.classList.remove('header__settings-content-active');
-      headerDotsOverlay.classList.remove('header__settings-overlay-active');
+      headerSettingsContent.classList.remove('header__settings-content-active');
+      headerSettingsOverlay.classList.remove('header__settings-overlay-active');
+      newModalColors.classList.remove('modal-colors-active');
       enableScroll()
       setTimeout(() => { removeClass() }, 300)
     }
-    headerSettingsBackground.style.backgroundColor = document.body.style.backgroundColor;
-    headerDotsContent.onclick = function (e) {
+    headerSettingsBackground.style.backgroundColor = mainBackground[0].backgroundColor;
+    headerSettingsContent.onclick = function (e) {
       switch (e.target.dataset.menu) {
         case 'choice':
-          headerDotsGrid.classList.add('header__settings-grid-active');
-          headerDotsMenu.style.display = 'none';
-          headerDotsGrid.onclick = (e) => {
+          headerSettingsGrid.classList.add('header__settings-grid-active');
+          headerSettingsMenu.style.display = 'none';
+          headerSettingsGrid.onclick = (e) => {
             switch (e.target.dataset.grid) {
               case '1': tasksList.classList = '';
                 tasksList.classList.add('list-group', 'list-group-flush')
@@ -368,15 +378,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 updateNumber(e, gridNumber)
                 break;
               case 'back':
-                headerDotsGrid.classList.remove('header__settings-grid-active');
-                headerDotsMenu.style.display = 'block';
+                headerSettingsGrid.classList.remove('header__settings-grid-active');
+                headerSettingsMenu.style.display = 'block';
             }
           }
           break;
         case 'filter':
-          headerDotsFilter.classList.add('header__settings-filter-active');
-          headerDotsMenu.style.display = 'none';
-          headerDotsFilter.onclick = function (e) {
+          headerSettingsFilter.classList.add('header__settings-filter-active');
+          headerSettingsMenu.style.display = 'none';
+          headerSettingsFilter.onclick = function (e) {
             switch (e.target.dataset.filter) {
               case 'alphabet':
                 let a = tasks.sort((a, b) => a.text.localeCompare(b.text));
@@ -404,32 +414,39 @@ document.addEventListener("DOMContentLoaded", () => {
                 updateFilter()
                 break;
               case 'back':
-                headerDotsFilter.classList.remove('header__settings-filter-active');
-                headerDotsMenu.style.display = 'block';
+                headerSettingsFilter.classList.remove('header__settings-filter-active');
+                headerSettingsMenu.style.display = 'block';
               break;
             }
           }
         break;
         case 'background-color':
-          modalColors.classList.add('modal-colors-active');
-          headerDotsContent.classList.remove('header__settings-content-active');
-          if ( modalColors.querySelector('.modal-colors__changes')) modalColors.querySelector('.modal-colors__changes').remove();
-          modalColors.querySelectorAll('.modal-colors__items span').forEach(item => {
-            item.onclick = (e) => {
+          newModalColors.classList.add('modal-colors-active');
+          headerSettingsContent.classList.remove('header__settings-content-active');
+          if ( newModalColors.querySelector('.modal-colors__changes'))  newModalColors.querySelector('.modal-colors__changes').remove();
+          newModalColors.querySelectorAll('.modal-colors__items span').forEach(item => {
+            item.addEventListener('click', (e) => {
               headerSettingsBackground.style.backgroundColor = e.target.style.backgroundColor;
-              console.log(e.target.style.backgroundColor)
-              // header__settings-content
-            }
+              body.style.backgroundColor = e.target.style.backgroundColor;
+              const newBackground = {
+                backgroundColor: e.target.style.backgroundColor
+              }
+              mainBackground = [newBackground];
+              updateLocalStorage()
+            })
           })
-          modalColorsBack.onclick = (e) => {
-            modalColors.classList.remove('modal-colors-active');
-            headerDotsContent.classList.add('header__settings-content-active');
+          let newModalColorsBack = newModalColors.querySelector('.modal-colors__back');
+          newModalColorsBack.onclick = (e) => {
+            newModalColors.classList.remove('modal-colors-active');
+            headerSettingsContent.classList.add('header__settings-content-active');
           }
-          // tut 
+          // tut 1
           break;
         case 'clear':
-          localStorage.clear();
+          tasks = [];
+          completedTasks = [];
           location.reload();
+          updateLocalStorage()
           break;
       }
       function updateFilter() {
