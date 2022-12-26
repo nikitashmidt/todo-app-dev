@@ -368,7 +368,7 @@
   border-radius: 4px;
 }
 
-.header__settings-item a, .header__settings-item img {
+.header__settings-item a, .header__settings-item img, .header__settings-item span {
   pointer-events: none;
 }
 

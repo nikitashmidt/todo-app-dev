@@ -325,13 +325,13 @@ document.addEventListener("DOMContentLoaded", () => {
   function modalSettings(e) {
     headerSettingsContent.classList.toggle('header__settings-content-active');
     headerSettingsOverlay.classList.add('header__settings-overlay-active');
-    let newModalColors = modalColors.cloneNode(true);
-    headerSettings.appendChild(newModalColors)
      // tut
     disableScroll()
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeModal()
     });
+    let newModalColors = modalColors.cloneNode(true);
+    headerSettings.appendChild(newModalColors)
     function removeClass() {
       headerSettingsGrid.classList.remove('header__settings-grid-active');
       headerSettingsMenu.style.display = 'block';
