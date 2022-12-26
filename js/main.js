@@ -67,9 +67,8 @@ document.addEventListener("DOMContentLoaded", () => {
     mainBackground = JSON.parse(localStorage.getItem("mainBackground"));
   }
   updateLocalStorage()
-
-  
   body.style.backgroundColor = mainBackground[0].backgroundColor;
+
   tasks.forEach((task) => renderTask(task));
   completedTasks.forEach((task) => renderCompletedTask(task));
   updateEmpty();
@@ -337,13 +336,13 @@ document.addEventListener("DOMContentLoaded", () => {
       headerSettingsGrid.classList.remove('header__settings-grid-active');
       headerSettingsMenu.style.display = 'block';
       headerSettingsFilter.classList.remove('header__settings-filter-active');
-      headerSettings.removeChild(newModalColors)
     }
     headerSettingsOverlay.onclick = () => closeModal();
     function closeModal() {
       headerSettingsContent.classList.remove('header__settings-content-active');
       headerSettingsOverlay.classList.remove('header__settings-overlay-active');
       newModalColors.classList.remove('modal-colors-active');
+      headerSettings.removeChild(newModalColors)
       enableScroll()
       setTimeout(() => { removeClass() }, 300)
     }
