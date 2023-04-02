@@ -1,10 +1,16 @@
 const titles = document.querySelectorAll(".title");
-
-console.log(titles)
+const hamburger = document.querySelector('.hamburger');
+const menuList = document.querySelector('.menu-list');
 
 titles.forEach((title) => {
     title.addEventListener("click", boxHandler); 
 });
+
+hamburger.addEventListener('click', () => {
+  console.log('true');
+  menuList.classList.toggle('menu-list-active');
+  hamburger.classList.toggle('hamburger-active');
+})
 
 function boxHandler(e) {
 
