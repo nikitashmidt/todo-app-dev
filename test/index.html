@@ -20,7 +20,7 @@
             </svg>
          </div>
           <ul class="menu-list">
-href="react.html">
+<a href="react.html">
 React </a></li>
             <li> <a href="algoritms.html">Algoritms</a></li>
           </ul>
@@ -29,10 +29,9 @@ React </a></li>
 
     <div class="container">
       <div class="block">
-        <div class="title">Типы данных в JS</div>
+        <div class="title">Типы данных в JS [8] </div>
         <div class="description">
-          <p class="description-par">
-            <ol>
+            <ol class="description-par">
               <li>String</li>
               <li>Number</li>
               <li>Bigint</li>
@@ -42,18 +41,142 @@ React </a></li>
               <li>Symbol</li>
               <li>Object</li>
             </ol>
-          </p>
         </div>
       </div>
 
       <div class="block">
-        <div class="title">Title</div>
+        <div class="title"> Отличие ссылочного типа данных от примитивного </div>
         <div class="description">
-          <p class="description-par">Конфыв фывофы фловыловл</p>
+          <div class="description-par">
+
+            <span class="bold">Ссылочный тип данных</span> отличается от примитивного типа данных тем, 
+            что переменная, 
+            которая содержит ссылочный тип данных, 
+            не хранит само значение, а лишь ссылку на место в памяти.
+
+            <br>
+             При присваивании значения другой переменной, 
+            она не копирует значение, а лишь ссылку на место в памяти, где хранится это значение.
+
+             <div class="divider"></div>
+
+            А <span class="bold">примитивы</span> хранятся в памяти напрямую в переменной,
+             которая содержит это значение. <br>
+            При присваивании значения другой переменной, значение переменной копируется.
+
+          </div>
         </div>
       </div>
-    </div>
 
+      <div class="block">
+        <div class="title"> Различие null / Undefined </div>
+        <div class="description">
+          <div class="description-par"> 
+            <span class="bold"> Undefined </span> -  означает, что переменная была объявлена
+            но ей не было присвоено какое-либо значение. 
+            <br>
+            <span class="bold">Undefined</span> - также может быть возвращено функцией, если она 
+            не возвращает явное значение. 
+            <br>
+            <span class="bold">Undefined</span> - является дефолтным значением для параметров функции
+            <div class="divider" > </div>
+
+            <span class="bold">Null</span> - означет, что значение переменной явно установлено,
+            как ничего
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="block">
+        <div class="title"> Различие function declaration / fn expression  </div>
+        <div class="description">
+          <div class="description-par">
+
+            <span class="bold">Function declaration</span> - объявление функции, которое начинается с ключевого слова function,
+            за которые следует имя функции, а затем тело самой функции.
+            <br>
+            Благодаря механизму <span class="bold">«Поднятие / Hoisting»</span> данный вид функций можно вызывать в любом месте документа.
+
+            <div class="divider"></div>
+
+            <span class="bold">Function expression</span> - эта функция, которая объявлена с помощью
+            переменной и не может быть вызвана до ее объявления.
+
+            <div class="divider"></div>
+
+            Основная разница заключается в том, что function declaration создаются до выполнения 
+            кода, в том время, как fn expression создается во время выполнения кода.
+
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="title">Различие между const, let, var</div>
+        <div class="description">
+          <div class="description-par">
+           <div class="bold">1.</div> Переменные объявленные через <span class="bold">var</span> всплывают, это значит, что если мы
+            обратимся к переменной еще до момента ее инициализации, то получим просто undefined
+            в случае же с let и const мы увидем ошибки.
+            <br>
+            <div class="bold">2.</div> У них есть разная область видимости, у let и const область видимости -
+            <div class="bold">блочная</div>, а у var она функциональная и за блоком var будет все равно доступна.
+            <br>
+            <div class="bold">3.</div> Разница между let и const заключается в том, что переменная
+            объявленая через сonst становится константой и по идее ее невозможно переопределить, при 
+            попытке это сделать мы получим ошибку, при этом мы можем изменять значение свойства обьекта
+            объявленные через const, но не переопределить полностью объект. 
+            
+
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="title">Что такое Hoisting / Поднятие [ дописать ] </div>
+        <div class="description">
+          <div class="description-par">
+
+            <span class="bold">Hoisting</span> - это механизм в JavaScript, в котором переменные и 
+            объявления функций (fn declaration), 
+            передвигаются вверх своей области видимости перед тем, как код будет выполнен.
+
+          </div>
+        </div>
+      </div>
+
+   
+      
+
+      <div class="block">
+        <div class="title"> Область видимости «Scope» </div>
+        <div class="description">
+          <div class="description-par">
+            <span class="bold">Область видимости</span> -  в JavaScript определяет доступность переменных и 
+            функций в различных частях кода. Область видимости определяет, 
+            где и какие переменные и функции могут быть использованы в коде.
+            <br>
+            Существует 3 типа <span class="bold">Областей видимости</span> - 
+            <br>
+           <span class="bold"> 1. Глобальная </span>  - переменные и функции в данной области становятся
+           глобальными и доступны в любом месте документа.
+           <br>
+           <span class="bold">2. Фунциональная / локальная</span> - переменные и функции объявленные
+           внутри функций доступны только этой функции и всем вложенным в нее функциям.
+           <br>
+           <span class="bold">3. Блочная область видимости </span> - появилась в ES6, для переменных
+           объявленных с помощью let и const, такая область видимости находится внутри фигурных скобок
+           так называемого блока, даже если это обычный блок if / else.
+          </div>
+        </div>
+      </div>
+
+     
+
+
+    </div>
     <script src="script.js"></script>
   </body>
 </html>
