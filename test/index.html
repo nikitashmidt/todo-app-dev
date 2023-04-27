@@ -19,10 +19,8 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"><path fill="currentColor" fillRule="evenodd" d="M0 11a1 1 0 0 1 1-1h22a1 1 0 1 1 0 2H1a1 1 0 0 1-1-1ZM0 19a1 1 0 0 1 1-1h22a1 1 0 1 1 0 2H1a1 1 0 0 1-1-1ZM0 3a1 1 0 0 1 1-1h22a1 1 0 1 1 0 2H1a1 1 0 0 1-1-1Z" clipRule="evenodd"/>
             </svg>
          </div>
-          
          </div>
-         <div class="count">
-         </div>
+         <div class="count"></div>
       </div>
 
       <ul class="menu-list">
@@ -32,7 +30,6 @@
            <path d="M18.8,16l5.5-5.5c0.8-0.8,0.8-2,0-2.8l0,0C24,7.3,23.5,7,23,7c-0.5,0-1,0.2-1.4,0.6L16,13.2l-5.5-5.5  c-0.8-0.8-2.1-0.8-2.8,0C7.3,8,7,8.5,7,9.1s0.2,1,0.6,1.4l5.5,5.5l-5.5,5.5C7.3,21.9,7,22.4,7,23c0,0.5,0.2,1,0.6,1.4  C8,24.8,8.5,25,9,25c0.5,0,1-0.2,1.4-0.6l5.5-5.5l5.5,5.5c0.8,0.8,2.1,0.8,2.8,0c0.8-0.8,0.8-2.1,0-2.8L18.8,16z"/>
           </svg>
         </div>
-
         <li> <a href="react.html"> React </a> </li>
         <li> <a href="algoritms.html">Algoritms</a></li>
       </ul>
@@ -58,22 +55,17 @@
         <div class="title"> Отличие ссылочного типа данных от примитивного </div>
         <div class="description">
           <div class="description-par">
-
             <span class="bold">Ссылочный тип данных</span> отличается от примитивного типа данных тем, 
             что переменная, 
             которая содержит ссылочный тип данных, 
             не хранит само значение, а лишь ссылку на место в памяти.
-
             <br>
              При присваивании значения другой переменной, 
             она не копирует значение, а лишь ссылку на место в памяти, где хранится это значение.
-
              <div class="divider"></div>
-
             А <span class="bold">примитивы</span> хранятся в памяти напрямую в переменной,
              которая содержит это значение. <br>
             При присваивании значения другой переменной, значение переменной копируется.
-
           </div>
         </div>
       </div>
@@ -90,35 +82,26 @@
             <br>
             <span class="bold">Undefined</span> - является дефолтным значением для параметров функции
             <div class="divider" > </div>
-
             <span class="bold">Null</span> - означет, что значение переменной явно установлено,
             как ничего
           </div>
         </div>
       </div>
 
-
-
       <div class="block">
         <div class="title"> Различие function declaration / fn expression  </div>
         <div class="description">
           <div class="description-par">
-
             <span class="bold">Function declaration</span> - объявление функции, которое начинается с ключевого слова function,
             за которые следует имя функции, а затем тело самой функции.
             <br>
             Благодаря механизму <span class="bold">«Поднятие / Hoisting»</span> данный вид функций можно вызывать в любом месте документа.
-
             <div class="divider"></div>
-
             <span class="bold">Function expression</span> - эта функция, которая объявлена с помощью
             переменной и не может быть вызвана до ее объявления.
-
             <div class="divider"></div>
-
             Основная разница заключается в том, что function declaration создаются до выполнения 
             кода, в том время, как fn expression создается во время выполнения кода.
-
           </div>
         </div>
       </div>
@@ -147,7 +130,6 @@
         <div class="title">Что такое Hoisting / Поднятие </div>
         <div class="description">
           <div class="description-par">
-
             <span class="bold">Hoisting</span> - это механизм в JavaScript, в котором переменные и 
             объявления функций (fn declaration), 
             передвигаются вверх своей области видимости перед тем, как код будет выполнен.
@@ -158,9 +140,6 @@
           </div>
         </div>
       </div>
-
-   
-      
 
       <div class="block">
         <div class="title"> Область видимости «Scope» </div>
@@ -184,9 +163,6 @@
            за пределом этой области видимости.
           </div>
         </div>
-
-
-        
       </div>
 
       
@@ -194,14 +170,11 @@
         <div class="title">Что такое замыкания ? «Closure»</div>
         <div class="description">
           <div class="description-par">
-
             <div class="bold">Замыкание</div> возникает, когда функция внутри другой функции использует переменные из 
             внешней функции. В этом случае внутренняя функция сохраняет ссылку на 
             внешнюю область видимости, и переменные из этой области видимости могут 
             быть использованы внутри внутренней функции, даже после того, как 
             внешняя функция завершила свою работу.
-
-            
           </div>
         </div>
       </div>
@@ -220,12 +193,56 @@
              на глобальный объект (window). 
              Если функция вызывается с использованием конструктора, то this ссылается на новый экземпляр объекта, созданный с помощью конструктора. 
               <div class="divider"></div>
-              <div class="bold">Стрелочная функция не имеют собственного контекста</div> и если в 
+              <div class="bold">Стрелочная функция </div> не имеет собственного контекста и если в 
               таком случае прописать
                this то ссылаться ключевое слово будет на объект ближайший по иерархии. 
                Такая особенность удобна, когда мы хотим передать в функцию внешний контекст.
+          </div>
+        </div>
+      </div>
 
+      <div class="block">
+        <div class="title">Функция-конструктор</div>
+        <div class="description">
+          <div class="description-par">
+            <div class="bold">Функция-конструктор</div> - позволяет создавать новые объекты по шаблону на основе других данных.
+             При вызове функции конструктора this принимает значение вновь созданного объекта, 
+             который наполняется вследствие выполнения тела функции.
+             <div class="code">
+              function Student(name, course) { <br>
+                this.name = name <br>
+                this.course = course <br>
+                this.school = 'LearnJS' <br>
+              } 
+              <br>
+              let student1 = new Student('Вера', 'JavaScript Basic') <br>
+             </div>
+          </div>
+        </div>
+      </div>
 
+      <div class="block">
+        <div class="title">Рекурсия</div>
+        <div class="description">
+          <div class="description-par">
+            <div class="bold">Рекурсия</div> - это процесс, при котором функция вызывает саму себя
+            в своем теле. Для выхода из функции должно быть обязательно условие.
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="title">Promise [доделать] </div>
+        <div class="description">
+          <div class="description-par">
+            <div class="bold">Promise</div> - это объект, который используется для выполнения асинхронных операций и 
+            управления их результатами. 
+            <div class="divider"></div>
+            Promise может находиться в трех состояниях: ожидание <div class="bold">pending</div>, 
+            выполнено <div class="bold">fulfilled</div> или отклонено <div class="bold">rejected</div>.
+            <div class="divider"></div>
+            <div class="bold">Promise</div> позволяет управлять асинхронными операциями с 
+            помощью методов then(), catch() и finally().
           </div>
         </div>
       </div>
