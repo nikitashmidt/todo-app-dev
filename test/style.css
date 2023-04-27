@@ -7,40 +7,36 @@ body {
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 16px;
   line-height: 1.2;
-  width: 100%;
-  min-height: 100vh;
   background-color: gray ;
-  display: flex;
-  justify-content: center;
+  height: 100%;
   color: white;
 }
 
 .container {
   padding: 30px;
-  width: 800px;
   margin-top: 50px;
+  margin-bottom: 50px;
 }
 
-.container .block {
+.block {
   position: relative;
   margin-bottom: 20px; 
+  color: white;
 }
 
-.container .block:last-child {
-  margin-bottom: 0; 
-}
-
-.container .block .title {
+.title {
   position: relative;
   padding: 20px; 
   padding-right: 40px;
   background-color: darkblue; 
-  color: #fff; 
-  cursor: pointer; 
+  color: currentColor; 
   border-radius: 10px;
   font-size: 22px;
   margin-bottom: 10px;
   text-align: center;
+  display: block;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .edit {
@@ -51,10 +47,9 @@ body {
   cursor: pointer;
 }
 
-.container .block .title::after {
+.title::after {
   content: '';
   background-image: url('./arrow.svg');
-
   position: absolute;
   top: 50%; 
   transform: translateY(-50%);
@@ -66,11 +61,11 @@ body {
   transition: 0.5s all;
 }
 
-.container .block.active .title::after {
+.block.active .title::after {
   transform: rotate(180deg) translateY(50%);
 }
 
-.container .block .content {
+.content {
   position: relative;
   background-color: #fff; 
   overflow: hidden;
@@ -80,7 +75,7 @@ body {
   margin-top: 5px;
 }
 
-.container .block .content div {
+.content div {
   padding: 20px;
   border-radius: 4px;
 }
@@ -111,31 +106,9 @@ body {
 }
 
 @media (max-width: 576px) {
-    .container {
-        padding: 10px;
-      }
-}
-
-.boldUppercase{
-    font-weight: bold;
-    text-decoration:underline;
-    text-transform: uppercase;
-}
-
-.bold{
-    font-weight: bold;
-}
-
-.boldBlock{
-  text-align: center; 
-  display: block;
-  font-weight: bold;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.gap{
-  display: block;
+  .container {
+      padding: 10px;
+    }
 }
 
 .menu {
@@ -143,7 +116,7 @@ body {
   top: 0;
   right: 50%;
   transform: translate(50%);
-  z-index: 30;
+  z-index: 15 ;
   width: 100%;
   height: 50px;
   display: flex;
@@ -162,25 +135,53 @@ body {
 
 .hamburger {
   cursor: pointer;
-  z-index: 10;
   position: relative;
 }
 
-.hamburger-active {
-  color: gray;
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index:15;
+  background-color: rgb(61, 59, 59, .5);
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.overlay-active {
+  visibility: visible;
+  opacity: 1;
 }
 
 .menu-list {
-    display: flex;
+  display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  gap: 10px;
   height: 100vh;
   width: 60%;
   background-color: white;
   position: fixed;
   top: 0;
+  z-index: 18;
   right: -100%;
   transition: 0.5s all;
+}
+
+.menu-list-svg {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 18;
+  cursor: pointer;
+}
+
+.menu-list-svg svg {
+  pointer-events: none;
 }
 
 .menu-list-active {
@@ -199,4 +200,34 @@ body {
 .bold {
   font-weight: 700;
   display: inline-block;
+  position: relative;
 }
+
+.bold::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background-color: #fff;
+  bottom: -1px;
+  left: 1px;
+}
+
+.count {
+  padding: 10px;
+  background-color: darkblue;
+  border-radius: 8px;
+  position: relative;
+  transition: 1s all;
+  top: 0;
+}
+
+.count-text, .count-block {
+  position: absolute;
+  top: 0;
+}
+
+.count-text-hidden {
+  top: -100px;
+}
+
