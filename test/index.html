@@ -336,20 +336,62 @@
         </div>
       </div>
 
-
       <div class="block">
-        <div class="title">Что такое микро-задачи?  [пусто] </div>
+        <div class="title">Методы функций</div>
         <div class="description">
           <div class="description-par">
-
+            <div class="bold">bind</div> - создает новую функцию, которая связывает указанный
+            объект с конекстом вызова функции. Метод также может принимать аргументы, которые
+            будут переданы в вызываему функцию. Дальнейшие вызовы функции будут вызваны уже 
+            с новым контекстом.
+            <div class="divider"></div>
+            <div class="bold">call</div> - вызывает функцию с заданным контекстом, также call
+            может принимать аргументы. 
+            <div class="divider"></div>
+            Метод <div class="bold">apply</div> аналогичен call. Отличие лишь в том, что call 
+            принимает список аргументов, 
+            а apply — массив.
           </div>
         </div>
       </div>
 
       <div class="block">
-        <div class="title">Что такое макро-задачи? [пусто]</div>
+        <div class="title">Event Loop [доделать] </div>
         <div class="description">
           <div class="description-par">
+            <div class="bold">EventLoop</div> - или же событийный цикл, механизм, который 
+            определяет приоритеты, 
+            решает какую задачу куда направить и в какой момент времени.
+            <div class="divider"></div>
+            Начнем с того, что JavaScript является однопоточным языком программированием,
+            это значит, что JavaScript может выполнять только одну задачу за одну единицу времени.
+            <div class="divider"></div>
+            Существует heap, call stack, WebApi, macrotask и microtask queue, eventloop.
+            <div class="divider"></div>
+            <div class="bold">Heap</div> - это некий участок памяти, выделяемый, например, под хранение объектов. 
+            <div class="divider"></div>
+            <div class="bold">Call stack</div> - это то место, куда по ходу работы программы попадают 
+            вызванные функций после чего выполняются.
+            <div class="divider"></div>
+            <div class="bold">WebApi</div> - это интерфейс, предоставляемый браузером. С помощью него мы можем 
+            взаимодействовать с DOM-деревом, 
+            устанавливать таймеры, отслеживать клики по элементам, отправлять запросы и тд.
+            <div class="divider"></div>
+            <div class="bold">Macrotask queue</div> -  это очередь макротасок, сюда попадают некоторые функции, 
+            и если callstack пустой, то первая из очереди будет помещена в callstack и доступна к 
+            выполнению. Далее как только callstack очистится, будет вызвана следующая и тд.
+            <div class="divider"></div>
+            <div class="bold">Microtask queue</div> - это очеред микротасок, сюда также попадают функции, но в отличии от 
+            макро - микро таски 
+            будут выполняться до тех пор, пока они есть в очереди, 
+            и перед макротасками им отдается приоритет. Сюда попадают - Promise  и MutationObserver
+
+            <div class="divider"></div>
+            <div class="bold">MutationObserver</div> - это API, предоставляемое браузером, которое
+            позволяет отслеживать изменения в DOM-дереве. Он позволяет регистрировать функции обратного вызова,
+            которые будут вызываться при любых изменениях в элементах DOM.
+
+
 
           </div>
         </div>
@@ -364,16 +406,7 @@
         </div>
       </div>
 
-      <div class="block">
-        <div class="title">Методы функций [пусто]</div>
-        <div class="description">
-          <div class="description-par">
-            <div class="bold">bind</div> - создает новую функцию, которая связывает указанный
-            объект с конекстом вызова функции. Метод также может принимать аргументы, которые
-            будут переданы в вызываему функцию. 
-          </div>
-        </div>
-      </div>
+     
 
 
 
