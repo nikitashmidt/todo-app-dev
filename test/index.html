@@ -356,36 +356,33 @@
       </div>
 
       <div class="block">
-        <div class="title">Event Loop [доделать] </div>
+        <div class="title">Event Loop [доделать] [термины] </div>
         <div class="description">
           <div class="description-par">
+            Начнем с того, что JavaScript является однопоточным языком программированием,
+            это значит, что JavaScript может выполнять только одну задачу за одну единицу времени.
+            <div class="divider"></div>
             <div class="bold">EventLoop</div> - или же событийный цикл, механизм, который 
             определяет приоритеты, 
             решает какую задачу куда направить и в какой момент времени.
-            <div class="divider"></div>
-            Начнем с того, что JavaScript является однопоточным языком программированием,
-            это значит, что JavaScript может выполнять только одну задачу за одну единицу времени.
             <div class="divider"></div>
             Существует heap, call stack, WebApi, macrotask и microtask queue, eventloop.
             <div class="divider"></div>
             <div class="bold">Heap</div> - это некий участок памяти, выделяемый, например, под хранение объектов. 
             <div class="divider"></div>
-            <div class="bold">Call stack</div> - это то место, куда по ходу работы программы попадают 
-            вызванные функций после чего выполняются.
+            <div class="bold">Call stack</div> - это то место куда попадает код, затем он выполняется
             <div class="divider"></div>
             <div class="bold">WebApi</div> - это интерфейс, предоставляемый браузером. С помощью него мы можем 
             взаимодействовать с DOM-деревом, 
             устанавливать таймеры, отслеживать клики по элементам, отправлять запросы и тд.
             <div class="divider"></div>
-            <div class="bold">Macrotask queue</div> -  это очередь макротасок, сюда попадают некоторые функции, 
-            и если callstack пустой, то первая из очереди будет помещена в callstack и доступна к 
-            выполнению. Далее как только callstack очистится, будет вызвана следующая и тд.
+            <div class="bold">Macrotask queue</div> - очередь, в которую попадают функции - 
+            события таймера, мыши, клавиатуры, http запросы
             <div class="divider"></div>
-            <div class="bold">Microtask queue</div> - это очеред микротасок, сюда также попадают функции, но в отличии от 
+            <div class="bold">Microtask queue [ приоритет ]</div> - это очеред микротасок, отличие от 
             макро - микро таски 
             будут выполняться до тех пор, пока они есть в очереди, 
-            и перед макротасками им отдается приоритет. Сюда попадают - Promise  и MutationObserver
-
+            и перед макротасками им отдается приоритет. Сюда попадают - Promise и MutationObserver
             <div class="divider"></div>
             <div class="bold">MutationObserver</div> - это API, предоставляемое браузером, которое
             позволяет отслеживать изменения в DOM-дереве. Он позволяет регистрировать функции обратного вызова,
@@ -395,6 +392,17 @@
 
           </div>
         </div>
+      </div>
+
+
+      <div class="block">
+        <div class="title">Процесс работы Event Loop [пусто]</div>
+        <div class="description">
+          <div class="description-par">
+
+          </div>
+        </div>
+
       </div>
 
       <div class="block">
