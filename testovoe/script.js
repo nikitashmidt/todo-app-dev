@@ -18,9 +18,31 @@ for (let i = 0; i < slides.length; i++) {
         // Устанавливаем активную кнопку
         setActiveButton(i);
 
-        pixels = i * 820;
+        function animate() {
+            const res = i * 820;
 
-        slider.style.right = `${i * 820}px`;
+            if (res > pixels) {
+                console.log('res > pixels');
+                // идем увеличивать
+                pixels += 20;
+            } else {
+                // уменьшать
+                pixels -= 20;
+                console.log('res < pixels');
+            }
+
+            slider.style.right = `${pixels}px`;
+
+            if (pixels === i * 820) {
+                clearInterval(interval)
+            }
+          }
+    
+          const interval = setInterval(animate, 10);
+
+        // pixels = i * 820;
+
+        // slider.style.right = `${i * 820}px`;
 
         slideIndex = i;
 
