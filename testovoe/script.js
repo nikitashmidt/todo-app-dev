@@ -5,6 +5,8 @@ const btnNext = document.querySelector('.buttons-next');
 const btnPrev = document.querySelector('.buttons-prev');
 
 let pixels = 0;
+let slideIndex = 0;
+let activeIndex = 0;
 // поставить в функцию
 
 // Создаем кнопки пагинации
@@ -12,35 +14,38 @@ for (let i = 0; i < slides.length; i++) {
     const button = document.createElement('button');
     button.addEventListener('click', function() {
         // Переключаем на соответствующий слайд
-        showSlide(i);
+        // showSlide(i);
         // Устанавливаем активную кнопку
         setActiveButton(i);
 
-        console.log(i);
+        pixels = i * 820;
+
+        slider.style.right = `${i * 820}px`;
+
+        slideIndex = i;
+
+        console.log(`${(i) * 820}px`);
+
     });
     pagination.appendChild(button);
 }
 
-// Устанавливаем начальный индекс слайда и активную кнопку
-let slideIndex = 0;
-let activeIndex = 0;
 setActiveButton(activeIndex);
 
+
+// Устанавливаем начальный индекс слайда и активную кнопку
+
 // Функция для переключения слайдов
-function showSlide(index) {
-  // Скрываем все слайды
-  const slideWidth = document.querySelector('.slide').offsetWidth;
+// function showSlide(index) {
+//   // Скрываем все слайды
+//   const slideWidth = document.querySelector('.slide').offsetWidth;
     
-    for (let i = 0; i < slides.length; i++) {
-        slides[i].style.transform = 'transltateX(0px)'
-    }
-    
-    slider.style.transform = `translateX(-${slideWidth + 20}px)`
-  // Показываем текущий слайд
-//   slides[index].classList.remove('noactive');
-  // Устанавливаем индекс слайда
-  slideIndex = index;
-}
+//     slider.style.right = `${slideWidth + 20}px`
+//   // Показываем текущий слайд
+// //   slides[index].classList.remove('noactive');
+//   // Устанавливаем индекс слайда
+//   slideIndex = index;
+// }
 
 // Функция для установки активной кнопки
 function setActiveButton(index) {
@@ -55,12 +60,12 @@ function setActiveButton(index) {
   activeIndex = index;
 }
 
-
 btnNext.addEventListener('click', () => {
 
     slideIndex++;
 
     if (slideIndex >= slides.length) {
+        console.log(slideIndex);
         return slideIndex--;
     }
 
@@ -68,7 +73,7 @@ btnNext.addEventListener('click', () => {
 
     slider.style.right = `${pixels}px`;
 
-     setActiveButton(slideIndex);
+    setActiveButton(slideIndex);
 
 })
 
@@ -78,7 +83,7 @@ btnPrev.addEventListener('click', () => {
     if (slideIndex < 0) {
         return slideIndex++;
     }
-    
+    console.log(pixels);
     pixels -= 820;
 
     slider.style.right = `${pixels}px`;
