@@ -92,6 +92,14 @@ body {
   font-size: 18px;
 }
 
+.title-text {
+  font-weight: bold;
+  background-color: #fff;
+  color: black;
+  padding: 5px;
+  border-radius: 10px;
+}
+
 .divider {
   background-color: #fff;
   height: 1px;
@@ -103,6 +111,7 @@ body {
   padding: 15px;
   list-style-type: none;
   border-radius: 10px;
+  line-height: 30px;
 }
 
 @media (max-width: 576px) {
