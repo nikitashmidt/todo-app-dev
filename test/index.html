@@ -44,7 +44,7 @@
         </svg>
       </div>
       <li><a href="react.html"> React </a></li>
-      <li><a href="algoritms.html">Algoritms</a></li>
+      <li><a href="typescript.html">Typescript</a></li>
     </ul>
 
     <div class="container">
@@ -485,8 +485,12 @@
         </div>
         <div class="description">
           <div class="description-par">
-            Все объекты в JavaScript имеют свойство prototype, которое является
-            ссылкой на другой объект
+            <div class="bold">Прототипы в JavaScript</div> - это механизм наследования, который
+            позволяет объектам наследовать свойства и методы других объектов.
+            Каждый объект в JavaScript имеет свойство __proto__, которое
+            указывает на его прототип. <div class="bold">Прототип</div> - это объект, который содержит
+            свойства и методы, которые могут быть унаследованы другими
+            объектами.
           </div>
         </div>
       </div>
@@ -536,41 +540,96 @@
             – вызывает func для каждого элемента. Ничего не возвращает.
 
             <div class="title-text">Для преобразования массива:</div>
-           <div class="bold"> map(func)</div> – создаёт новый массив из результатов вызова func для каждого элемента. <br>
-           <div class="bold">sort(func)</div> – сортирует массив «на месте», а потом возвращает его. <br>
-           <div class="bold">reverse</div> – «на месте» меняет порядок следования элементов на противоположный и возвращает изменённый массив. <br>
-           <div class="bold">split/join </div> – преобразует строку в массив и обратно. <br>
-           <div class="bold">reduce/reduceRight(func, initial)</div> – вычисляет одно значение на основе всего массива, вызывая func для каждого элемента и передавая промежуточный результат между вызовами. <br>
+            <div class="bold">map(func)</div>
+            – создаёт новый массив из результатов вызова func для каждого
+            элемента. <br />
+            <div class="bold">sort(func)</div>
+            – сортирует массив «на месте», а потом возвращает его. <br />
+            <div class="bold">reverse</div>
+            – «на месте» меняет порядок следования элементов на противоположный
+            и возвращает изменённый массив. <br />
+            <div class="bold">split/join</div>
+            – преобразует строку в массив и обратно. <br />
+            <div class="bold">reduce/reduceRight(func, initial)</div>
+            – вычисляет одно значение на основе всего массива, вызывая func для
+            каждого элемента и передавая промежуточный результат между вызовами.
+            <br />
 
             <div class="title-text">Дополнительно:</div>
 
-           Array.isArray(arr) проверяет, является ли arr массивом.
-
-
-
-
+            Array.isArray(arr) проверяет, является ли arr массивом.
           </div>
         </div>
       </div>
 
       <div class="block">
-        <div class="title">Методы строк [пусто]</div>
-        <div class="description">
-          <div class="description-par"></div>
-        </div>
-      </div>
-
-      <div class="block">
-        <div class="title">Что такое api / rest api [пусто]</div>
+        <div class="title">Методы строк</div>
         <div class="description">
           <div class="description-par">
-
+            Чтобы строки корректно работали с методами, в таком случае создаётся
+            специальный «объект-обёртка», который предоставляет нужную
+            функциональность, а после удаляется.
+            <div class="divider"></div>
+            <div class="bold">length</div>
+            - помогает узнать длину строки <br />
+            <div class="bold">charAt(1)</div>
+            - возвращает символ находящийся в указанной позиции в строке <br />
+            <div class="bold">toUpperCase()</div>
+            - переводит символы строк в верхний регистр <br />
+            <div class="bold">toLocaleLowerCase</div>
+            - переводит символы строк в нижний регистр <br />
+            <div class="bold">indexOf(',')</div>
+            - используется для поиска указанного текста в строке, возвращает
+            числовой индекс если указанный символ найден, если нет, то
+            возвращает -1 <br />
+            <div class="bold">lastIndexOf</div>
+            - возвращает последний индекс последнего найденого символа <br />
+            <div class="divider"></div>
+            Все методы занимаются
+            <div class="bold">вырезанием строк:</div>
+            <br />
+            <div class="bold">slice</div>
+            - муказываем индекс с которого начинается и заканчивается подстрока
+            <br />
+            <div class="bold">substr</div>
+            - , в качестве второго аргумента принимает не индекс, а длину
+            вырезаемых символов <br />
+            <div class="bold">substring</div>
+            - , не может принимать отрицательно значение <br />
+            <div class="bold">replace('Jack', 'Nikita')</div>
+            - предназначен для замены значений в строке. <br />
+            <div class="bold">trim</div>
+            - отсекает пробельные символы в начале и конце строки
           </div>
         </div>
       </div>
 
-        
-
+      <div class="block">
+        <div class="title">Что такое API / Rest API / Restful API</div>
+        <div class="description">
+          <div class="description-par">
+            <div class="bold">API (Application Programming Interface)</div>
+            - это набор инструментов и протоколов, которые позволяют различным
+            приложениям взаимодействовать друг с другом
+            <div class="divider"></div>
+            <div class="bold">REST API (Representational State Transfer)</div>
+            - это стиль архитектуры, который определяет правила для создания
+            веб-сервисов. REST API использует HTTP-протокол для передачи данных
+            и поддерживает операции CRUD (Create, Read, Update, Delete) <br />
+            <div class="divider"></div>
+            Различие между
+            <div class="bold">REST API</div>
+            и
+            <div class="bold">RESTful API</div>
+            заключается в том, что RESTful API полностью соответствует принципам
+            архитектуры REST, в то время как REST API может не следовать всем
+            правилам и ограничениям.
+            <div class="divider"></div>
+            Таким образом, RESTful API является более строгим и эффективным
+            подходом к созданию веб-сервисов, чем просто REST API.
+          </div>
+        </div>
+      </div>
     </div>
     <div class="overlay"></div>
     <script src="script.js"></script>
