@@ -479,22 +479,41 @@
       </div>
 
       <div class="block">
-        <div class="title">
-          Что такое прототипное наследование в JavaScript [доделать]
-        </div>
+        <div class="title">Прототипы JavaScript [доделать]</div>
         <div class="description">
           <div class="description-par">
-            <div class="bold">Прототипы в JavaScript</div> - это механизм наследования, который
-            позволяет объектам наследовать свойства и методы других объектов.
-            Каждый объект в JavaScript имеет свойство __proto__, которое
-            указывает на его прототип. <div class="bold">Прототип</div> - это объект, который содержит
-            свойства и методы, которые могут быть унаследованы другими
-            объектами.
+            <div class="bold">Прототипы в JavaScript</div>
+            - это механизм наследования, который позволяет объектам наследовать
+            свойства и методы других объектов. Каждый объект в JavaScript имеет
+            свойство __proto__, которое указывает на его прототип.
+            <div class="bold">Прототип</div>
+            - это объект, который содержит свойства и методы, которые могут быть
+            унаследованы другими объектами.
+            <div class="divider"></div>
+            В JavaScript наследование прототипов основано на механизме цепочки
+            прототипов. Каждый объект в JavaScript имеет свойство `__proto__`,
+            которое ссылается на его прототип. Если при обращении к свойству
+            объекта оно не найдено, JavaScript автоматически ищет его в
+            прототипе объекта, а затем в прототипе его прототипа и так далее,
+            пока не будет найдено или не достигнут конец цепочки прототипов
+            (который заканчивается объектом `Object.prototype`, у которого
+            `__proto__` равен `null`).
+            <div class="divider"></div>
+            Что происходит при создании Array, String, Number с точки зрения
+            прототипов? <br />
+            кта типа Array его прототипом является объект `Array.prototype`,
+            который содержит методы и свойства, доступные для всех массивов в
+            JavaScript <br />
+            Для объектов типа String и Number их прототипом является объект
+            `String.prototype` и `Number.prototype`. Они содержат методы и
+            свойства, доступные для всех строк и чисел в JavaScript <br />
+            <div class="divider"></div>
+            Таким образом, при создании объектов типа Array, String и Number происходит наследование прототипов, что позволяет им использовать методы и свойства из соответствующих прототипов.
           </div>
         </div>
       </div>
 
-      <div class="block">
+      <div class="block" title="Методы массивов">
         <div class="title">Методы массивов</div>
         <div class="description">
           <div class="description-par">
@@ -524,7 +543,9 @@
             <div class="bold">indexOf(item, pos)</div>
             – ищет item, начиная с позиции pos, и возвращает его индекс или -1,
             если ничего не найдено. <br />
-            <div class="bold">lastIndexOf</div> - позволяет возвратить последний индекс искомого элемента в массиве при первом совпадении, или -1 если элемент не найден. <br>
+            <div class="bold">lastIndexOf</div>
+            - позволяет возвратить последний индекс искомого элемента в массиве
+            при первом совпадении, или -1 если элемент не найден. <br />
             <div class="bold">includes(value)</div>
             – возвращает true, если в массиве имеется элемент value, в противном
             случае false. <br />
@@ -548,21 +569,21 @@
             <div class="bold">reverse</div>
             – «на месте» меняет порядок следования элементов на противоположный
             и возвращает изменённый массив. <br />
-            <div class="bold">split/join</div>
-            – преобразует строку в массив и обратно. <br />
+            <div class="bold">split</div>
+            – он разбивает строку на массив по заданному разделителю. <br />
+            <div class="bold">join</div>
+            - Он создаёт строку из элементов arr, разделяя их аргументом <br />
             <div class="bold">reduce/reduceRight(func, initial)</div>
             – вычисляет одно значение на основе всего массива, вызывая func для
             каждого элемента и передавая промежуточный результат между вызовами.
             <br />
-
             <div class="title-text">Дополнительно:</div>
-
             Array.isArray(arr) проверяет, является ли arr массивом.
           </div>
         </div>
       </div>
 
-      <div class="block">
+      <div class="block" title="Методы строк">
         <div class="title">Методы строк</div>
         <div class="description">
           <div class="description-par">
@@ -604,7 +625,7 @@
         </div>
       </div>
 
-      <div class="block">
+      <div class="block" title="Что такое API / Rest API / Restful API">
         <div class="title">Что такое API / Rest API / Restful API</div>
         <div class="description">
           <div class="description-par">
