@@ -445,8 +445,7 @@
             - или же событийный цикл, механизм, который определяет приоритеты,
             решает какую задачу куда направить и в какой момент времени.
             <div class="divider"></div>
-            Существует heap, call stack, WebApi, macrotask и microtask queue,
-            eventloop.
+            Существует heap, call stack, WebApi, macrotask и microtask queue.
             <div class="divider"></div>
             <div class="bold">Heap</div>
             - это некий участок памяти, выделяемый, например, под хранение
@@ -511,7 +510,7 @@
             <div class="bold">unshift</div>
             – добавляет элементы в начало <br />
             <div class="bold">splice(pos, deleteCount, ...items)</div>
-            - ачиная с индекса pos удаляет deleteCount элементов и вставляет
+            - начиная с индекса pos удаляет deleteCount элементов и вставляет
             items <br />
             <div class="bold">slice(start, end)</div>
             – создаёт новый массив, копируя в него элементы с индекса start до
@@ -522,9 +521,10 @@
             тогда берутся его элементы
 
             <div class="title-text">Для поиска среди элементов:</div>
-            <div class="bold">indexOf/lastIndexOf(item, pos)</div>
+            <div class="bold">indexOf(item, pos)</div>
             – ищет item, начиная с позиции pos, и возвращает его индекс или -1,
             если ничего не найдено. <br />
+            <div class="bold">lastIndexOf</div> - позволяет возвратить последний индекс искомого элемента в массиве при первом совпадении, или -1 если элемент не найден. <br>
             <div class="bold">includes(value)</div>
             – возвращает true, если в массиве имеется элемент value, в противном
             случае false. <br />
