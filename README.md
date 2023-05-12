@@ -6,7 +6,7 @@ https://nickycostello.netlify.app/
 - SCSS
 - JavaScript
 
-### features:
+## features:
 
 - Добавления задач
 - Добавление комментариев к задаче
