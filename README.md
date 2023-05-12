@@ -1,8 +1,12 @@
 # todo-app-dev
 https://nickycostello.netlify.app/
 
+## technology stack:
+- HTML
+- SCSS
+- JavaScript
 
-## features:
+### features:
 
 - Добавления задач
 - Добавление комментариев к задаче
