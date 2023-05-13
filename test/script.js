@@ -7,7 +7,7 @@ const menuSvg = document.querySelector('.menu-list-svg');
 const count = document.querySelector('.count');
 
 if (count) {
- count.innerHTML = `Всего вопросов ${blocks} / 20`;
+ count.innerHTML = `Всего вопросов ${blocks} / 21`;
 }
 
 titles.forEach((title) => {
@@ -36,7 +36,7 @@ function boxHandler(e) {
   if (currentBox.classList.contains('active')) {
     count.innerHTML = currentValue;
   } else {
-    count.innerHTML = `Всего вопросов ${blocks} / 20`;
+    count.innerHTML = `Всего вопросов ${blocks} / 21`;
   }
 
   if (currentBox.classList.contains("active")) {
