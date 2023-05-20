@@ -121,10 +121,6 @@
             <span class="bold">Function expression</span> - эта функция, которая
             объявлена с помощью переменной и не может быть вызвана до ее
             объявления.
-            <div class="divider"></div>
-            Основная разница заключается в том, что function declaration
-            создаются до выполнения кода, в том время, как fn expression
-            создается во время выполнения кода.
           </div>
         </div>
       </div>
@@ -203,7 +199,7 @@
       </div>
 
       <div class="block">
-        <div class="title">Что такое замыкания ? «Closure»</div>
+        <div class="title">Что такое замыкание ? «Closure»</div>
         <div class="description">
           <div class="description-par">
             <div class="bold">Замыкание</div>
@@ -212,6 +208,17 @@
             ссылку на внешнюю область видимости, и переменные из этой области
             видимости могут быть использованы внутри внутренней функции, даже
             после того, как внешняя функция завершила свою работу.
+            <div class="code">
+              function getCounter() { <br>
+              let counter = 0; <br>
+              return function () { <br>
+                return counter = counter + 1 <br>
+              } <br>
+              let count = getCounter(); <br>
+              console.log(count()) // 1 <br> 
+              console.log(count()) // 2 <br>
+              console.log(count()) // 3 <br>
+            </div>
           </div>
         </div>
       </div>
