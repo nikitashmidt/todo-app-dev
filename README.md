@@ -1,4 +1,4 @@
-# [todo-app-dev](https://nickycostello.netlify.app/)
+# [Todo-App](https://nickycostello.netlify.app/)
 
 ## technology stack:
 - HTML
