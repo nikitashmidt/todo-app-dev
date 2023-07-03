@@ -1,0 +1,110 @@
+.offer {
+
+  &__container {
+    margin: unset;
+    float: right;
+
+    @include sm {
+      float: unset;
+    }
+  }
+
+  .container {
+      padding: 0  170px 0 100px;
+
+      @include lg-md {
+        padding: 0 35px;
+      }
+  }
+
+ &__title {
+    color: var(--color-main);
+    font-size: 74px;
+    font-family: var(--font-bold);
+    font-weight: 700;
+    line-height: 100%;
+    margin-bottom: 20px;
+
+    @include xl {
+      font-size: 56px;
+      line-height: 103%;
+      margin-bottom: 20px;
+    }
+
+    @include lg-md {
+      font-size: 42px;
+      margin-bottom: 8px;
+    }
+
+    @include xs {
+      font-size: 29px;
+    }
+  }
+
+  &__form {
+    width: 860px;
+    box-sizing: border-box;
+
+    @include xl {
+      width: 455px;
+    }
+
+    @include lg-md {
+      width: 320px;
+    }
+  
+    @include xs {
+      width: unset;
+      max-width: 370px;
+    }
+  }
+
+  &__wrapper {
+    margin-bottom: 50px;
+
+    @include xl {
+      margin-bottom: 25px;
+    }
+
+    @include lg-md {
+      margin-bottom: 50px;
+    }
+  }
+
+  &__description {
+    color: var(--color-main);
+    font-size: 32px;
+    font-family: var(--font-medium);
+    font-weight: 500;
+    line-height: 110%;
+
+    @include lg-md {
+      font-size: 24px;
+    }
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 26px;
+    font-family: var(--font-medium);
+    font-size: 24px;
+    list-style:decimal;
+    padding-left: 25px;
+
+    @include xl {
+      font-size: 18px;
+    }
+
+    @include lg-md {
+      font-size: 14px;
+      gap: 14px;
+      margin-bottom: 10px;
+    }
+  }
+
+  &__item {
+
+  }
+}
