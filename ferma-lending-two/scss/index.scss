@@ -1,0 +1,99 @@
+@import "_reset.scss";
+@import "_fonts.scss";
+@import "_media.scss";
+@import "_variables.scss";
+@import "_button.scss";
+@import "_header.scss";
+@import "_form.scss";
+@import "_offer.scss";
+@import "_modal.scss";
+
+body {
+  background-image: url("../assets/img/bg.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
+  height: 100vh;
+  box-sizing: border-box;
+
+  @include xl {
+    background-image: url("../assets/img/bg1440.png");
+  }
+
+  @include lg-md {
+    background-image: url("../assets/img/bg1024.png");
+  }
+
+  @include sm {
+    background-image: none;
+    background: linear-gradient(90deg, #CCEBFD 0%, #B6DAF0 50%, #B0DDFA 100%);
+  }
+}
+
+.container {
+  max-width: 1520px;
+  padding: 0 100px;
+  margin: 0 auto;
+
+  @include xl {
+    max-width: 1180px;
+  }
+
+  @include lg {
+    padding: 0 60px;
+    max-width: 100%;
+  }
+
+  @include lg-md {
+    padding: 0 85px;
+  }
+
+  @include md {
+    padding: 0 40px;
+  }
+
+  @include xs {
+    padding: 0 calc(20px + ((100vw - 320px) / (540 - 320)) * (30 - 20));
+  }
+}
+
+.background {
+  display: none;
+
+  @include sm {
+    position: absolute;
+    margin-top: -100px;
+    bottom: 0;
+    display: block;
+    z-index: -1;
+
+    img {
+      object-fit: contain;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 25;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.5s all;
+
+  &--active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.button { 
+
+}
