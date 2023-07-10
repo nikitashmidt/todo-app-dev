@@ -1,0 +1,301 @@
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 30;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.5s all;
+
+  &--active {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &__header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    &-span{
+      cursor: pointer;
+      align-self: flex-end;
+    }
+
+    &-close {
+      cursor: pointer;
+
+      @include lg {
+        cursor: default;
+      }
+    }
+  }
+
+  &__wrapper {
+    position: relative;
+    display: flex;
+    margin-bottom: 16px;
+  }
+
+  .tooltip {
+    position: absolute;
+    bottom: -43px;
+    left: 20px;
+    z-index: 20;
+    width: 136px;
+    height: 35px;
+    box-sizing: border-box;
+    background-color: #F0F0F0;
+    color: red;
+    display: flex;
+    align-items: center;
+    padding: 4px 13px 6px 10px;
+    border-radius: 6px;
+    font-family: var(--font-medium);
+    font-size: 12px;
+    transform: translateY(-10px);
+    transition: 0.5s all;
+    opacity: 0;
+    visibility: hidden;
+
+    &--active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0px);
+    }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    width: 20px;
+    height: 20px;
+    background-image: url('/assets/img/triangle.svg');
+    }
+  }
+
+  &__input{
+    outline: 1px solid #C2CFC2;
+    margin: 0;
+    color: #C2CFC2;
+    
+    &--error {
+      position: relative;
+      outline: 1px solid red;
+    }
+
+    &--children {
+      flex: 1;
+      margin-bottom: 0;
+    }
+
+    &:focus {
+      outline: 1px solid  var(--color-main-green);
+      color: var(--color-main-green);
+    }
+
+    &--active {
+      outline: 1px solid  var(--color-main-green);
+      color: var(--color-main-green);
+    }
+
+    @include xs {
+      height: calc(36px + ((100vw - 320px) / (540 - 320)) * (52 - 36));
+    }
+  }
+
+  &__form {
+    background-color: #fff;
+    width: 555px;
+    height: 426px;
+    box-sizing: border-box;
+    padding: 36px;
+
+    @include xl {
+      height: 418px;
+    }
+
+    @include lg-md {
+      width: 444px;
+      height: 366px;
+      padding: 20px;
+    }
+
+    @include xs {
+      width: calc( 100vw - ( 40px + ((100vw - 320px) / (540 - 320)) * (60 - 40)));
+      height: calc(304px + ((100vw - 320px) / (540 - 320)) * (433 - 304));
+      padding: calc(20px + ((100vw - 320px) / (540 - 320)) * (30 - 20));
+    }
+
+    &-privacy {
+      color: var(--color-main-green);
+      opacity: 0.6;
+
+      @include xl {
+        font-size: 14px;
+      }
+
+      @include xs {
+        font-size: calc(10px + ((100vw - 320px) / (540 - 320)) * (14 - 10));
+      }
+    }
+  }
+
+  &__title {
+    color: var(--color-main-green);
+    font-size: 32px;
+
+    @include xl {
+      font-size: 28px;
+      line-height: 130%;
+      margin-bottom: 20px;
+    }
+
+    @include lg-md {
+      font-size: 20px;
+    }
+
+    @include xs {
+      font-size: calc(20px + ((100vw - 320px) / (540 - 320)) * (34 - 20));
+      line-height: 100%;
+      margin-bottom: calc(14px + ((100vw - 320px) / (540 - 320)) * (20 - 14));
+    }
+  }
+
+  &__button {
+    margin-top: 16px;
+    margin-bottom: 20px;
+    background-color: var(--color-main-green);
+    color: var(--color-main);
+
+    &--disabled {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    @include xl {
+      margin-top: 16px;
+    }
+
+    @include xs {
+      margin-bottom: calc(14px + ((100vw - 320px) / (540 - 320)) * (20 - 18));
+    }
+
+    &:hover {
+      background-color: #fff;
+      color: var(--color-main-green);
+    }
+  }
+
+  &__done {
+    background-color: #fff;
+    width: 555px;
+    height: 426px;
+    transition: 0.5s all;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    color: var(--color-main-green);
+
+    @include xl {
+      height: 418px;
+    }
+
+    @include lg-md {
+      width: 444px;
+      height: 366px;
+    }
+
+    @include xs {
+      width: calc(280px + ((100vw - 320px) / (540 - 320)) * (480 - 280));
+      height: calc(304px + ((100vw - 320px) / (540 - 320)) * (433 - 304));
+    }
+
+    &--active {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    &-span {
+      cursor: pointer;
+      position: absolute;
+      top: 25px;
+      right: 25px;
+    }
+
+    &-wrapper {
+        position: relative;
+    }
+
+    &-arrow {
+      @include xs {
+       svg {
+          width: calc(100px + ((100vw - 320px) / (540 - 320)) * (157 - 100))
+       }
+      }
+    }
+
+    &-first, &-second, &-third {
+        position: absolute;
+    }
+
+    &-first {
+        right: -50px;
+        top: -30px;
+
+        @include lg-md {
+          right: -30px;
+        }
+
+        @include xs {
+          width: calc(40px + ((100vw - 320px) / (540 - 320)) * (52 - 40));
+          right: -30px;
+          top: -10px;
+        }
+    }
+
+    &-second {
+        right: -65px;
+        top: 15px;
+
+        @include lg-md {
+          right: -50px;
+        }
+
+        @include xs {
+          top: 55px;
+        }
+    }
+
+    &-third {
+        left: -59px;
+        top: calc(50% + 20px );
+
+        @include xs {
+          top: calc(50% + 40px );
+        }
+    }
+
+    &-title {
+        font-size: 20px;
+        text-align: center;
+        font-family: var(--font-bold);
+        line-height: 120%;
+        margin-top: 56px;
+
+        @include lg-md {
+          font-size: 14px;
+        }
+
+        @include xs {
+          font-size: calc(13px + ((100vw - 320px) / (540 - 320)) * (22 - 13));
+          margin-top: 30px;
+        }
+    }
+  }
+}
