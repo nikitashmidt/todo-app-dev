@@ -1,0 +1,90 @@
+.offer {
+ &__title {
+    font-size: 54px;
+    font-family: var(--font-medium);
+    color: var(--color-main);
+    font-weight: 500;
+    line-height: 120%;
+    margin-bottom: 15px;
+    width: 1010px;
+
+    @include xl {
+      margin-bottom: 14px;
+      font-size: 56px;
+      width: 90%;
+    }
+
+    @include lg-md {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    @include md {
+      font-size: 40px;
+    }
+
+    @include xs {
+      font-size: calc(27px + ((100vw - 320px) / (540 - 320)) * (46 - 27));
+      width: 100%;
+      margin-bottom:  calc(10px + ((100vw - 320px) / (540 - 320)) * (20 - 10));
+      line-height: 110%;
+    }
+  }
+
+  &__description {
+    font-size: 30px;
+    font-family: var(--font-regular);
+    color: var(--color-main);
+    font-weight: 500;
+    line-height: 140%;
+    margin-bottom: 30px;
+
+    @include xl {
+      font-size: 32px;
+      line-height: 120%;
+    }
+
+    @include lg-md {
+      font-size: 24px;
+    }
+
+    @include xs {
+      line-height: 110%;
+      font-size: calc(20px + ((100vw - 320px) / (540 - 320)) * (32 - 20));
+      margin-bottom: 20px;
+    }
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-family: var(--font-regular);
+    font-size: 20px;
+    list-style:decimal;
+    padding-left: 25px;
+    margin-bottom: 24px;
+
+    @include xl {
+      font-size: 18px;
+    }
+
+    @include lg-md {
+      font-size: 14px;
+      gap: 14px;
+      margin-bottom: 20px;
+      padding-left: 15px;
+    }
+
+    @include xs {
+      font-size: calc(14px + ((100vw - 320px) / (540 - 320)) * (24 - 14));
+      margin-bottom: calc(14px + ((100vw - 320px) / (540 - 320)) * (20 - 14));
+      padding-left: calc(15px + (100vw - 320px) / 220 * 15);
+      gap: calc(8px + ((100vw - 320px) / (540 - 320)) * (14 - 8));
+    }
+  }
+
+  &__item {
+    line-height: 120%;
+  }
+}
